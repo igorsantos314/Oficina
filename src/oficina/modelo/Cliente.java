@@ -1,6 +1,6 @@
 package oficina.modelo;
 
-import oficina.persistencia.PersistenciaEmBancoCliente;
+import oficina.persistencia.PersistenciaEmBanco;
 
 public class Cliente {
 	
@@ -9,27 +9,11 @@ public class Cliente {
 	String telefone;
 	String email;
 	
-	public static Cliente instance;
-	
-	public Cliente() {
-		
-	}
-	
 	public Cliente(String nome, String cpf, String telefone, String email) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.email = email;
-	}
-	
-	public static Cliente getInstanceCliente()
-	{
-		if(instance != null)
-			return instance;
-		else
-		{
-			return instance = new Cliente();
-		}
 	}
 	
 	@Override

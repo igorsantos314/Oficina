@@ -2,7 +2,7 @@ package oficina.modelo;
 
 import oficina.gui.TelaPrincipal;
 import oficina.persistencia.FabricaConexao;
-import oficina.persistencia.PersistenciaEmBancoCliente;
+import oficina.persistencia.PersistenciaEmBanco;
 
 public class Programa {
 

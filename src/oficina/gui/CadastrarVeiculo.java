@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import oficina.facade.Conexao;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
@@ -72,22 +73,13 @@ public class CadastrarVeiculo extends JFrame{
 				String placa = tfPlaca.getText();
 				String cor = tfCor.getText();
 				
-				IVeiculo VeiculoCadastrado = null;
-
-				if(veiculo == "Moto") {
-					VeiculoCadastrado = new VeiculoMoto(modelo, placa, cor);
-				}
-				else if(veiculo == "Carro") {
-					VeiculoCadastrado = new VeiculoCarro(modelo, placa, cor);
-				}
+				Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, veiculo);
 				
 				//LIMPAR CAMPOS
 				tfModelo.setText("");
 				tfPlaca.setText("");
 				tfCor.setText("");
-				
-				System.out.println(VeiculoCadastrado);
-				
+
 				//MENSAGEM DE SUCESSO
 				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
 				

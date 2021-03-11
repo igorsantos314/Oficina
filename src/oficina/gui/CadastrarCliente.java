@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.SoftBevelBorder;
 
+import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
 
 import javax.swing.border.BevelBorder;
@@ -47,14 +48,21 @@ public class CadastrarCliente extends JFrame{
 				String telefone = tfTelefone.getText();
 				String email = tfEmail.getText();
 				
-				Cliente C = new Cliente(nome, cpf, telefone, email);
-				System.out.println(C);
+				//CHAMAR CONEXAO
+				Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
+				
+				//LIMPAR CAMPOS
+				tfNome.setText("");
+				tfCpf.setText("");
+				tfTelefone.setText("");
+				tfEmail.setText("");
 				
 				//MENSAGEM DE SUCESSO
 				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
 				
 			}
 		});
+		
 		panel.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
