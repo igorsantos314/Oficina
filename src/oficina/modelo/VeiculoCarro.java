@@ -4,10 +4,12 @@ public class VeiculoCarro implements IVeiculo{
 	
 	String modelo;
 	String placa;
+	String cor;
 	
-	public VeiculoCarro(String modelo, String placa) {
+	public VeiculoCarro(String modelo, String placa, String cor) {
 		this.modelo = modelo;
 		this.placa = placa;
+		this.cor = cor;
 	}
 
 	@Override
@@ -35,9 +37,11 @@ public class VeiculoCarro implements IVeiculo{
 		return true;
 	}
 	
+
+
 	@Override
 	public String toString() {
-		return "VeiculoCarro [modelo=" + modelo + ", placa=" + placa + "]";
+		return "VeiculoCarro [modelo=" + modelo + ", placa=" + placa + ", cor=" + cor + "]";
 	}
 
 	public String getModelo() {
@@ -49,9 +53,11 @@ public class VeiculoCarro implements IVeiculo{
 	}
 
 	@Override
-	public String getPlace() {
+	public String getCor() {
 		// TODO Auto-generated method stub
-		return null;
+		return cor;
 	}
+	
+	
 
 }

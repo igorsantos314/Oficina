@@ -2,13 +2,17 @@ package oficina.modelo;
 
 public class OrdemDeServico {
 	
+	int codigo;
 	String Descricao;
 	Float Valor = 0f;
 	String Data_Entrada;
 	String Data_Saida;
+	String forma_pagamento;
+	String status;
 	
 	IVeiculo veiculo;
 	Cliente cliente;
+	Mecanico mecanico;
 	
 	public OrdemDeServico(String descricao, String data_Entrada, IVeiculo veiculo, Cliente cliente) {
 		Descricao = descricao;
@@ -21,8 +25,7 @@ public class OrdemDeServico {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
-		result = prime * result + ((veiculo == null) ? 0 : veiculo.hashCode());
+		result = prime * result + codigo;
 		return result;
 	}
 
@@ -35,15 +38,7 @@ public class OrdemDeServico {
 		if (getClass() != obj.getClass())
 			return false;
 		OrdemDeServico other = (OrdemDeServico) obj;
-		if (cliente == null) {
-			if (other.cliente != null)
-				return false;
-		} else if (!cliente.equals(other.cliente))
-			return false;
-		if (veiculo == null) {
-			if (other.veiculo != null)
-				return false;
-		} else if (!veiculo.equals(other.veiculo))
+		if (codigo != other.codigo)
 			return false;
 		return true;
 	}
@@ -84,6 +79,22 @@ public class OrdemDeServico {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+
+	public String getForma_pagamento() {
+		return forma_pagamento;
+	}
+
+	public void setForma_pagamento(String forma_pagamento) {
+		this.forma_pagamento = forma_pagamento;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

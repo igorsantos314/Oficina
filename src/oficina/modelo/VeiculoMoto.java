@@ -4,10 +4,13 @@ public class VeiculoMoto implements IVeiculo{
 	
 	String modelo;
 	String placa;
-	public VeiculoMoto(String modelo, String placa) {
+	String cor;
+	
+	public VeiculoMoto(String modelo, String placa, String cor) {
 		super();
 		this.modelo = modelo;
 		this.placa = placa;
+		this.cor = cor;
 	}
 	
 	@Override
@@ -43,21 +46,22 @@ public class VeiculoMoto implements IVeiculo{
 
 	@Override
 	public String toString() {
-		return "VeiculoMoto [modelo=" + modelo + ", placa=" + placa + "]";
+		return "VeiculoMoto [modelo=" + modelo + ", placa=" + placa + ", cor=" + cor + "]";
 	}
 
 	public String getModelo() {
 		return modelo;
 	}
-
+	
+	
 	public String getPlaca() {
 		return placa;
 	}
 
 	@Override
-	public String getPlace() {
+	public String getCor() {
 		// TODO Auto-generated method stub
-		return null;
+		return cor;
 	}
 	
 	
