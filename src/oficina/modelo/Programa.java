@@ -1,6 +1,8 @@
 package oficina.modelo;
 
 import oficina.gui.TelaPrincipal;
+import oficina.persistencia.FabricaConexao;
+import oficina.persistencia.PersistenciaEmBancoCliente;
 
 public class Programa {
 
@@ -8,6 +10,7 @@ public class Programa {
 		// TODO Auto-generated method stub
 		
 		TelaPrincipal tp = new TelaPrincipal();
+		
 	}
 
 }

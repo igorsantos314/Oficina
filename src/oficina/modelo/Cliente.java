@@ -1,5 +1,7 @@
 package oficina.modelo;
 
+import oficina.persistencia.PersistenciaEmBancoCliente;
+
 public class Cliente {
 	
 	String nome;
@@ -7,11 +9,27 @@ public class Cliente {
 	String telefone;
 	String email;
 	
+	public static Cliente instance;
+	
+	public Cliente() {
+		
+	}
+	
 	public Cliente(String nome, String cpf, String telefone, String email) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.email = email;
+	}
+	
+	public static Cliente getInstanceCliente()
+	{
+		if(instance != null)
+			return instance;
+		else
+		{
+			return instance = new Cliente();
+		}
 	}
 	
 	@Override
@@ -21,6 +39,7 @@ public class Cliente {
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,6 +77,5 @@ public class Cliente {
 	public String getEmail() {
 		return email;
 	}
-
 	
 }

@@ -12,6 +12,9 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class CadastrarOrdemDeServico extends JFrame{
 	private JTextField tfCod;
@@ -21,9 +24,9 @@ public class CadastrarOrdemDeServico extends JFrame{
 	
 	public CadastrarOrdemDeServico() {
 		
-setResizable(false);
+		setResizable(false);
 		
-		setSize(459,503);
+		setSize(473,519);
 		setTitle("NOVA ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -36,7 +39,7 @@ setResizable(false);
 		panel.setLayout(null);
 		
 		JLabel lblCod = new JLabel("Cod:");
-		lblCod.setBounds(10, 11, 23, 14);
+		lblCod.setBounds(10, 11, 46, 14);
 		panel.add(lblCod);
 		
 		tfCod = new JTextField();
@@ -104,6 +107,7 @@ setResizable(false);
 		panel_2.add(lblNewLabel);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ESPERA", "ANDAMENTO", "CONCLUIDO"}));
 		comboBox.setBounds(10, 27, 131, 22);
 		panel_2.add(comboBox);
 		
@@ -112,6 +116,7 @@ setResizable(false);
 		panel_2.add(lblPagamento);
 		
 		JComboBox cbPagamento = new JComboBox();
+		cbPagamento.setModel(new DefaultComboBoxModel(new String[] {"DINHEIRO", "CART\u00C3O", "DINHEIRO E CART\u00C3O"}));
 		cbPagamento.setBounds(151, 27, 130, 22);
 		panel_2.add(cbPagamento);
 		
@@ -120,7 +125,7 @@ setResizable(false);
 		panel_2.add(lblValor);
 		
 		textField = new JTextField();
-		textField.setForeground(new Color(51, 153, 255));
+		textField.setForeground(Color.RED);
 		textField.setFont(new Font("Tahoma", Font.BOLD, 11));
 		textField.setBounds(299, 28, 124, 20);
 		panel_2.add(textField);
@@ -132,9 +137,18 @@ setResizable(false);
 		getContentPane().add(panel_3);
 		
 		JButton btnSalvar = new JButton("SALVAR");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		panel_3.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		panel_3.add(btnCancelar);
 		
 		setVisible(true);

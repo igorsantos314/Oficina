@@ -3,9 +3,16 @@ package oficina.gui;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import oficina.modelo.OrdemDeServico;
+
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JLabel;
+import java.awt.Panel;
 
 public class TelaPrincipal extends JFrame{
 	
@@ -54,7 +61,20 @@ public class TelaPrincipal extends JFrame{
 		menuBar.add(mnOrdemServico);
 		
 		JMenuItem mntmNovaOS = new JMenuItem("Nova OS");
+		mntmNovaOS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarOrdemDeServico OS = new CadastrarOrdemDeServico();
+			}
+		});
 		mnOrdemServico.add(mntmNovaOS);
+		
+		JMenuItem mntmConsultarOS = new JMenuItem("Conultar OS");
+		mntmConsultarOS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarOrdemDeServico COS = new ConsultarOrdemDeServico();
+			}
+		});
+		mnOrdemServico.add(mntmConsultarOS);
 		
 		
 		setVisible(true);
