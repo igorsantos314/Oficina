@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 
+import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.persistencia.PersistenciaEmBanco;
@@ -162,7 +163,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				String descricao = taDescricao.getText().toUpperCase();
-				String valor = tfValor.getText();
+				Float valor = Float.parseFloat(tfValor.getText());
 				String data_Entrada = tfEntrada.getText();
 				String data_Saida = tfSaida.getText();
 				String pagamento = cbPagamento.getSelectedItem().toString();
@@ -173,7 +174,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 				System.out.println(placa);
 				System.out.println(nome_Cliente);
 				
-				
+				Conexao.pegarInstancia().salvarOS(descricao, valor, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
 				
 				//MENSAGEM DE SUCESSO
 				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
