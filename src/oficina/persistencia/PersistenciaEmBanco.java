@@ -1,7 +1,10 @@
 package oficina.persistencia;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import oficina.modelo.Cliente;
@@ -26,6 +29,40 @@ public class PersistenciaEmBanco {
 			return instance = new PersistenciaEmBanco();
 		}
 	} 
+	
+	public List<Cliente> getAllClientes() {
+		
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		
+		String sql = "select * from clientes";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String nome = rs.getString("nome");
+				String cpf = rs.getString("cpf");
+				String telefone = rs.getString("telefone");
+				String email = rs.getString("email");
+				
+				Cliente c = new Cliente(nome, cpf, telefone, email);
+				clientes.add(c);
+				
+				System.out.println(c);
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return null;
+	}
 	
 	public void CadastrarCliente(Cliente obj) {
 		String sqlInserirCliente = "insert into clientes (cpf, nome, telefone, email)"
@@ -64,7 +101,7 @@ public class PersistenciaEmBanco {
 		}
 		
 		String sqlInserirCliente = "insert into " + Veiculo + " (modelo, placa, cor)"
-				+ " values (?,?,?,?);";
+				+ " values (?,?,?);";
 		
 		try 
 		{

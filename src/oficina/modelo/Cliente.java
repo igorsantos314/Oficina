@@ -43,7 +43,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [nome=" + nome + ", cpf=" + cpf + ", telefone=" + telefone + ", email=" + email + "]";
+		return nome + " - " + cpf;
 	}
 
 	public String getNome() {
@@ -61,5 +61,5 @@ public class Cliente {
 	public String getEmail() {
 		return email;
 	}
-	
+
 }

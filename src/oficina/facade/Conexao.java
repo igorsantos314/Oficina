@@ -2,6 +2,7 @@ package oficina.facade;
 
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
+import oficina.modelo.OrdemDeServico;
 import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
 import oficina.persistencia.PersistenciaEmBanco;
@@ -46,6 +47,13 @@ public class Conexao {
 		
 		//CHAMAR O PACOTE DE PERSISTENCIA
 		PersistenciaEmBanco.pegarInstancia().CadastrarVeiculo(VeiculoCadastrado);
+		
+	}
+	
+	public void salvarOS(String descricao, String data_Entrada, IVeiculo veiculo, Cliente cliente ) {
+		
+		OrdemDeServico os = new OrdemDeServico(descricao, data_Entrada, veiculo, cliente);
+		
 		
 	}
 	
