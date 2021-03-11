@@ -1,5 +1,7 @@
 package oficina.modelo;
 
+import oficina.gui.TelaPrincipal;
+
 public class Programa {
 
 	public static void main(String[] args) {
@@ -10,13 +12,15 @@ public class Programa {
 		
 		Cliente c = new Cliente("Igor", "654", "81982333074", "i@gmail.com");
 		
-		System.out.println(meu);
-		System.out.println(teu);
-		System.out.println(c);
+		//System.out.println(meu);
+		//System.out.println(teu);
+		//System.out.println(c);
 		
 		OrdemDeServico os = new OrdemDeServico("Problema de Junta", "11/03/2021", meu, c);
 		
-		System.out.println(os);
+		//System.out.println(os);
+		
+		TelaPrincipal tp = new TelaPrincipal();
 	}
 
 }
