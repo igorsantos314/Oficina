@@ -12,7 +12,6 @@ public class OrdemDeServico {
 	
 	IVeiculo veiculo;
 	Cliente cliente;
-	Mecanico mecanico;
 	
 	public OrdemDeServico(String descricao, String data_Entrada, IVeiculo veiculo, Cliente cliente) {
 		Descricao = descricao;
