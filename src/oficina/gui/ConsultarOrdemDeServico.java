@@ -17,6 +17,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 	private final int QUANTIDADE_MAX_CONTAS = 20;
 	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][4];
 	private JTextField tfPlaca;
+	
 	public ConsultarOrdemDeServico() {
 		setResizable(false);
 		

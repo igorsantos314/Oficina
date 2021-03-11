@@ -2,8 +2,14 @@ package oficina.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
+
+import oficina.modelo.Cliente;
+import oficina.modelo.IVeiculo;
+import oficina.persistencia.PersistenciaEmBanco;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -20,7 +26,10 @@ public class CadastrarOrdemDeServico extends JFrame{
 	private JTextField tfCod;
 	private JTextField tfEntrada;
 	private JTextField tfSaida;
-	private JTextField textField;
+	private JTextField tfValor;
+	
+	private JComboBox<Cliente> cbCliente;
+	private JComboBox<IVeiculo> cbPlaca;
 	
 	public CadastrarOrdemDeServico() {
 		
@@ -70,17 +79,29 @@ public class CadastrarOrdemDeServico extends JFrame{
 		lblCliente.setBounds(10, 59, 46, 14);
 		panel.add(lblCliente);
 		
-		JComboBox cbCliente = new JComboBox();
+		cbCliente = new JComboBox();
+		
+		for(Cliente c : PersistenciaEmBanco.pegarInstancia().getAllClientes())
+		{
+			cbCliente.addItem(c);
+		}
+		
 		cbCliente.setBounds(10, 73, 214, 22);
 		panel.add(cbCliente);
 		
-		JLabel lblVeiculo = new JLabel("Veiculo:");
-		lblVeiculo.setBounds(234, 59, 46, 14);
-		panel.add(lblVeiculo);
+		JLabel lblPlaca = new JLabel("Placa:");
+		lblPlaca.setBounds(234, 59, 46, 14);
+		panel.add(lblPlaca);
 		
-		JComboBox cbVeiculo = new JComboBox();
-		cbVeiculo.setBounds(234, 73, 189, 22);
-		panel.add(cbVeiculo);
+		cbPlaca = new JComboBox();
+		
+		for(IVeiculo c : PersistenciaEmBanco.pegarInstancia().getAllVeiculos())
+		{
+			cbPlaca.addItem(c);
+		}
+		
+		cbPlaca.setBounds(234, 73, 189, 22);
+		panel.add(cbPlaca);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -88,9 +109,9 @@ public class CadastrarOrdemDeServico extends JFrame{
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 30, 413, 152);
-		panel_1.add(textArea);
+		JTextArea taDescricao = new JTextArea();
+		taDescricao.setBounds(10, 30, 413, 152);
+		panel_1.add(taDescricao);
 		
 		JLabel lblDescricao = new JLabel("DESCRI\u00C7\u00C3O:");
 		lblDescricao.setBounds(185, 11, 73, 14);
@@ -106,10 +127,10 @@ public class CadastrarOrdemDeServico extends JFrame{
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		panel_2.add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ESPERA", "ANDAMENTO", "CONCLUIDO"}));
-		comboBox.setBounds(10, 27, 131, 22);
-		panel_2.add(comboBox);
+		JComboBox cbStatus = new JComboBox();
+		cbStatus.setModel(new DefaultComboBoxModel(new String[] {"ESPERA", "ANDAMENTO", "CONCLUIDO"}));
+		cbStatus.setBounds(10, 27, 131, 22);
+		panel_2.add(cbStatus);
 		
 		JLabel lblPagamento = new JLabel("Forma de Pagamento:");
 		lblPagamento.setBounds(151, 11, 113, 14);
@@ -124,12 +145,12 @@ public class CadastrarOrdemDeServico extends JFrame{
 		lblValor.setBounds(301, 11, 46, 14);
 		panel_2.add(lblValor);
 		
-		textField = new JTextField();
-		textField.setForeground(Color.RED);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 11));
-		textField.setBounds(299, 28, 124, 20);
-		panel_2.add(textField);
-		textField.setColumns(10);
+		tfValor = new JTextField();
+		tfValor.setForeground(Color.RED);
+		tfValor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		tfValor.setBounds(299, 28, 124, 20);
+		panel_2.add(tfValor);
+		tfValor.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -139,6 +160,24 @@ public class CadastrarOrdemDeServico extends JFrame{
 		JButton btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String descricao = taDescricao.getText().toUpperCase();
+				String valor = tfValor.getText();
+				String data_Entrada = tfEntrada.getText();
+				String data_Saida = tfSaida.getText();
+				String pagamento = cbPagamento.getSelectedItem().toString();
+				String status = cbStatus.getSelectedItem().toString();
+				String placa = cbPlaca.getSelectedItem().toString();
+				String nome_Cliente = cbCliente.getSelectedItem().toString();
+				
+				System.out.println(placa);
+				System.out.println(nome_Cliente);
+				
+				
+				
+				//MENSAGEM DE SUCESSO
+				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+				
 			}
 		});
 		panel_3.add(btnSalvar);

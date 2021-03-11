@@ -66,6 +66,7 @@ public class TelaPrincipal extends JFrame{
 				CadastrarOrdemDeServico OS = new CadastrarOrdemDeServico();
 			}
 		});
+		
 		mnOrdemServico.add(mntmNovaOS);
 		
 		JMenuItem mntmConsultarOS = new JMenuItem("Conultar OS");

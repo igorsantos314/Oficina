@@ -43,10 +43,10 @@ public class CadastrarCliente extends JFrame{
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String nome = tfNome.getText();
+				String nome = tfNome.getText().toUpperCase();
 				String cpf = tfCpf.getText();
 				String telefone = tfTelefone.getText();
-				String email = tfEmail.getText();
+				String email = tfEmail.getText().toUpperCase();
 				
 				//CHAMAR CONEXAO
 				Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);

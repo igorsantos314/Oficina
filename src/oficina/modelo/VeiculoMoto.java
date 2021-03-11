@@ -46,7 +46,7 @@ public class VeiculoMoto implements IVeiculo{
 
 	@Override
 	public String toString() {
-		return "VeiculoMoto [modelo=" + modelo + ", placa=" + placa + ", cor=" + cor + "]";
+		return placa;
 	}
 
 	public String getModelo() {

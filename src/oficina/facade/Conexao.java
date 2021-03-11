@@ -50,11 +50,12 @@ public class Conexao {
 		
 	}
 	
-	public void salvarOS(String descricao, String data_Entrada, IVeiculo veiculo, Cliente cliente ) {
+	public void salvarOS(String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
 		
-		OrdemDeServico os = new OrdemDeServico(descricao, data_Entrada, veiculo, cliente);
+		OrdemDeServico os = new OrdemDeServico(descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente);
 		
-		
+		//CHAMAR O PACOTE DE PERSISTENCIA
+		PersistenciaEmBanco.pegarInstancia().CadastrarOS(os);
 	}
 	
 }

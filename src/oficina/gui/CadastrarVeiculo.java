@@ -68,10 +68,10 @@ public class CadastrarVeiculo extends JFrame{
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String veiculo = comboBoxVeiculo.getSelectedItem().toString();
-				String modelo = tfModelo.getText();
-				String placa = tfPlaca.getText();
-				String cor = tfCor.getText();
+				String veiculo = comboBoxVeiculo.getSelectedItem().toString().toUpperCase();
+				String modelo = tfModelo.getText().toUpperCase();
+				String placa = tfPlaca.getText().toUpperCase();
+				String cor = tfCor.getText().toUpperCase();
 				
 				Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, veiculo);
 				
