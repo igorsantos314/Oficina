@@ -4,8 +4,8 @@ import oficina.persistencia.PersistenciaEmBanco;
 
 public class Cliente {
 	
+	private String cpf;
 	String nome;
-	String cpf;
 	String telefone;
 	String email;
 	

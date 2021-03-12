@@ -1,0 +1,3 @@
+oficina_database_port = 5432
+oficina_database_ip = 127.0.0.1
+oficina_database_name = Oficina

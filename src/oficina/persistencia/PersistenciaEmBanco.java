@@ -315,18 +315,18 @@ public class PersistenciaEmBanco {
 	
 	public void UpdateOS(OrdemDeServico obj) {
 		
-		String sql = "UPDATE ordemdeservico"
-				+ " SET descricao = '"+ obj.getDescricao() 
-				+"', data_entrada= '"+ obj.getData_Entrada() +"'"
-				+", data_saida= '"+ obj.getData_Saida() +"'"
-				+", valor= '"+ obj.getValor() +"'"
-				+", status= '"+ obj.getStatus() +"'"
-				+", forma_pagamento= '"+ obj.getForma_pagamento() +"'"
-				+ " WHERE codigo = '" + obj.getCod() +"';";
+		String sql = "UPDATE ordemdeservico SET descricao = ?, data_entrada= ?, data_saida= ?, valor=?, status= ?, forma_pagamento= ? WHERE codigo = ?;";
 		
 		try 
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			pstmt.setString(1, obj.getDescricao());
+			pstmt.setString(2, obj.getData_Entrada());
+			pstmt.setString(3, obj.getData_Saida());
+			pstmt.setFloat(4, obj.getValor());
+			pstmt.setString(5, obj.getStatus());
+			pstmt.setString(6, obj.getForma_pagamento());
+			pstmt.setInt(7, Integer.parseInt(obj.getCod()));
 			
 			pstmt.execute();
 			pstmt.close();

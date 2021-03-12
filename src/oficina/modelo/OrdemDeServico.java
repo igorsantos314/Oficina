@@ -4,7 +4,7 @@ public class OrdemDeServico {
 	
 	String cod;
 	String Descricao;
-	Float Valor = 0f;
+	Float  Valor = 0f;
 	String Data_Entrada;
 	String Data_Saida;
 	String forma_pagamento;
