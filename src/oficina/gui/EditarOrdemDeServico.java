@@ -155,7 +155,7 @@ public class EditarOrdemDeServico extends JFrame{
 				//System.out.println(placa);
 				//System.out.println(nome_Cliente);
 				
-				Conexao.pegarInstancia().salvarOS(descricao, valor, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
+				Conexao.pegarInstancia().atualizarOS(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
 				
 				//LIMPAR CAMPOS
 				taDescricao.setText("");

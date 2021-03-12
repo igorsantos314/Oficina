@@ -58,4 +58,11 @@ public class Conexao {
 		PersistenciaEmBanco.pegarInstancia().CadastrarOS(os);
 	}
 	
+	public void atualizarOS(String cod, String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
+		OrdemDeServico os = new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente);
+		
+		//CHAMAR O PACOTE DE PERSISTENCIA
+		PersistenciaEmBanco.pegarInstancia().UpdateOS(os);
+	}
+	
 }

@@ -276,4 +276,30 @@ public class PersistenciaEmBanco {
 		
 	}
 	
+	public void UpdateOS(OrdemDeServico obj) {
+		
+		String sql = "UPDATE ordemdeservico"
+				+ " SET descricao = '"+ obj.getDescricao() 
+				+"', data_entrada= '"+ obj.getData_Entrada() +"'"
+				+", data_saida= '"+ obj.getData_Saida() +"'"
+				+", valor= '"+ obj.getValor() +"'"
+				+", status= '"+ obj.getStatus() +"'"
+				+", forma_pagamento= '"+ obj.getForma_pagamento() +"'"
+				+ " WHERE codigo = '" + obj.getCod() +"';";
+		
+		try 
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
+			
+			System.out.println("ok");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
 }
