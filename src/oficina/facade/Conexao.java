@@ -38,10 +38,10 @@ public class Conexao {
 		
 		IVeiculo VeiculoCadastrado = null;
 		
-		if(veiculo == "Moto") {
+		if(veiculo.equalsIgnoreCase("Moto")) {
 			VeiculoCadastrado = new VeiculoMoto(modelo, placa, cor);
 		}
-		else if(veiculo == "Carro") {
+		else if(veiculo.equalsIgnoreCase("Carro")) {
 			VeiculoCadastrado = new VeiculoCarro(modelo, placa, cor);
 		}
 		

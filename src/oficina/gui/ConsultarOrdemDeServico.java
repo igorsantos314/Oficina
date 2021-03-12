@@ -55,7 +55,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 				
 				String placa = tfPlaca.getText();
 				
-				if(placa.equalsIgnoreCase("all")) {
+				if(placa.equalsIgnoreCase("")) {
 					//FAZER CONSULTA NO BD
 					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getAllOS();
 					

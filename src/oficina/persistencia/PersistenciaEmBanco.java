@@ -339,4 +339,22 @@ public class PersistenciaEmBanco {
 		}
 	}
 	
+	public void deleteOS(String cod) {
+		String sql = "DELETE FROM ordemdeservico WHERE codigo='" + cod + "'";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
+			
+			System.out.println("Deletado");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
 }

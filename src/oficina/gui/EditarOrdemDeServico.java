@@ -155,13 +155,23 @@ public class EditarOrdemDeServico extends JFrame{
 				//System.out.println(placa);
 				//System.out.println(nome_Cliente);
 				
-				Conexao.pegarInstancia().atualizarOS(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
+				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA REALMENTE EDITAR ESTÁ OS?");
 				
-				//MENSAGEM DE SUCESSO
-				JOptionPane.showMessageDialog(null, "Editado com Sucesso!");
-				
-				//FECHAR A TELA DE EDICAO
-				dispose();
+				//VERIFICAR SE O USUARIO DESEJA ATUALIZAR O ORDEM DE SERVICO
+                if(resposta == 0)
+                {
+                	Conexao.pegarInstancia().atualizarOS(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
+                    
+                	//MENSAGEM DE SUCESSO
+    				JOptionPane.showMessageDialog(null, "Editado com Sucesso!");
+                	
+    				//FECHAR A TELA DE EDICAO
+    				dispose();
+                }
+                else
+                {
+                
+                }
 			}
 		});
 		panel_3.add(btnEditar);
@@ -173,6 +183,31 @@ public class EditarOrdemDeServico extends JFrame{
 			}
 		});
 		panel_3.add(btnCancelar);
+		
+		JButton btnExcluir = new JButton("EXCLUIR");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA REALMENTE EXCLUIR ESTÁ OS?");
+				
+				//VERIFICAR SE O USUARIO DESEJA EXCLUIR O CADASTRO
+                if(resposta == 0)
+                {
+                	//DELETAR OS
+                    PersistenciaEmBanco.pegarInstancia().deleteOS(cod);
+                    
+                    //MENSAGEM DE SUCESSO
+    				JOptionPane.showMessageDialog(null, "ORDEM DE SERVIÇO EXCLUIDA!");
+    				
+    				dispose();
+                }
+                else
+                {
+                
+                }
+			}
+		});
+		panel_3.add(btnExcluir);
 		
 		setVisible(true);
 		
