@@ -53,7 +53,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 		btConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String placa = tfPlaca.getText();
+				String placa = tfPlaca.getText().toUpperCase();
 				
 				if(placa.equalsIgnoreCase("")) {
 					//FAZER CONSULTA NO BD
