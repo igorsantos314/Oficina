@@ -171,10 +171,16 @@ public class CadastrarOrdemDeServico extends JFrame{
 				String placa = cbPlaca.getSelectedItem().toString();
 				String nome_Cliente = cbCliente.getSelectedItem().toString();
 				
-				System.out.println(placa);
-				System.out.println(nome_Cliente);
+				//System.out.println(placa);
+				//System.out.println(nome_Cliente);
 				
 				Conexao.pegarInstancia().salvarOS(descricao, valor, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
+				
+				//LIMPAR CAMPOS
+				taDescricao.setText("");
+				tfValor.setText("");
+				tfEntrada.setText("");
+				tfSaida.setText("");
 				
 				//MENSAGEM DE SUCESSO
 				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");

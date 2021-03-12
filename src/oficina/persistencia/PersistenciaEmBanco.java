@@ -113,6 +113,44 @@ public class PersistenciaEmBanco {
 		return placas;
 	}
 	
+	public List<OrdemDeServico> getOS(String placa){
+		
+		ArrayList<OrdemDeServico> OrdensServico = new ArrayList<OrdemDeServico>();
+		String sql = "select * from ordemdeservico where placa_veiculo='" + placa + "'";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String cod = rs.getString("codigo");
+				String descricao = rs.getString("descricao");
+				Float valor = rs.getFloat("valor");
+				String data_Entrada = rs.getString("data_entrada");
+				String data_Saida = rs.getString("data_saida");
+				String pagamento = rs.getString("forma_pagamento");
+				String status = rs.getString("status");
+				String placa_veiculo = rs.getString("placa_veiculo");
+				String nome_Cliente = rs.getString("nome_cliente");
+				
+				OrdemDeServico os = new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				//System.out.println(os);
+				OrdensServico.add(os);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return OrdensServico;
+	}
+	
 	public void CadastrarCliente(Cliente obj) {
 		String sqlInserirCliente = "insert into clientes (cpf, nome, telefone, email)"
 				+ " values (?,?,?,?);";
@@ -185,8 +223,8 @@ public class PersistenciaEmBanco {
 			pstmt.setString(4, obj.getData_Saida());
 			pstmt.setString(5, obj.getForma_pagamento());
 			pstmt.setString(6, obj.getStatus());
-			pstmt.setString(7, obj.getVeiculo());
-			pstmt.setString(8, obj.getCliente());
+			pstmt.setString(7, obj.getPlacaVeiculo());
+			pstmt.setString(8, obj.getNomeCliente());
 			
 			pstmt.execute();
 			pstmt.close();
