@@ -24,7 +24,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
 public class CadastrarOrdemDeServico extends JFrame{
-	private JTextField tfCod;
 	private JTextField tfEntrada;
 	private JTextField tfSaida;
 	private JTextField tfValor;
@@ -48,31 +47,21 @@ public class CadastrarOrdemDeServico extends JFrame{
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblCod = new JLabel("Cod:");
-		lblCod.setBounds(10, 11, 46, 14);
-		panel.add(lblCod);
-		
-		tfCod = new JTextField();
-		tfCod.setEditable(false);
-		tfCod.setBounds(10, 28, 75, 20);
-		panel.add(tfCod);
-		tfCod.setColumns(10);
-		
 		JLabel lblDataEntrada = new JLabel("Data Entrada:");
-		lblDataEntrada.setBounds(95, 11, 87, 14);
+		lblDataEntrada.setBounds(10, 11, 87, 14);
 		panel.add(lblDataEntrada);
 		
 		tfEntrada = new JTextField();
-		tfEntrada.setBounds(95, 28, 152, 20);
+		tfEntrada.setBounds(10, 28, 96, 20);
 		panel.add(tfEntrada);
 		tfEntrada.setColumns(10);
 		
 		JLabel lblSaida = new JLabel("Data Sa\u00EDda:");
-		lblSaida.setBounds(257, 11, 69, 14);
+		lblSaida.setBounds(116, 11, 69, 14);
 		panel.add(lblSaida);
 		
 		tfSaida = new JTextField();
-		tfSaida.setBounds(257, 28, 166, 20);
+		tfSaida.setBounds(116, 28, 109, 20);
 		panel.add(tfSaida);
 		tfSaida.setColumns(10);
 		

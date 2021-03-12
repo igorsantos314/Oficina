@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.SoftBevelBorder;
 
+import oficina.exception.ClienteJaCadastradoException;
 import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
 
@@ -21,7 +22,7 @@ public class CadastrarCliente extends JFrame{
 	private JTextField tfTelefone;
 	private JTextField tfEmail;
 	
-	public CadastrarCliente() {
+	public CadastrarCliente(){
 		setResizable(false);
 		
 		setSize(413,284);
@@ -49,16 +50,22 @@ public class CadastrarCliente extends JFrame{
 				String email = tfEmail.getText().toUpperCase();
 				
 				//CHAMAR CONEXAO
-				Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
-				
-				//LIMPAR CAMPOS
-				tfNome.setText("");
-				tfCpf.setText("");
-				tfTelefone.setText("");
-				tfEmail.setText("");
-				
-				//MENSAGEM DE SUCESSO
-				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+				try {
+					Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
+					
+					//MENSAGEM DE SUCESSO
+					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+					
+					//LIMPAR CAMPOS
+					tfNome.setText("");
+					tfCpf.setText("");
+					tfTelefone.setText("");
+					tfEmail.setText("");
+					
+				} catch (ClienteJaCadastradoException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 				
 			}
 		});

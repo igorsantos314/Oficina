@@ -1,5 +1,7 @@
 package oficina.facade;
 
+import oficina.exception.ClienteJaCadastradoException;
+import oficina.exception.VeiculoJaCadastradoException;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
@@ -25,7 +27,7 @@ public class Conexao {
 		}
 	}
 	
-	public void salvarCliente(String cpf, String nome, String telefone, String email){
+	public void salvarCliente(String cpf, String nome, String telefone, String email) throws ClienteJaCadastradoException{
 		
 		//RECEBE O CLIENTE
 		Cliente cliente = new Cliente(nome, cpf, telefone, email);
@@ -34,7 +36,7 @@ public class Conexao {
 		PersistenciaEmBanco.pegarInstancia().CadastrarCliente(cliente);
 	}
 	
-	public void salvarVeiculo(String placa, String modelo, String cor, String veiculo) {
+	public void salvarVeiculo(String placa, String modelo, String cor, String veiculo) throws VeiculoJaCadastradoException {
 		
 		IVeiculo VeiculoCadastrado = null;
 		

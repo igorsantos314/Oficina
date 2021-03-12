@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import oficina.exception.VeiculoJaCadastradoException;
 import oficina.facade.Conexao;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.VeiculoCarro;
@@ -73,15 +74,21 @@ public class CadastrarVeiculo extends JFrame{
 				String placa = tfPlaca.getText().toUpperCase();
 				String cor = tfCor.getText().toUpperCase();
 				
-				Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, veiculo);
+				try {
+					Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, veiculo);
+					
+					//MENSAGEM DE SUCESSO
+					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+					
+				} catch (VeiculoJaCadastradoException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 				
 				//LIMPAR CAMPOS
 				tfModelo.setText("");
 				tfPlaca.setText("");
 				tfCor.setText("");
-
-				//MENSAGEM DE SUCESSO
-				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
 				
 			}
 		});

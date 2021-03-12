@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import oficina.exception.ClienteJaCadastradoException;
+import oficina.exception.VeiculoJaCadastradoException;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
@@ -226,7 +229,7 @@ public class PersistenciaEmBanco {
 		return OrdensServico;
 	}
 	
-	public void CadastrarCliente(Cliente obj) {
+	public void CadastrarCliente(Cliente obj) throws ClienteJaCadastradoException{
 		String sqlInserirCliente = "insert into clientes (cpf, nome, telefone, email)"
 				+ " values (?,?,?,?);";
 		
@@ -245,11 +248,12 @@ public class PersistenciaEmBanco {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			throw new ClienteJaCadastradoException("Cliente já Cadastrado!");
+			//JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
 	
-	public void CadastrarVeiculo(IVeiculo obj) {
+	public void CadastrarVeiculo(IVeiculo obj) throws VeiculoJaCadastradoException{
 		
 		String Veiculo = "";
 		
@@ -275,11 +279,10 @@ public class PersistenciaEmBanco {
 			pstmt.execute();
 			pstmt.close();
 			
-			System.out.println("ok");
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			//JOptionPane.showMessageDialog(null, e.getMessage());
+			throw new VeiculoJaCadastradoException("Veiculo Já Cadastrado!");
 		}
 		
 	}
@@ -293,7 +296,7 @@ public class PersistenciaEmBanco {
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sqlInserirCliente);
 			pstmt.setString(1, obj.getDescricao());
-			pstmt.setFloat(2, obj.getValor());
+			pstmt.setFloat( 2, obj.getValor());
 			pstmt.setString(3, obj.getData_Entrada());
 			pstmt.setString(4, obj.getData_Saida());
 			pstmt.setString(5, obj.getForma_pagamento());
