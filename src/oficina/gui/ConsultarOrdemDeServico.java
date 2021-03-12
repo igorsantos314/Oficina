@@ -18,9 +18,9 @@ import java.awt.event.ActionEvent;
 public class ConsultarOrdemDeServico extends JFrame{
 	
 	private JTable table;
-	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor"};
+	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor", "Pagamento"};
 	private final int QUANTIDADE_MAX_CONTAS = 20;
-	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][5];
+	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][6];
 	private JTextField tfPlaca;
 	
 	public ConsultarOrdemDeServico() {
@@ -55,11 +55,23 @@ public class ConsultarOrdemDeServico extends JFrame{
 				
 				String placa = tfPlaca.getText();
 				
-				//FAZER CONSULTA NO BD
-				ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOSPlaca(placa);
+				if(placa.equalsIgnoreCase("all")) {
+					//FAZER CONSULTA NO BD
+					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getAllOS();
+					
+					//POVOAR TABELA
+					inserirTabela(oss);
+					
+				}
 				
-				//POVOAR TABELA
-				inserirTabela(oss);
+				else {
+					//FAZER CONSULTA NO BD
+					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOSPlaca(placa);
+					
+					//POVOAR TABELA
+					inserirTabela(oss);
+				}
+				
 			}
 		});
 		
@@ -85,7 +97,6 @@ public class ConsultarOrdemDeServico extends JFrame{
 		getContentPane().add(btnNewButton);
 		setVisible(true);
 		
-		
 		setVisible(true);
 	}
 	
@@ -99,6 +110,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 			elementos[i][2] = "";
 			elementos[i][3] = "";
 			elementos[i][4] = "";
+			elementos[i][5] = "";
 		}
 		
 		//ITERAR LINHAS
@@ -112,6 +124,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 			elementos[i][2] = Ordem.getStatus();
 			elementos[i][3] = Ordem.getNomeCliente();
 			elementos[i][4] = Ordem.getValor();
+			elementos[i][5] = Ordem.getForma_pagamento();
 			i++;
 		}
 		

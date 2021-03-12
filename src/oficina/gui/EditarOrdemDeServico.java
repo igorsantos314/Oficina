@@ -157,15 +157,11 @@ public class EditarOrdemDeServico extends JFrame{
 				
 				Conexao.pegarInstancia().atualizarOS(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
 				
-				//LIMPAR CAMPOS
-				taDescricao.setText("");
-				tfValor.setText("");
-				tfEntrada.setText("");
-				tfSaida.setText("");
-				
 				//MENSAGEM DE SUCESSO
-				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+				JOptionPane.showMessageDialog(null, "Editado com Sucesso!");
 				
+				//FECHAR A TELA DE EDICAO
+				dispose();
 			}
 		});
 		panel_3.add(btnEditar);
