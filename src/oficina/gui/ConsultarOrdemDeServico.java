@@ -56,7 +56,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 				String placa = tfPlaca.getText();
 				
 				//FAZER CONSULTA NO BD
-				ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOS(placa);
+				ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOSPlaca(placa);
 				
 				//POVOAR TABELA
 				inserirTabela(oss);
@@ -67,6 +67,20 @@ public class ConsultarOrdemDeServico extends JFrame{
 		getContentPane().add(btConsultar);
 		
 		JButton btnNewButton = new JButton("EDITAR OS");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//PEGAR O INDICE DA LINHA SELECIONADA
+				int numberLine = table.getSelectedRow();
+				
+				//PEGAR O CODIGO DA OS
+				String os_selecionada = table.getModel().getValueAt( numberLine,0).toString();
+				
+				//ABRIR TELA DE EDICAO
+				EditarOrdemDeServico eos = new EditarOrdemDeServico(os_selecionada);
+				
+			}
+		});
 		btnNewButton.setBounds(679, 15, 151, 23);
 		getContentPane().add(btnNewButton);
 		setVisible(true);

@@ -113,7 +113,45 @@ public class PersistenciaEmBanco {
 		return placas;
 	}
 	
-	public List<OrdemDeServico> getOS(String placa){
+	public OrdemDeServico getOSCod(String cod){
+		
+		String sql = "select * from ordemdeservico where codigo='" + cod + "'";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String cod_os = rs.getString("codigo");
+				String descricao = rs.getString("descricao");
+				Float valor = rs.getFloat("valor");
+				String data_Entrada = rs.getString("data_entrada");
+				String data_Saida = rs.getString("data_saida");
+				String pagamento = rs.getString("forma_pagamento");
+				String status = rs.getString("status");
+				String placa_veiculo = rs.getString("placa_veiculo");
+				String nome_Cliente = rs.getString("nome_cliente");
+				
+				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				System.out.println(os);
+				
+				return os;
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return null;
+	}
+	
+	public List<OrdemDeServico> getOSPlaca(String placa){
 		
 		ArrayList<OrdemDeServico> OrdensServico = new ArrayList<OrdemDeServico>();
 		String sql = "select * from ordemdeservico where placa_veiculo='" + placa + "'";

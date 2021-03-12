@@ -12,6 +12,7 @@ public class Programa {
 		//PersistenciaEmBanco.pegarInstancia().getAllClientes();
 		//PersistenciaEmBanco.pegarInstancia().getAllVeiculos();
 		//PersistenciaEmBanco.pegarInstancia().getOS("nes");
+		//PersistenciaEmBanco.pegarInstancia().getOSCod("2");
 		TelaPrincipal tp = new TelaPrincipal();
 	}
 
