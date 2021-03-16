@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.text.MaskFormatter;
 
 import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
@@ -20,22 +21,25 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 
 public class CadastrarOrdemDeServico extends JFrame{
-	private JTextField tfEntrada;
-	private JTextField tfSaida;
 	private JTextField tfValor;
+	private JFormattedTextField tfEntrada;
+	private JFormattedTextField tfSaida;
 	
 	private JComboBox<Cliente> cbCliente;
 	private JComboBox<IVeiculo> cbPlaca;
 	
-	public CadastrarOrdemDeServico() {
+	public CadastrarOrdemDeServico() throws ParseException {
 		
 		setResizable(false);
 		
-		setSize(473,519);
+		setSize(506,519);
 		setTitle("NOVA ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -43,7 +47,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(10, 11, 433, 114);
+		panel.setBounds(10, 11, 455, 114);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -51,19 +55,9 @@ public class CadastrarOrdemDeServico extends JFrame{
 		lblDataEntrada.setBounds(10, 11, 87, 14);
 		panel.add(lblDataEntrada);
 		
-		tfEntrada = new JTextField();
-		tfEntrada.setBounds(10, 28, 96, 20);
-		panel.add(tfEntrada);
-		tfEntrada.setColumns(10);
-		
 		JLabel lblSaida = new JLabel("Data Sa\u00EDda:");
 		lblSaida.setBounds(116, 11, 69, 14);
 		panel.add(lblSaida);
-		
-		tfSaida = new JTextField();
-		tfSaida.setBounds(116, 28, 109, 20);
-		panel.add(tfSaida);
-		tfSaida.setColumns(10);
 		
 		JLabel lblCliente = new JLabel("Cliente:");
 		lblCliente.setBounds(10, 59, 46, 14);
@@ -79,9 +73,9 @@ public class CadastrarOrdemDeServico extends JFrame{
 		cbCliente.setBounds(10, 73, 214, 22);
 		panel.add(cbCliente);
 		
-		JLabel lblPlaca = new JLabel("Placa:");
-		lblPlaca.setBounds(234, 59, 46, 14);
-		panel.add(lblPlaca);
+		JLabel lblVeiculo = new JLabel("Veiculo:");
+		lblVeiculo.setBounds(234, 59, 46, 14);
+		panel.add(lblVeiculo);
 		
 		cbPlaca = new JComboBox();
 		
@@ -90,12 +84,20 @@ public class CadastrarOrdemDeServico extends JFrame{
 			cbPlaca.addItem(c);
 		}
 		
-		cbPlaca.setBounds(234, 73, 189, 22);
+		cbPlaca.setBounds(234, 73, 211, 22);
 		panel.add(cbPlaca);
+		
+		JFormattedTextField tfEntrada = new JFormattedTextField();
+		tfEntrada.setBounds(10, 28, 96, 20);
+		panel.add(tfEntrada);
+		
+		JFormattedTextField tfSaida = new JFormattedTextField();
+		tfSaida.setBounds(116, 28, 109, 20);
+		panel.add(tfSaida);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(10, 136, 433, 193);
+		panel_1.setBounds(10, 136, 455, 193);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -109,7 +111,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_2.setBounds(10, 340, 433, 62);
+		panel_2.setBounds(10, 340, 455, 62);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -144,7 +146,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_3.setBounds(10, 409, 433, 54);
+		panel_3.setBounds(10, 409, 455, 54);
 		getContentPane().add(panel_3);
 		
 		JButton btnSalvar = new JButton("SALVAR");
@@ -176,6 +178,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 				
 			}
 		});
+		
 		panel_3.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
@@ -185,6 +188,13 @@ public class CadastrarOrdemDeServico extends JFrame{
 			}
 		});
 		panel_3.add(btnCancelar);
+		
+		//SETAR MASCARAS
+		MaskFormatter mfDataE = new MaskFormatter("##/##/####");
+		mfDataE.install(tfEntrada);
+		
+		MaskFormatter mfDataS = new MaskFormatter("##/##/####");
+		mfDataS.install(tfSaida);
 		
 		setVisible(true);
 	}

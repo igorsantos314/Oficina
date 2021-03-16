@@ -1,5 +1,6 @@
 package oficina.persistencia;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -194,11 +195,13 @@ public class PersistenciaEmBanco {
 	public List<OrdemDeServico> getOSPlaca(String placa){
 		
 		ArrayList<OrdemDeServico> OrdensServico = new ArrayList<OrdemDeServico>();
-		String sql = "select * from ordemdeservico where placa_veiculo='" + placa + "'";
+		String sql = "select * from ordemdeservico where placa_veiculo LIKE '%" + placa + "%';";
 		
 		try
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			pstmt.setString(1, placa);
+			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -215,7 +218,7 @@ public class PersistenciaEmBanco {
 				OrdemDeServico os = new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				//System.out.println(os);
 				OrdensServico.add(os);
-				
+
 			}
 			
 			pstmt.execute();

@@ -12,6 +12,7 @@ import oficina.persistencia.PersistenciaEmBanco;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -86,10 +87,15 @@ public class ConsultarOrdemDeServico extends JFrame{
 				int numberLine = table.getSelectedRow();
 				
 				//PEGAR O CODIGO DA OS
-				String os_selecionada = table.getModel().getValueAt( numberLine,0).toString();
+				String os_selecionada = table.getModel().getValueAt(numberLine,0).toString();
 				
 				//ABRIR TELA DE EDICAO
-				EditarOrdemDeServico eos = new EditarOrdemDeServico(os_selecionada);
+				try {
+					EditarOrdemDeServico eos = new EditarOrdemDeServico(os_selecionada);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -125,6 +131,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 			elementos[i][3] = Ordem.getNomeCliente();
 			elementos[i][4] = Ordem.getValor();
 			elementos[i][5] = Ordem.getForma_pagamento();
+			
 			i++;
 		}
 		

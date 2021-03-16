@@ -6,23 +6,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.text.MaskFormatter;
 
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
+import util.util;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField;
 
 public class CadastrarCliente extends JFrame{
 	private JTextField tfNome;
-	private JTextField tfCpf;
-	private JTextField tfTelefone;
 	private JTextField tfEmail;
+	private JFormattedTextField tfCPF;
+	private JFormattedTextField tfTelefone;
 	
-	public CadastrarCliente(){
+	public CadastrarCliente() throws java.text.ParseException{
 		setResizable(false);
 		
 		setSize(413,284);
@@ -45,22 +48,30 @@ public class CadastrarCliente extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				String nome = tfNome.getText().toUpperCase();
-				String cpf = tfCpf.getText();
+				String cpf = tfCPF.getText().replace(".", "").replace("-", "");
 				String telefone = tfTelefone.getText();
 				String email = tfEmail.getText().toUpperCase();
 				
 				//CHAMAR CONEXAO
 				try {
-					Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
 					
-					//MENSAGEM DE SUCESSO
-					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+					//VALIDAR CPF
+					if(util.isCPF(cpf)) {
+						Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
+						
+						//MENSAGEM DE SUCESSO
+						JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+						
+						//LIMPAR CAMPOS
+						tfNome.setText("");
+						tfCPF.setText("");
+						tfTelefone.setText("");
+						tfEmail.setText("");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "POR FAVOR, DIGITE UM CPF VÁLIDO!");
+					}
 					
-					//LIMPAR CAMPOS
-					tfNome.setText("");
-					tfCpf.setText("");
-					tfTelefone.setText("");
-					tfEmail.setText("");
 					
 				} catch (ClienteJaCadastradoException e1) {
 					// TODO Auto-generated catch block
@@ -86,7 +97,7 @@ public class CadastrarCliente extends JFrame{
 		getContentPane().add(lblCpf);
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(201, 57, 46, 14);
+		lblTelefone.setBounds(201, 57, 61, 14);
 		getContentPane().add(lblTelefone);
 		
 		JLabel lblEmail = new JLabel("Email:");
@@ -98,20 +109,25 @@ public class CadastrarCliente extends JFrame{
 		getContentPane().add(tfNome);
 		tfNome.setColumns(10);
 		
-		tfCpf = new JTextField();
-		tfCpf.setBounds(10, 72, 168, 20);
-		getContentPane().add(tfCpf);
-		tfCpf.setColumns(10);
-		
-		tfTelefone = new JTextField();
-		tfTelefone.setBounds(201, 72, 183, 20);
-		getContentPane().add(tfTelefone);
-		tfTelefone.setColumns(10);
-		
 		tfEmail = new JTextField();
 		tfEmail.setBounds(10, 118, 374, 20);
 		getContentPane().add(tfEmail);
 		tfEmail.setColumns(10);
+		
+		tfCPF = new JFormattedTextField();
+		tfCPF.setBounds(10, 72, 181, 20);
+		getContentPane().add(tfCPF);
+		
+		tfTelefone = new JFormattedTextField();
+		tfTelefone.setBounds(201, 72, 183, 20);
+		getContentPane().add(tfTelefone);
+		
+		//SETAR MASCARAS
+		MaskFormatter mfCpf = new MaskFormatter("###.###.###-##");
+		mfCpf.install(tfCPF);
+		
+		MaskFormatter mfTel = new MaskFormatter("(##)#####-####");
+		mfTel.install(tfTelefone);
 		
 		setVisible(true);
 	}

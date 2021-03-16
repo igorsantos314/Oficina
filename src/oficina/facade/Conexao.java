@@ -1,5 +1,7 @@
 package oficina.facade;
 
+import java.util.Date;
+
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.exception.VeiculoJaCadastradoException;
 import oficina.modelo.Cliente;

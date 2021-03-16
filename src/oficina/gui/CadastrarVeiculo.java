@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import oficina.exception.VeiculoJaCadastradoException;
 import oficina.facade.Conexao;
@@ -20,16 +21,18 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField;
 
 public class CadastrarVeiculo extends JFrame{
 	private JTextField tfModelo;
-	private JTextField tfPlaca;
 	private JTextField tfCor;
 	
 	private JComboBox comboBoxVeiculo;
+	private JTextField tfPlaca;
 	
-	public CadastrarVeiculo(){
+	public CadastrarVeiculo() throws ParseException{
 		setResizable(false);
 		
 		setSize(400,300);
@@ -54,11 +57,6 @@ public class CadastrarVeiculo extends JFrame{
 		tfModelo.setBounds(10, 24, 145, 20);
 		getContentPane().add(tfModelo);
 		tfModelo.setColumns(10);
-		
-		tfPlaca = new JTextField();
-		tfPlaca.setBounds(10, 84, 145, 20);
-		getContentPane().add(tfPlaca);
-		tfPlaca.setColumns(10);
 		
 		tfCor = new JTextField();
 		tfCor.setBounds(10, 142, 145, 20);
@@ -104,6 +102,11 @@ public class CadastrarVeiculo extends JFrame{
 		comboBoxVeiculo.setModel(new DefaultComboBoxModel(new String[] {"Moto", "Carro"}));
 		comboBoxVeiculo.setBounds(202, 23, 159, 22);
 		getContentPane().add(comboBoxVeiculo);
+		
+		tfPlaca = new JTextField();
+		tfPlaca.setBounds(10, 85, 145, 20);
+		getContentPane().add(tfPlaca);
+		tfPlaca.setColumns(10);
 		
 		setVisible(true);
 	}

@@ -1,5 +1,7 @@
 package oficina.modelo;
 
+import java.util.Date;
+
 public class OrdemDeServico {
 	
 	String cod;
@@ -46,6 +48,7 @@ public class OrdemDeServico {
 	}
 
 	public String getData_Entrada() {
+		
 		return Data_Entrada;
 	}
 

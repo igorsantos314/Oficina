@@ -15,7 +15,6 @@ public class ConstantesUtil {
 	
 	static 
 	{
-		
 		try 
 		{
 			prop = new Properties();

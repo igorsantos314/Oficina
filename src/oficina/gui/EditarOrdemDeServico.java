@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.text.MaskFormatter;
 
 import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
@@ -21,19 +22,21 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 
 public class EditarOrdemDeServico extends JFrame{
 	private JTextField tfCod;
-	private JTextField tfEntrada;
-	private JTextField tfSaida;
 	private JTextField tfValor;
 	JTextArea taDescricao;
 	private JTextField tfCliente;
 	private JTextField tfPlaca;
+	private JFormattedTextField tfSaida;
+	private JFormattedTextField tfEntrada;
 	
-	public EditarOrdemDeServico(String cod) {
+	public EditarOrdemDeServico(String cod) throws ParseException {
 		
 		setResizable(false);
 		
@@ -63,19 +66,9 @@ public class EditarOrdemDeServico extends JFrame{
 		lblDataEntrada.setBounds(95, 11, 87, 14);
 		panel.add(lblDataEntrada);
 		
-		tfEntrada = new JTextField();
-		tfEntrada.setBounds(95, 28, 152, 20);
-		panel.add(tfEntrada);
-		tfEntrada.setColumns(10);
-		
 		JLabel lblSaida = new JLabel("Data Sa\u00EDda:");
-		lblSaida.setBounds(257, 11, 69, 14);
+		lblSaida.setBounds(234, 11, 69, 14);
 		panel.add(lblSaida);
-		
-		tfSaida = new JTextField();
-		tfSaida.setBounds(257, 28, 166, 20);
-		panel.add(tfSaida);
-		tfSaida.setColumns(10);
 		
 		JLabel lblCliente = new JLabel("Cliente:");
 		lblCliente.setBounds(10, 59, 46, 14);
@@ -223,21 +216,36 @@ public class EditarOrdemDeServico extends JFrame{
 		panel.add(tfPlaca);
 		tfPlaca.setColumns(10);
 		
-		//CALL FUNCAO DE SETAR DADOS
-		setDados(cod);
-	}
-	
-	public void setDados(String cod) {
+		JFormattedTextField tfEntrada = new JFormattedTextField();
+		tfEntrada.setBounds(95, 28, 123, 20);
+		panel.add(tfEntrada);
 		
+		tfSaida = new JFormattedTextField();
+		tfSaida.setBounds(234, 28, 123, 20);
+		panel.add(tfSaida);
+
+		//SETAR MASCARAS
+		MaskFormatter mfDataE = new MaskFormatter("##/##/####");
+		mfDataE.install(tfEntrada);
+		
+		MaskFormatter mfDataS = new MaskFormatter("##/##/####");
+		mfDataS.install(tfSaida);
+		
+		//CRIAR OBJETO DE ORDEM DE SERVICO
 		OrdemDeServico os = PersistenciaEmBanco.pegarInstancia().getOSCod(cod);
 		
-		String desc = new String(os.getDescricao());
+		tfEntrada.setText(os.getData_Entrada());
+		tfSaida.setText(os.getData_Saida());
+		
+		//CALL FUNCAO DE SETAR DADOS
+		setDados(os);
+	}
+	
+	public void setDados(OrdemDeServico os) {
 		
 		//SETAR CAMPOS
 		this.tfCod.setText(os.getCod());
 		this.taDescricao.setText(os.getDescricao());
-		this.tfEntrada.setText(os.getData_Entrada());
-		this.tfSaida.setText(os.getData_Saida());
 		this.tfCliente.setText(os.getNomeCliente());
 		this.tfPlaca.setText(os.getPlacaVeiculo());
 		this.tfValor.setText(os.getValor().toString());

@@ -8,6 +8,7 @@ import oficina.modelo.OrdemDeServico;
 
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -39,7 +40,13 @@ public class TelaPrincipal extends JFrame{
 		JMenuItem mntmNovoVeiculo = new JMenuItem("Cadastrar Veiculo");
 		mntmNovoVeiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarVeiculo CV = new CadastrarVeiculo();
+				try {
+					//CHAMAR TELA DE CADASTRO DE VEICULO
+					CadastrarVeiculo CV = new CadastrarVeiculo();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -51,7 +58,13 @@ public class TelaPrincipal extends JFrame{
 		JMenuItem mntmCadastrarCliente = new JMenuItem("Cadastrar Cliente");
 		mntmCadastrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarCliente CC = new CadastrarCliente();
+				try {
+					//CHAMAR TELA DE CADASTRO DE CLIENTE
+					CadastrarCliente CC = new CadastrarCliente();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -63,7 +76,12 @@ public class TelaPrincipal extends JFrame{
 		JMenuItem mntmNovaOS = new JMenuItem("Nova OS");
 		mntmNovaOS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarOrdemDeServico OS = new CadastrarOrdemDeServico();
+				try {
+					CadastrarOrdemDeServico OS = new CadastrarOrdemDeServico();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -76,7 +94,6 @@ public class TelaPrincipal extends JFrame{
 			}
 		});
 		mnOrdemServico.add(mntmConsultarOS);
-		
 		
 		setVisible(true);
 	}

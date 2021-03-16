@@ -41,7 +41,7 @@ public class VeiculoCarro implements IVeiculo{
 
 	@Override
 	public String toString() {
-		return placa;
+		return placa + " - " + modelo;
 	}
 
 	public String getModelo() {
@@ -57,7 +57,5 @@ public class VeiculoCarro implements IVeiculo{
 		// TODO Auto-generated method stub
 		return cor;
 	}
-	
-	
 
 }
