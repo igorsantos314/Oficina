@@ -39,6 +39,8 @@ public class EditarOrdemDeServico extends JDialog{
 	private JTextField tfPlaca;
 	private JFormattedTextField tfSaida;
 	private JFormattedTextField tfEntrada;
+	private JComboBox cbPagamento;
+	private JComboBox cbStatus;
 	
 	public EditarOrdemDeServico(String cod) throws ParseException {
 		
@@ -107,7 +109,7 @@ public class EditarOrdemDeServico extends JDialog{
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		panel_2.add(lblNewLabel);
 		
-		JComboBox cbStatus = new JComboBox();
+		cbStatus = new JComboBox();
 		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
 		cbStatus.setBounds(10, 27, 131, 22);
 		panel_2.add(cbStatus);
@@ -116,7 +118,7 @@ public class EditarOrdemDeServico extends JDialog{
 		lblPagamento.setBounds(151, 11, 113, 14);
 		panel_2.add(lblPagamento);
 		
-		JComboBox cbPagamento = new JComboBox();
+		cbPagamento = new JComboBox();
 		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
 		cbPagamento.setBounds(151, 27, 130, 22);
 		panel_2.add(cbPagamento);
@@ -169,9 +171,6 @@ public class EditarOrdemDeServico extends JDialog{
 				String status = cbStatus.getSelectedItem().toString();
 				String placa = tfPlaca.getText();
 				String nome_Cliente = tfCliente.getText();
-				
-				//System.out.println(placa);
-				//System.out.println(nome_Cliente);
 				
 				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA REALMENTE EDITAR ESTÁ OS?");
 				
@@ -270,5 +269,50 @@ public class EditarOrdemDeServico extends JDialog{
 		this.tfCliente.setText(os.getNomeCliente());
 		this.tfPlaca.setText(os.getPlacaVeiculo());
 		this.tfValor.setText(os.getValor().toString());
+		
+		//SETAR FORMA DE PAGAMENTO E STATUS
+		this.setComboBox(os.getStatus(), os.getForma_pagamento());
+	}
+	
+	public void setComboBox(String status, String pag) {
+
+		int indiceStatus = 0;
+		int indicePagamento = 0;
+		
+		//STATUS
+		switch(status) {
+
+			case "EM_ANDAMENTO":
+				indiceStatus = 1;
+				break;	
+			
+			case "CONCLUIDO":
+				indiceStatus = 2;
+				break;	
+				
+			case "CANCELADO":
+				indiceStatus = 3;
+				break;	
+		}
+
+		//FORMA DE PAGAMENTO
+		switch(pag) {
+
+			case "CARTÃO":
+				indicePagamento = 1;
+				break;	
+			
+			case "BOLETO":
+				indicePagamento = 2;
+				break;	
+				
+			case "PIX":
+				indicePagamento = 3;
+				break;	
+		}
+		
+		//ATUALIZAR O INDICE
+		this.cbStatus.setSelectedIndex(indiceStatus);
+		this.cbPagamento.setSelectedIndex(indicePagamento);
 	}
 }

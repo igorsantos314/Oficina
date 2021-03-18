@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class ConsultarOrdemDeServico extends JFrame{
+public class ConsultarOrdemDeServico extends JDialog{
 	
 	private JTable table;
 	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor", "Pagamento"};
@@ -56,9 +56,9 @@ public class ConsultarOrdemDeServico extends JFrame{
 		btConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String placa = tfPlaca.getText().toUpperCase();
+				String nomePlaca = tfPlaca.getText().toUpperCase();
 				
-				if(placa.equalsIgnoreCase("")) {
+				if(nomePlaca.equalsIgnoreCase("")) {
 					
 					//POVOAR TABELA
 					updateTable();
@@ -67,7 +67,7 @@ public class ConsultarOrdemDeServico extends JFrame{
 				
 				else {
 					//FAZER CONSULTA NO BD
-					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOSPlaca(placa);
+					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOSPlaca(nomePlaca);
 					
 					//POVOAR TABELA
 					inserirTabela(oss);

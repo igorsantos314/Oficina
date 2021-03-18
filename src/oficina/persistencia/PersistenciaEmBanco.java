@@ -120,7 +120,7 @@ public class PersistenciaEmBanco {
 	public ArrayList<OrdemDeServico> getAllOS(){
 		
 		ArrayList<OrdemDeServico> OrdensServico = new ArrayList<OrdemDeServico>();
-		String sql = "select * from ordemdeservico";
+		String sql = "select * from ordemdeservico order by codigo asc";
 		
 		try
 		{
@@ -192,10 +192,10 @@ public class PersistenciaEmBanco {
 		return null;
 	}
 	
-	public List<OrdemDeServico> getOSPlaca(String placa){
+	public List<OrdemDeServico> getOSPlaca(String nomePlaca){
 		
 		ArrayList<OrdemDeServico> OrdensServico = new ArrayList<OrdemDeServico>();
-		String sql = "select * from ordemdeservico where placa_veiculo LIKE '%" + placa + "%';";
+		String sql = "select * from ordemdeservico where placa_veiculo LIKE '%" + nomePlaca + "%' or nome_cliente LIKE '%"  + nomePlaca + "%' order by codigo asc;";
 		
 		try
 		{
