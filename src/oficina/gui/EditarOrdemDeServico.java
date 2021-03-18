@@ -12,12 +12,16 @@ import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.persistencia.PersistenciaEmBanco;
+import oficina.types.PagamentoTypes;
+import oficina.types.StatusTypes;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -27,7 +31,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 
-public class EditarOrdemDeServico extends JFrame{
+public class EditarOrdemDeServico extends JDialog{
 	private JTextField tfCod;
 	private JTextField tfValor;
 	JTextArea taDescricao;
@@ -45,6 +49,7 @@ public class EditarOrdemDeServico extends JFrame{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		setModal(true);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -103,7 +108,7 @@ public class EditarOrdemDeServico extends JFrame{
 		panel_2.add(lblNewLabel);
 		
 		JComboBox cbStatus = new JComboBox();
-		cbStatus.setModel(new DefaultComboBoxModel(new String[] {"ESPERA", "ANDAMENTO", "CONCLUIDO"}));
+		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
 		cbStatus.setBounds(10, 27, 131, 22);
 		panel_2.add(cbStatus);
 		
@@ -112,7 +117,7 @@ public class EditarOrdemDeServico extends JFrame{
 		panel_2.add(lblPagamento);
 		
 		JComboBox cbPagamento = new JComboBox();
-		cbPagamento.setModel(new DefaultComboBoxModel(new String[] {"DINHEIRO", "CART\u00C3O", "DINHEIRO E CART\u00C3O"}));
+		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
 		cbPagamento.setBounds(151, 27, 130, 22);
 		panel_2.add(cbPagamento);
 		
@@ -131,6 +136,26 @@ public class EditarOrdemDeServico extends JFrame{
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_3.setBounds(10, 409, 433, 54);
 		getContentPane().add(panel_3);
+		
+		tfCliente = new JTextField();
+		tfCliente.setEditable(false);
+		tfCliente.setBounds(10, 71, 208, 20);
+		panel.add(tfCliente);
+		tfCliente.setColumns(10);
+		
+		tfPlaca = new JTextField();
+		tfPlaca.setEditable(false);
+		tfPlaca.setBounds(234, 71, 189, 20);
+		panel.add(tfPlaca);
+		tfPlaca.setColumns(10);
+		
+		JFormattedTextField tfEntrada = new JFormattedTextField();
+		tfEntrada.setBounds(95, 28, 123, 20);
+		panel.add(tfEntrada);
+		
+		tfSaida = new JFormattedTextField();
+		tfSaida.setBounds(234, 28, 123, 20);
+		panel.add(tfSaida);
 		
 		JButton btnEditar = new JButton("EDITAR OS");
 		btnEditar.addActionListener(new ActionListener() {
@@ -153,6 +178,7 @@ public class EditarOrdemDeServico extends JFrame{
 				//VERIFICAR SE O USUARIO DESEJA ATUALIZAR O ORDEM DE SERVICO
                 if(resposta == 0)
                 {
+                	//ATUALIZAR DADOS
                 	Conexao.pegarInstancia().atualizarOS(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
                     
                 	//MENSAGEM DE SUCESSO
@@ -160,10 +186,13 @@ public class EditarOrdemDeServico extends JFrame{
                 	
     				//FECHAR A TELA DE EDICAO
     				dispose();
+    				
+    				//EXIBIR JANELA COM TODOS OS DADOS
+    				new ConsultarOrdemDeServico();
                 }
                 else
                 {
-                
+                	
                 }
 			}
 		});
@@ -172,7 +201,11 @@ public class EditarOrdemDeServico extends JFrame{
 		JButton btnCancelar = new JButton("CANCELAR");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//FECHAR JANELA
 				dispose();
+				
+				//EXIBIR JANELA COM TODOS OS DADOS
+				new ConsultarOrdemDeServico();
 			}
 		});
 		panel_3.add(btnCancelar);
@@ -192,7 +225,14 @@ public class EditarOrdemDeServico extends JFrame{
                     //MENSAGEM DE SUCESSO
     				JOptionPane.showMessageDialog(null, "ORDEM DE SERVIÇO EXCLUIDA!");
     				
+    				//INCIALIZA O OBJETO PARA ATUALIZAR A TABELA
+    				ConsultarOrdemDeServico C = new ConsultarOrdemDeServico();
+    				
+    				//FECHAR JANELA
     				dispose();
+    				
+    				//EXIBIR JANELA COM TODOS OS DADOS
+    				new ConsultarOrdemDeServico();
                 }
                 else
                 {
@@ -201,28 +241,6 @@ public class EditarOrdemDeServico extends JFrame{
 			}
 		});
 		panel_3.add(btnExcluir);
-		
-		setVisible(true);
-		
-		tfCliente = new JTextField();
-		tfCliente.setEditable(false);
-		tfCliente.setBounds(10, 71, 208, 20);
-		panel.add(tfCliente);
-		tfCliente.setColumns(10);
-		
-		tfPlaca = new JTextField();
-		tfPlaca.setEditable(false);
-		tfPlaca.setBounds(234, 71, 189, 20);
-		panel.add(tfPlaca);
-		tfPlaca.setColumns(10);
-		
-		JFormattedTextField tfEntrada = new JFormattedTextField();
-		tfEntrada.setBounds(95, 28, 123, 20);
-		panel.add(tfEntrada);
-		
-		tfSaida = new JFormattedTextField();
-		tfSaida.setBounds(234, 28, 123, 20);
-		panel.add(tfSaida);
 
 		//SETAR MASCARAS
 		MaskFormatter mfDataE = new MaskFormatter("##/##/####");
@@ -239,6 +257,9 @@ public class EditarOrdemDeServico extends JFrame{
 		
 		//CALL FUNCAO DE SETAR DADOS
 		setDados(os);
+		
+		setModal(true);
+		setVisible(true);
 	}
 	
 	public void setDados(OrdemDeServico os) {

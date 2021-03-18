@@ -14,6 +14,7 @@ import oficina.facade.Conexao;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
+import oficina.types.VeiculosTypes;
 
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -99,7 +100,7 @@ public class CadastrarVeiculo extends JFrame{
 		getContentPane().add(lblVeiculo);
 		
 		comboBoxVeiculo = new JComboBox();
-		comboBoxVeiculo.setModel(new DefaultComboBoxModel(new String[] {"Moto", "Carro"}));
+		comboBoxVeiculo.setModel(new DefaultComboBoxModel<>(VeiculosTypes.values()));
 		comboBoxVeiculo.setBounds(202, 23, 159, 22);
 		getContentPane().add(comboBoxVeiculo);
 		

@@ -11,6 +11,8 @@ import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.persistencia.PersistenciaEmBanco;
+import oficina.types.PagamentoTypes;
+import oficina.types.StatusTypes;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
@@ -120,7 +122,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		panel_2.add(lblNewLabel);
 		
 		JComboBox cbStatus = new JComboBox();
-		cbStatus.setModel(new DefaultComboBoxModel(new String[] {"ESPERA", "ANDAMENTO", "CONCLUIDO"}));
+		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
 		cbStatus.setBounds(10, 27, 131, 22);
 		panel_2.add(cbStatus);
 		
@@ -129,7 +131,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		panel_2.add(lblPagamento);
 		
 		JComboBox cbPagamento = new JComboBox();
-		cbPagamento.setModel(new DefaultComboBoxModel(new String[] {"DINHEIRO", "CART\u00C3O", "DINHEIRO E CART\u00C3O"}));
+		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
 		cbPagamento.setBounds(151, 27, 130, 22);
 		panel_2.add(cbPagamento);
 		

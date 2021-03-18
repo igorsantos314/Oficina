@@ -11,6 +11,8 @@ import oficina.modelo.OrdemDeServico;
 import oficina.persistencia.PersistenciaEmBanco;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -57,11 +59,9 @@ public class ConsultarOrdemDeServico extends JFrame{
 				String placa = tfPlaca.getText().toUpperCase();
 				
 				if(placa.equalsIgnoreCase("")) {
-					//FAZER CONSULTA NO BD
-					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getAllOS();
 					
 					//POVOAR TABELA
-					inserirTabela(oss);
+					updateTable();
 					
 				}
 				
@@ -86,28 +86,44 @@ public class ConsultarOrdemDeServico extends JFrame{
 				//PEGAR O INDICE DA LINHA SELECIONADA
 				int numberLine = table.getSelectedRow();
 				
-				//PEGAR O CODIGO DA OS
-				String os_selecionada = table.getModel().getValueAt(numberLine,0).toString();
-				
-				//ABRIR TELA DE EDICAO
-				try {
-					EditarOrdemDeServico eos = new EditarOrdemDeServico(os_selecionada);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(numberLine >= 0) {
+					
+					//PEGAR O CODIGO DA OS
+					String os_selecionada = table.getModel().getValueAt(numberLine,0).toString();
+					
+					try {
+						//FECHAR JANELA
+						dispose();
+						
+						//ABRIR JANELA DE EDIÇÃO
+						EditarOrdemDeServico eos = new EditarOrdemDeServico(os_selecionada);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
-				
+				else {
+					JOptionPane.showMessageDialog(null, "POR FAVOR, SELECIONE UMA OS!");
+				}
+
 			}
 		});
 		btnNewButton.setBounds(679, 15, 151, 23);
 		getContentPane().add(btnNewButton);
 		setVisible(true);
 		
+		//INICIALIZAR A TABELA
+		this.updateTable();
+		
 		setVisible(true);
 	}
 	
-	public void inserirTabela(ArrayList<OrdemDeServico> oss) {
-		
+	public ConsultarOrdemDeServico(boolean status) {
+		//ATUALIZAR TABELA
+		this.updateTable();
+	}
+	
+	public void clearTable() {
 		//LIMPAR CAMPOS
 		for(int i = 0; i<QUANTIDADE_MAX_CONTAS; i++)
 		{
@@ -118,6 +134,12 @@ public class ConsultarOrdemDeServico extends JFrame{
 			elementos[i][4] = "";
 			elementos[i][5] = "";
 		}
+	}
+	
+	public void inserirTabela(ArrayList<OrdemDeServico> oss) {
+		
+		//LIMPAR CAMPOS
+		clearTable();
 		
 		//ITERAR LINHAS
 		int i = 0;
@@ -137,5 +159,14 @@ public class ConsultarOrdemDeServico extends JFrame{
 		
 		//ATUALIZAR TABELA
 		table.updateUI();
+	}
+	
+	public void updateTable() {
+		
+		//FAZER CONSULTA NO BD
+		ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getAllOS();
+	
+		//ATUALIZAR TABELA
+		inserirTabela(oss);
 	}
 }

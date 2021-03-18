@@ -200,8 +200,6 @@ public class PersistenciaEmBanco {
 		try
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
-			pstmt.setString(1, placa);
-			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
