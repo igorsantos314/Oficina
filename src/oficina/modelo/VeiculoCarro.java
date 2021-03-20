@@ -1,6 +1,6 @@
 package oficina.modelo;
 
-public class VeiculoCarro implements IVeiculo{
+public class VeiculoCarro{
 	
 	String modelo;
 	String placa;
@@ -50,12 +50,6 @@ public class VeiculoCarro implements IVeiculo{
 
 	public String getPlaca() {
 		return placa;
-	}
-
-	@Override
-	public String getCor() {
-		// TODO Auto-generated method stub
-		return cor;
 	}
 
 }

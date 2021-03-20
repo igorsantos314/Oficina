@@ -8,6 +8,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import oficina.facade.Conexao;
+import oficina.impressao.Impressao;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
@@ -240,6 +241,27 @@ public class EditarOrdemDeServico extends JDialog{
 			}
 		});
 		panel_3.add(btnExcluir);
+		
+		JButton btImprimir = new JButton("IMPRIMIR");
+		btImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//PEGAR DADOS DOS CAMPOS
+				String descricao = taDescricao.getText().toUpperCase();
+				Float valor = Float.parseFloat(tfValor.getText());
+				String data_Entrada = tfEntrada.getText();
+				String data_Saida = tfSaida.getText();
+				String pagamento = cbPagamento.getSelectedItem().toString();
+				String status = cbStatus.getSelectedItem().toString();
+				String placa = tfPlaca.getText();
+				String nome_Cliente = tfCliente.getText();
+				
+				//IMPRIMIR OS
+				Conexao.pegarInstancia().imprimirOS(descricao, valor, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
+				
+			}
+		});
+		panel_3.add(btImprimir);
 
 		//SETAR MASCARAS
 		MaskFormatter mfDataE = new MaskFormatter("##/##/####");
@@ -300,14 +322,18 @@ public class EditarOrdemDeServico extends JDialog{
 
 			case "CARTÃO":
 				indicePagamento = 1;
-				break;	
+				break;
+				
+			case "DINHEIRO_E_CARTÃO":
+				indicePagamento = 2;
+				break;
 			
 			case "BOLETO":
-				indicePagamento = 2;
+				indicePagamento = 3;
 				break;	
 				
 			case "PIX":
-				indicePagamento = 3;
+				indicePagamento = 4;
 				break;	
 		}
 		

@@ -33,7 +33,7 @@ public class PersistenciaEmBanco {
 		{
 			return instance = new PersistenciaEmBanco();
 		}
-	} 
+	}
 	
 	public List<Cliente> getAllClientes() {
 		
@@ -72,8 +72,7 @@ public class PersistenciaEmBanco {
 		
 		ArrayList<IVeiculo> placas = new ArrayList<IVeiculo>();
 		
-		String sqlMoto = "select * from veiculoMoto";
-		String sqlCarro = "select * from veiculoCarro";
+		String sqlMoto = "select * from veiculo";
 		
 		try
 		{
@@ -84,26 +83,12 @@ public class PersistenciaEmBanco {
 				String modelo = rs.getString("modelo");
 				String placa = rs.getString("placa");
 				String cor = rs.getString("cor");
+				String ano = rs.getString("ano");
+				int km_atual = rs.getInt("km_atual");
 				
-				IVeiculo veiculo = new VeiculoMoto(modelo, placa, cor);
+				IVeiculo veiculo = new VeiculoMoto(modelo, placa, cor, ano, km_atual);
 				placas.add(veiculo);
 			
-			}
-			
-			pstmt.execute();
-			pstmt.close();
-			
-			pstmt = FabricaConexao.getConnection().prepareStatement(sqlCarro);
-			rs = pstmt.executeQuery();
-		
-			while (rs.next()) {
-				String modelo = rs.getString("modelo");
-				String placa = rs.getString("placa");
-				String cor = rs.getString("cor");
-				
-				IVeiculo veiculo = new VeiculoCarro(modelo, placa, cor);
-				placas.add(veiculo);
-				
 			}
 			
 			pstmt.execute();
@@ -214,7 +199,6 @@ public class PersistenciaEmBanco {
 				String nome_Cliente = rs.getString("nome_cliente");
 				
 				OrdemDeServico os = new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
-				//System.out.println(os);
 				OrdensServico.add(os);
 
 			}
@@ -256,19 +240,8 @@ public class PersistenciaEmBanco {
 	
 	public void CadastrarVeiculo(IVeiculo obj) throws VeiculoJaCadastradoException{
 		
-		String Veiculo = "";
-		
-		//VERIFICAR QUAL O TIPO DE VEICULO PARA MODFICAR A TABELA
-		if(obj instanceof VeiculoCarro) {
-			Veiculo = "veiculoCarro";
-		}
-		
-		else if(obj instanceof VeiculoMoto) {
-			Veiculo = "veiculoMoto";
-		}
-		
-		String sqlInserirCliente = "insert into " + Veiculo + " (modelo, placa, cor)"
-				+ " values (?,?,?);";
+		String sqlInserirCliente = "insert into veiculo (modelo, placa, cor, ano, km_atual)"
+				+ " values (?,?,?,?,?);";
 		
 		try 
 		{
@@ -276,6 +249,8 @@ public class PersistenciaEmBanco {
 			pstmt.setString(1, obj.getModelo());
 			pstmt.setString(2, obj.getPlaca());
 			pstmt.setString(3, obj.getCor());
+			pstmt.setString(4, obj.getAno());
+			pstmt.setInt(5, obj.getKm_atual());
 			
 			pstmt.execute();
 			pstmt.close();
@@ -335,7 +310,7 @@ public class PersistenciaEmBanco {
 			pstmt.execute();
 			pstmt.close();
 			
-			System.out.println("ok");
+			System.out.println("ORDEM DE SERVIÇO CADASTRADA!");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

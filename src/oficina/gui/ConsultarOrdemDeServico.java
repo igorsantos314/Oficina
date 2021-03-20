@@ -22,7 +22,7 @@ public class ConsultarOrdemDeServico extends JDialog{
 	
 	private JTable table;
 	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor", "Pagamento"};
-	private final int QUANTIDADE_MAX_CONTAS = 20;
+	private final int QUANTIDADE_MAX_CONTAS = 10000;
 	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][6];
 	private JTextField tfPlaca;
 	
@@ -43,12 +43,12 @@ public class ConsultarOrdemDeServico extends JDialog{
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 		
-		JLabel lblPlaca = new JLabel("PLACA:");
-		lblPlaca.setBounds(10, 21, 46, 14);
+		JLabel lblPlaca = new JLabel("NOME OU PLACA:");
+		lblPlaca.setBounds(9, 19, 125, 14);
 		getContentPane().add(lblPlaca);
 		
 		tfPlaca = new JTextField();
-		tfPlaca.setBounds(66, 16, 449, 20);
+		tfPlaca.setBounds(144, 16, 371, 20);
 		getContentPane().add(tfPlaca);
 		tfPlaca.setColumns(10);
 		

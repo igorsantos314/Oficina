@@ -8,6 +8,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import oficina.facade.Conexao;
+import oficina.impressao.Impressao;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.persistencia.PersistenciaEmBanco;
@@ -41,7 +42,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		
 		setResizable(false);
 		
-		setSize(506,519);
+		setSize(506,547);
 		setTitle("NOVA ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -113,7 +114,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_2.setBounds(10, 340, 455, 62);
+		panel_2.setBounds(10, 340, 455, 102);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -148,7 +149,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_3.setBounds(10, 409, 455, 54);
+		panel_3.setBounds(10, 453, 455, 54);
 		getContentPane().add(panel_3);
 		
 		JButton btnSalvar = new JButton("SALVAR");
@@ -164,9 +165,6 @@ public class CadastrarOrdemDeServico extends JFrame{
 				String placa = cbPlaca.getSelectedItem().toString();
 				String nome_Cliente = cbCliente.getSelectedItem().toString();
 				
-				//System.out.println(placa);
-				//System.out.println(nome_Cliente);
-				
 				Conexao.pegarInstancia().salvarOS(descricao, valor, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
 				
 				//LIMPAR CAMPOS
@@ -177,7 +175,6 @@ public class CadastrarOrdemDeServico extends JFrame{
 				
 				//MENSAGEM DE SUCESSO
 				JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
-				
 			}
 		});
 		

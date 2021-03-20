@@ -1,9 +1,11 @@
 package oficina.facade;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.exception.VeiculoJaCadastradoException;
+import oficina.impressao.Impressao;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
@@ -14,6 +16,7 @@ import oficina.persistencia.PersistenciaEmBanco;
 public class Conexao {
 	
 	public static Conexao instance;
+	public static LocalDate localDate = LocalDate.now();
 	
 	private Conexao() {
 		// TODO Auto-generated constructor stub
@@ -31,42 +34,59 @@ public class Conexao {
 	
 	public void salvarCliente(String cpf, String nome, String telefone, String email) throws ClienteJaCadastradoException{
 		
-		//RECEBE O CLIENTE
-		Cliente cliente = new Cliente(nome, cpf, telefone, email);
-		
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().CadastrarCliente(cliente);
+		PersistenciaEmBanco.pegarInstancia().CadastrarCliente(new Cliente(nome, cpf, telefone, email));
 	}
 	
-	public void salvarVeiculo(String placa, String modelo, String cor, String veiculo) throws VeiculoJaCadastradoException {
-		
-		IVeiculo VeiculoCadastrado = null;
-		
-		if(veiculo.equalsIgnoreCase("Moto")) {
-			VeiculoCadastrado = new VeiculoMoto(modelo, placa, cor);
-		}
-		else if(veiculo.equalsIgnoreCase("Carro")) {
-			VeiculoCadastrado = new VeiculoCarro(modelo, placa, cor);
-		}
+	public void salvarVeiculo(String placa, String modelo, String cor, String ano, int km_atual) throws VeiculoJaCadastradoException {
 		
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().CadastrarVeiculo(VeiculoCadastrado);
+		PersistenciaEmBanco.pegarInstancia().CadastrarVeiculo(new VeiculoMoto(modelo, placa, cor, ano, km_atual));
 		
 	}
 	
 	public void salvarOS(String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
-		
-		OrdemDeServico os = new OrdemDeServico("", descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente);
-		
+
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().CadastrarOS(os);
+		PersistenciaEmBanco.pegarInstancia().CadastrarOS(new OrdemDeServico(null, descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
 	}
 	
 	public void atualizarOS(String cod, String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
-		OrdemDeServico os = new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente);
 		
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().UpdateOS(os);
+		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
+	}
+	
+	public void imprimirOS(String descricao, Float valor, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente) {
+		
+		//TEXTO DE IMPRESSÃO DA OS
+		String textToPrint = 	"                                ORDEM DE SERVIÇO\n"
+							 + 	"--------------------------------------------------------------------------------\n"
+							 +  "Responsável:                                            Welson Sandro           \n" 
+							 + 	"Cidade:                                                 Belo Jardim             \n" 
+							 +  "Bairro:                                                 Santo Antonio           \n" 
+							 +  "Endereço:                                                                       \n"
+							 + 	"Ponto de Referência:                                    Rua do SESC             \n"
+							 + 	"--------------------------------------------------------------------------------\n"
+							 + 	"Data de Entrada:                                        " + data_Entrada     + "\n"
+							 +  "Data de Saida:                                          " + data_Saida       + "\n"
+							 +	"--------------------------------------------------------------------------------\n"
+							 + 	"Cliente:                                                " + nome_Cliente     + "\n"
+							 +  "Veiculo:                                                " + placa            + "\n"
+							 +  "Status:                                                 " + status           + "\n"
+							 +	"--------------------------------------------------------------------------------\n"
+							 + 	"Forma de Pag.:                                          " + pagamento        + "\n"
+							 +  "Valor mão de Obra:                                      R$ " + valor         + "\n"
+							 + 	"Valor em Peças:                                         R$ " + valor         + "\n"
+							 +	"--------------------------------------------------------------------------------\n"
+							 + 	"Descrcao:\n"
+							 + 	"      " + descricao + "\n\n"
+							 +	"--------------------------------------------------------------------------------\n"
+							 + 	"Data da Impressão:                                      "+ localDate.toString() + "\n\n"
+							 + 	"                                  Volte Sempre !                                \n";
+		
+		//FUNÇÃO DE IMPRIMIR
+		new Impressao().imprime(textToPrint);
 	}
 	
 }

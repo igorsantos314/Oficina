@@ -29,38 +29,38 @@ import javax.swing.JFormattedTextField;
 public class CadastrarVeiculo extends JFrame{
 	private JTextField tfModelo;
 	private JTextField tfCor;
-	
-	private JComboBox comboBoxVeiculo;
 	private JTextField tfPlaca;
+	private JTextField tfAno;
+	private JTextField tfKmAtual;
 	
 	public CadastrarVeiculo() throws ParseException{
 		setResizable(false);
 		
-		setSize(400,300);
+		setSize(400,335);
 		setTitle("CADASTRAR VEICULO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
-		lblModelo.setBounds(10, 11, 46, 14);
+		lblModelo.setBounds(92, 27, 46, 14);
 		getContentPane().add(lblModelo);
 		
 		JLabel lblPlaca = new JLabel("Placa:");
-		lblPlaca.setBounds(10, 70, 46, 14);
+		lblPlaca.setBounds(92, 70, 46, 14);
 		getContentPane().add(lblPlaca);
 		
 		JLabel lblCor = new JLabel("Cor:");
-		lblCor.setBounds(10, 128, 46, 14);
+		lblCor.setBounds(92, 113, 46, 14);
 		getContentPane().add(lblCor);
 		
 		tfModelo = new JTextField();
-		tfModelo.setBounds(10, 24, 145, 20);
+		tfModelo.setBounds(148, 24, 145, 20);
 		getContentPane().add(tfModelo);
 		tfModelo.setColumns(10);
 		
 		tfCor = new JTextField();
-		tfCor.setBounds(10, 142, 145, 20);
+		tfCor.setBounds(148, 110, 145, 20);
 		getContentPane().add(tfCor);
 		tfCor.setColumns(10);
 		
@@ -68,13 +68,14 @@ public class CadastrarVeiculo extends JFrame{
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String veiculo = comboBoxVeiculo.getSelectedItem().toString().toUpperCase();
 				String modelo = tfModelo.getText().toUpperCase();
 				String placa = tfPlaca.getText().toUpperCase();
 				String cor = tfCor.getText().toUpperCase();
+				String ano = tfAno.getText();
+				int km_atual = Integer.parseInt(tfKmAtual.getText());
 				
 				try {
-					Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, veiculo);
+					Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, ano, km_atual);
 					
 					//MENSAGEM DE SUCESSO
 					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
@@ -88,26 +89,37 @@ public class CadastrarVeiculo extends JFrame{
 				tfModelo.setText("");
 				tfPlaca.setText("");
 				tfCor.setText("");
+				tfAno.setText("");
+				tfKmAtual.setText("");
 				
 			}
 		});
 		
-		btnSalvar.setBounds(272, 224, 89, 23);
+		btnSalvar.setBounds(204, 245, 89, 23);
 		getContentPane().add(btnSalvar);
 		
-		JLabel lblVeiculo = new JLabel("Veiculo:");
-		lblVeiculo.setBounds(202, 11, 46, 14);
-		getContentPane().add(lblVeiculo);
-		
-		comboBoxVeiculo = new JComboBox();
-		comboBoxVeiculo.setModel(new DefaultComboBoxModel<>(VeiculosTypes.values()));
-		comboBoxVeiculo.setBounds(202, 23, 159, 22);
-		getContentPane().add(comboBoxVeiculo);
-		
 		tfPlaca = new JTextField();
-		tfPlaca.setBounds(10, 85, 145, 20);
+		tfPlaca.setBounds(148, 67, 145, 20);
 		getContentPane().add(tfPlaca);
 		tfPlaca.setColumns(10);
+		
+		tfAno = new JTextField();
+		tfAno.setBounds(148, 152, 145, 20);
+		getContentPane().add(tfAno);
+		tfAno.setColumns(10);
+		
+		tfKmAtual = new JTextField();
+		tfKmAtual.setBounds(148, 194, 145, 20);
+		getContentPane().add(tfKmAtual);
+		tfKmAtual.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Ano:");
+		lblNewLabel.setBounds(92, 155, 46, 14);
+		getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("KM Atual:");
+		lblNewLabel_1.setBounds(92, 197, 46, 14);
+		getContentPane().add(lblNewLabel_1);
 		
 		setVisible(true);
 	}

@@ -5,12 +5,16 @@ public class VeiculoMoto implements IVeiculo{
 	String modelo;
 	String placa;
 	String cor;
+	String ano;
+	int km_atual;
 	
-	public VeiculoMoto(String modelo, String placa, String cor) {
+	public VeiculoMoto(String modelo, String placa, String cor, String ano, int km_atual) {
 		super();
 		this.modelo = modelo;
 		this.placa = placa;
 		this.cor = cor;
+		this.ano = ano;
+		this.km_atual = km_atual;
 	}
 	
 	@Override
@@ -61,6 +65,24 @@ public class VeiculoMoto implements IVeiculo{
 	public String getCor() {
 		// TODO Auto-generated method stub
 		return cor;
+	}
+	
+	@Override
+	public String getAno() {
+		return ano;
+	}
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
+	
+	@Override
+	public int getKm_atual() {
+		return km_atual;
+	}
+
+	public void setKm_atual(int km_atual) {
+		this.km_atual = km_atual;
 	}
 	
 }
