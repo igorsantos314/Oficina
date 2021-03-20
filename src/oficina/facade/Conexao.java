@@ -45,19 +45,19 @@ public class Conexao {
 		
 	}
 	
-	public void salvarOS(String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
+	public void salvarOS(String descricao, Float valorMaoDeObra, Float valorPecas,  String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
 
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().CadastrarOS(new OrdemDeServico(null, descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
+		PersistenciaEmBanco.pegarInstancia().CadastrarOS(new OrdemDeServico(null, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
 	}
 	
-	public void atualizarOS(String cod, String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
+	public void atualizarOS(String cod, String descricao, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
 		
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
+		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, null, null));
 	}
 	
-	public void imprimirOS(String descricao, Float valor, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente) {
+	public void imprimirOS(String descricao, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente) {
 		
 		//TEXTO DE IMPRESSÃO DA OS
 		String textToPrint = 	"                                ORDEM DE SERVIÇO\n"
@@ -75,9 +75,9 @@ public class Conexao {
 							 +  "Veiculo:                                                " + placa            + "\n"
 							 +  "Status:                                                 " + status           + "\n"
 							 +	"--------------------------------------------------------------------------------\n"
-							 + 	"Forma de Pag.:                                          " + pagamento        + "\n"
-							 +  "Valor mão de Obra:                                      R$ " + valor         + "\n"
-							 + 	"Valor em Peças:                                         R$ " + valor         + "\n"
+							 + 	"Forma de Pagamento:                                     " + pagamento        + "\n"
+							 +  "Valor mão de Obra:                                      R$ " + valorMaoDeObra+ "\n"
+							 + 	"Valor em Peças:                                         R$ " + valorPecas    + "\n"
 							 +	"--------------------------------------------------------------------------------\n"
 							 + 	"Descrcao:\n"
 							 + 	"      " + descricao + "\n\n"

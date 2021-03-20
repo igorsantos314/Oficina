@@ -34,7 +34,7 @@ import javax.swing.JFormattedTextField;
 
 public class EditarOrdemDeServico extends JDialog{
 	private JTextField tfCod;
-	private JTextField tfValor;
+	private JTextField tfValorMaoDeObra;
 	JTextArea taDescricao;
 	private JTextField tfCliente;
 	private JTextField tfPlaca;
@@ -42,12 +42,13 @@ public class EditarOrdemDeServico extends JDialog{
 	private JFormattedTextField tfEntrada;
 	private JComboBox cbPagamento;
 	private JComboBox cbStatus;
+	private JTextField tfValorPecas;
 	
 	public EditarOrdemDeServico(String cod) throws ParseException {
 		
 		setResizable(false);
 		
-		setSize(473,519);
+		setSize(473,590);
 		setTitle("EDITAR ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -56,7 +57,7 @@ public class EditarOrdemDeServico extends JDialog{
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(10, 11, 433, 114);
+		panel.setBounds(10, 11, 433, 146);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -75,7 +76,7 @@ public class EditarOrdemDeServico extends JDialog{
 		panel.add(lblDataEntrada);
 		
 		JLabel lblSaida = new JLabel("Data Sa\u00EDda:");
-		lblSaida.setBounds(234, 11, 69, 14);
+		lblSaida.setBounds(269, 11, 69, 14);
 		panel.add(lblSaida);
 		
 		JLabel lblCliente = new JLabel("Cliente:");
@@ -83,12 +84,12 @@ public class EditarOrdemDeServico extends JDialog{
 		panel.add(lblCliente);
 		
 		JLabel lblPlaca = new JLabel("Placa:");
-		lblPlaca.setBounds(234, 59, 46, 14);
+		lblPlaca.setBounds(10, 99, 46, 14);
 		panel.add(lblPlaca);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(10, 136, 433, 193);
+		panel_1.setBounds(10, 168, 433, 193);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -102,7 +103,7 @@ public class EditarOrdemDeServico extends JDialog{
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_2.setBounds(10, 340, 433, 62);
+		panel_2.setBounds(10, 372, 433, 107);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -112,52 +113,63 @@ public class EditarOrdemDeServico extends JDialog{
 		
 		cbStatus = new JComboBox();
 		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
-		cbStatus.setBounds(10, 27, 131, 22);
+		cbStatus.setBounds(10, 27, 198, 22);
 		panel_2.add(cbStatus);
 		
 		JLabel lblPagamento = new JLabel("Forma de Pagamento:");
-		lblPagamento.setBounds(151, 11, 113, 14);
+		lblPagamento.setBounds(218, 11, 113, 14);
 		panel_2.add(lblPagamento);
 		
 		cbPagamento = new JComboBox();
 		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
-		cbPagamento.setBounds(151, 27, 130, 22);
+		cbPagamento.setBounds(218, 27, 198, 22);
 		panel_2.add(cbPagamento);
 		
-		JLabel lblValor = new JLabel("Valor:");
-		lblValor.setBounds(301, 11, 46, 14);
+		JLabel lblValor = new JLabel("Valor M\u00E3o de Obra");
+		lblValor.setBounds(12, 59, 198, 14);
 		panel_2.add(lblValor);
 		
-		tfValor = new JTextField();
-		tfValor.setForeground(Color.RED);
-		tfValor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		tfValor.setBounds(299, 28, 124, 20);
-		panel_2.add(tfValor);
-		tfValor.setColumns(10);
+		tfValorMaoDeObra = new JTextField();
+		tfValorMaoDeObra.setForeground(Color.RED);
+		tfValorMaoDeObra.setFont(new Font("Tahoma", Font.BOLD, 11));
+		tfValorMaoDeObra.setBounds(10, 76, 198, 20);
+		panel_2.add(tfValorMaoDeObra);
+		tfValorMaoDeObra.setColumns(10);
+		
+		tfValorPecas = new JTextField();
+		tfValorPecas.setForeground(Color.BLUE);
+		tfValorPecas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		tfValorPecas.setBounds(218, 76, 198, 20);
+		panel_2.add(tfValorPecas);
+		tfValorPecas.setColumns(10);
+		
+		JLabel lblValorEmPeas = new JLabel("Valor em Pe\u00E7as:");
+		lblValorEmPeas.setBounds(218, 60, 198, 14);
+		panel_2.add(lblValorEmPeas);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_3.setBounds(10, 409, 433, 54);
+		panel_3.setBounds(10, 490, 433, 54);
 		getContentPane().add(panel_3);
 		
 		tfCliente = new JTextField();
 		tfCliente.setEditable(false);
-		tfCliente.setBounds(10, 71, 208, 20);
+		tfCliente.setBounds(10, 71, 413, 20);
 		panel.add(tfCliente);
 		tfCliente.setColumns(10);
 		
 		tfPlaca = new JTextField();
 		tfPlaca.setEditable(false);
-		tfPlaca.setBounds(234, 71, 189, 20);
+		tfPlaca.setBounds(10, 111, 249, 20);
 		panel.add(tfPlaca);
 		tfPlaca.setColumns(10);
 		
 		JFormattedTextField tfEntrada = new JFormattedTextField();
-		tfEntrada.setBounds(95, 28, 123, 20);
+		tfEntrada.setBounds(95, 28, 164, 20);
 		panel.add(tfEntrada);
 		
 		tfSaida = new JFormattedTextField();
-		tfSaida.setBounds(234, 28, 123, 20);
+		tfSaida.setBounds(269, 28, 154, 20);
 		panel.add(tfSaida);
 		
 		JButton btnEditar = new JButton("EDITAR OS");
@@ -165,12 +177,12 @@ public class EditarOrdemDeServico extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				
 				String descricao = taDescricao.getText().toUpperCase();
-				Float valor = Float.parseFloat(tfValor.getText());
+				Float valorMaoDeObra = Float.parseFloat(tfValorMaoDeObra.getText());
+				Float valorPecas = Float.parseFloat(tfValorPecas.getText());
 				String data_Entrada = tfEntrada.getText();
 				String data_Saida = tfSaida.getText();
 				String pagamento = cbPagamento.getSelectedItem().toString();
 				String status = cbStatus.getSelectedItem().toString();
-				String placa = tfPlaca.getText();
 				String nome_Cliente = tfCliente.getText();
 				
 				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA REALMENTE EDITAR ESTÁ OS?");
@@ -179,7 +191,7 @@ public class EditarOrdemDeServico extends JDialog{
                 if(resposta == 0)
                 {
                 	//ATUALIZAR DADOS
-                	Conexao.pegarInstancia().atualizarOS(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
+                	Conexao.pegarInstancia().atualizarOS(cod, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, cod, nome_Cliente);
                     
                 	//MENSAGEM DE SUCESSO
     				JOptionPane.showMessageDialog(null, "Editado com Sucesso!");
@@ -248,7 +260,8 @@ public class EditarOrdemDeServico extends JDialog{
 				
 				//PEGAR DADOS DOS CAMPOS
 				String descricao = taDescricao.getText().toUpperCase();
-				Float valor = Float.parseFloat(tfValor.getText());
+				Float valorMaoDeObra = Float.parseFloat(tfValorMaoDeObra.getText());
+				Float valorPecas = Float.parseFloat(tfValorPecas.getText());
 				String data_Entrada = tfEntrada.getText();
 				String data_Saida = tfSaida.getText();
 				String pagamento = cbPagamento.getSelectedItem().toString();
@@ -257,7 +270,7 @@ public class EditarOrdemDeServico extends JDialog{
 				String nome_Cliente = tfCliente.getText();
 				
 				//IMPRIMIR OS
-				Conexao.pegarInstancia().imprimirOS(descricao, valor, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
+				Conexao.pegarInstancia().imprimirOS(descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
 				
 			}
 		});
@@ -290,7 +303,8 @@ public class EditarOrdemDeServico extends JDialog{
 		this.taDescricao.setText(os.getDescricao());
 		this.tfCliente.setText(os.getNomeCliente());
 		this.tfPlaca.setText(os.getPlacaVeiculo());
-		this.tfValor.setText(os.getValor().toString());
+		this.tfValorMaoDeObra.setText(os.getValorMaoDeObra().toString());
+		this.tfValorPecas.setText(os.getValorPecas().toString());
 		
 		//SETAR FORMA DE PAGAMENTO E STATUS
 		this.setComboBox(os.getStatus(), os.getForma_pagamento());

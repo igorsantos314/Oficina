@@ -68,11 +68,79 @@ public class PersistenciaEmBanco {
 		return clientes;
 	}
 	
+	public List<Cliente> getClientesNome(String nomeCliente) {
+		
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		
+		String sql = "select * from clientes where nome like '%" + nomeCliente + "%';";
+		System.out.println(sql);
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String nome = rs.getString("nome");
+				String cpf = rs.getString("cpf");
+				String telefone = rs.getString("telefone");
+				String email = rs.getString("email");
+				
+				Cliente c = new Cliente(nome, cpf, telefone, email);
+				clientes.add(c);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return clientes;
+	}
+	
 	public List<IVeiculo> getAllVeiculos(){
 		
 		ArrayList<IVeiculo> placas = new ArrayList<IVeiculo>();
 		
 		String sqlMoto = "select * from veiculo";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sqlMoto);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String modelo = rs.getString("modelo");
+				String placa = rs.getString("placa");
+				String cor = rs.getString("cor");
+				String ano = rs.getString("ano");
+				int km_atual = rs.getInt("km_atual");
+				
+				IVeiculo veiculo = new VeiculoMoto(modelo, placa, cor, ano, km_atual);
+				placas.add(veiculo);
+			
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return placas;
+	}
+	
+	public List<IVeiculo> getVeiculoPlacaNome(String placaNome){
+		
+		ArrayList<IVeiculo> placas = new ArrayList<IVeiculo>();
+		
+		String sqlMoto = "select * from veiculo where modelo like'%" + placaNome + "%' or placa like'%" + placaNome + "%';";
 		
 		try
 		{
@@ -115,7 +183,8 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String cod_os = rs.getString("codigo");
 				String descricao = rs.getString("descricao");
-				Float valor = rs.getFloat("valor");
+				Float valorMaoDeObra = rs.getFloat("valor_mao_obra");
+				Float valorPecas = rs.getFloat("valor_pecas");
 				String data_Entrada = rs.getString("data_entrada");
 				String data_Saida = rs.getString("data_saida");
 				String pagamento = rs.getString("forma_pagamento");
@@ -123,7 +192,7 @@ public class PersistenciaEmBanco {
 				String placa_veiculo = rs.getString("placa_veiculo");
 				String nome_Cliente = rs.getString("nome_cliente");
 				
-				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				OrdensServico.add(os);
 				
 			}
@@ -151,7 +220,8 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String cod_os = rs.getString("codigo");
 				String descricao = rs.getString("descricao");
-				Float valor = rs.getFloat("valor");
+				Float valorMaoDeObra = rs.getFloat("valor_mao_obra");
+				Float valorPecas = rs.getFloat("valor_pecas");
 				String data_Entrada = rs.getString("data_entrada");
 				String data_Saida = rs.getString("data_saida");
 				String pagamento = rs.getString("forma_pagamento");
@@ -159,7 +229,7 @@ public class PersistenciaEmBanco {
 				String placa_veiculo = rs.getString("placa_veiculo");
 				String nome_Cliente = rs.getString("nome_cliente");
 				
-				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				System.out.println(os);
 				
 				return os;
@@ -190,7 +260,8 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String cod = rs.getString("codigo");
 				String descricao = rs.getString("descricao");
-				Float valor = rs.getFloat("valor");
+				Float valorMaoDeObra = rs.getFloat("valor_mao_obra");
+				Float valorPecas = rs.getFloat("valor_pecas");
 				String data_Entrada = rs.getString("data_entrada");
 				String data_Saida = rs.getString("data_saida");
 				String pagamento = rs.getString("forma_pagamento");
@@ -198,7 +269,7 @@ public class PersistenciaEmBanco {
 				String placa_veiculo = rs.getString("placa_veiculo");
 				String nome_Cliente = rs.getString("nome_cliente");
 				
-				OrdemDeServico os = new OrdemDeServico(cod, descricao, valor, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				OrdemDeServico os = new OrdemDeServico(cod, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				OrdensServico.add(os);
 
 			}
@@ -265,20 +336,21 @@ public class PersistenciaEmBanco {
 	
 	public void CadastrarOS(OrdemDeServico obj) {
 		
-		String sqlInserirCliente = "insert into ordemdeservico (descricao, valor, data_entrada, data_saida, forma_pagamento, status, placa_veiculo, nome_cliente)"
-				+ " values (?,?,?,?,?,?,?,?);";
+		String sqlInserirCliente = "insert into ordemdeservico (descricao, valor_mao_obra, valor_pecas, data_entrada, data_saida, forma_pagamento, status, placa_veiculo, nome_cliente)"
+				+ " values (?,?,?,?,?,?,?,?,?);";
 		
 		try 
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sqlInserirCliente);
 			pstmt.setString(1, obj.getDescricao());
-			pstmt.setFloat( 2, obj.getValor());
-			pstmt.setString(3, obj.getData_Entrada());
-			pstmt.setString(4, obj.getData_Saida());
-			pstmt.setString(5, obj.getForma_pagamento());
-			pstmt.setString(6, obj.getStatus());
-			pstmt.setString(7, obj.getPlacaVeiculo());
-			pstmt.setString(8, obj.getNomeCliente());
+			pstmt.setFloat( 2, obj.getValorMaoDeObra());
+			pstmt.setFloat( 3, obj.getValorPecas());
+			pstmt.setString(4, obj.getData_Entrada());
+			pstmt.setString(5, obj.getData_Saida());
+			pstmt.setString(6, obj.getForma_pagamento());
+			pstmt.setString(7, obj.getStatus());
+			pstmt.setString(8, obj.getPlacaVeiculo());
+			pstmt.setString(9, obj.getNomeCliente());
 			
 			pstmt.execute();
 			pstmt.close();
@@ -294,7 +366,7 @@ public class PersistenciaEmBanco {
 	
 	public void UpdateOS(OrdemDeServico obj) {
 		
-		String sql = "UPDATE ordemdeservico SET descricao = ?, data_entrada= ?, data_saida= ?, valor=?, status= ?, forma_pagamento= ? WHERE codigo = ?;";
+		String sql = "UPDATE ordemdeservico SET descricao = ?, data_entrada= ?, data_saida= ?, valor_mao_obra=?, valor_pecas=?, status= ?, forma_pagamento= ? WHERE codigo = ?;";
 		
 		try 
 		{
@@ -302,15 +374,14 @@ public class PersistenciaEmBanco {
 			pstmt.setString(1, obj.getDescricao());
 			pstmt.setString(2, obj.getData_Entrada());
 			pstmt.setString(3, obj.getData_Saida());
-			pstmt.setFloat(4, obj.getValor());
-			pstmt.setString(5, obj.getStatus());
-			pstmt.setString(6, obj.getForma_pagamento());
-			pstmt.setInt(7, Integer.parseInt(obj.getCod()));
+			pstmt.setFloat( 4, obj.getValorMaoDeObra());
+			pstmt.setFloat( 5, obj.getValorPecas());
+			pstmt.setString(6, obj.getStatus());
+			pstmt.setString(7, obj.getForma_pagamento());
+			pstmt.setInt(8, Integer.parseInt(obj.getCod()));
 			
 			pstmt.execute();
 			pstmt.close();
-			
-			System.out.println("ORDEM DE SERVIÇO CADASTRADA!");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

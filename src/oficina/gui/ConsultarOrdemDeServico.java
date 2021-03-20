@@ -21,22 +21,22 @@ import java.awt.event.ActionEvent;
 public class ConsultarOrdemDeServico extends JDialog{
 	
 	private JTable table;
-	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor", "Pagamento"};
-	private final int QUANTIDADE_MAX_CONTAS = 10000;
-	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][6];
+	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor Mão de Obra", "Valor Peças", "Pagamento"};
+	private final int QUANTIDADE_MAX_CONTAS = 100;
+	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][7];
 	private JTextField tfPlaca;
 	
 	public ConsultarOrdemDeServico() {
 		setResizable(false);
 		
-		setSize(869,474);
+		setSize(943,563);
 		setTitle("CONSULTAR ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 816, 373);
+		scrollPane.setBounds(10, 49, 901, 456);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable(elementos, colunasTabela);
@@ -44,11 +44,11 @@ public class ConsultarOrdemDeServico extends JDialog{
 		scrollPane.setViewportView(table);
 		
 		JLabel lblPlaca = new JLabel("NOME OU PLACA:");
-		lblPlaca.setBounds(9, 19, 125, 14);
+		lblPlaca.setBounds(9, 19, 116, 14);
 		getContentPane().add(lblPlaca);
 		
 		tfPlaca = new JTextField();
-		tfPlaca.setBounds(144, 16, 371, 20);
+		tfPlaca.setBounds(130, 16, 440, 20);
 		getContentPane().add(tfPlaca);
 		tfPlaca.setColumns(10);
 		
@@ -76,7 +76,7 @@ public class ConsultarOrdemDeServico extends JDialog{
 			}
 		});
 		
-		btConsultar.setBounds(518, 15, 157, 23);
+		btConsultar.setBounds(593, 15, 157, 23);
 		getContentPane().add(btConsultar);
 		
 		JButton btnNewButton = new JButton("EDITAR OS");
@@ -108,7 +108,7 @@ public class ConsultarOrdemDeServico extends JDialog{
 
 			}
 		});
-		btnNewButton.setBounds(679, 15, 151, 23);
+		btnNewButton.setBounds(760, 15, 151, 23);
 		getContentPane().add(btnNewButton);
 		setVisible(true);
 		
@@ -133,6 +133,7 @@ public class ConsultarOrdemDeServico extends JDialog{
 			elementos[i][3] = "";
 			elementos[i][4] = "";
 			elementos[i][5] = "";
+			elementos[i][6] = "";
 		}
 	}
 	
@@ -151,8 +152,9 @@ public class ConsultarOrdemDeServico extends JDialog{
 			elementos[i][1] = Ordem.getPlacaVeiculo();
 			elementos[i][2] = Ordem.getStatus();
 			elementos[i][3] = Ordem.getNomeCliente();
-			elementos[i][4] = Ordem.getValor();
-			elementos[i][5] = Ordem.getForma_pagamento();
+			elementos[i][4] = Ordem.getValorMaoDeObra();
+			elementos[i][5] = Ordem.getValorPecas();
+			elementos[i][6] = Ordem.getForma_pagamento();
 			
 			i++;
 		}

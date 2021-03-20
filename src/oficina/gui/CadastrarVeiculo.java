@@ -43,15 +43,15 @@ public class CadastrarVeiculo extends JFrame{
 		getContentPane().setLayout(null);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
-		lblModelo.setBounds(92, 27, 46, 14);
+		lblModelo.setBounds(64, 27, 74, 14);
 		getContentPane().add(lblModelo);
 		
 		JLabel lblPlaca = new JLabel("Placa:");
-		lblPlaca.setBounds(92, 70, 46, 14);
+		lblPlaca.setBounds(64, 70, 74, 14);
 		getContentPane().add(lblPlaca);
 		
 		JLabel lblCor = new JLabel("Cor:");
-		lblCor.setBounds(92, 113, 46, 14);
+		lblCor.setBounds(64, 113, 74, 14);
 		getContentPane().add(lblCor);
 		
 		tfModelo = new JTextField();
@@ -114,11 +114,11 @@ public class CadastrarVeiculo extends JFrame{
 		tfKmAtual.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Ano:");
-		lblNewLabel.setBounds(92, 155, 46, 14);
+		lblNewLabel.setBounds(64, 155, 74, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("KM Atual:");
-		lblNewLabel_1.setBounds(92, 197, 46, 14);
+		lblNewLabel_1.setBounds(64, 197, 74, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		setVisible(true);

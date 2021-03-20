@@ -6,7 +6,8 @@ public class OrdemDeServico {
 	
 	String cod;
 	String Descricao;
-	Float  Valor = 0f;
+	Float  ValorPecas = 0f;
+	Float  ValorMaoDeObra = 0f;
 	String Data_Entrada;
 	String Data_Saida;
 	String forma_pagamento;
@@ -15,12 +16,13 @@ public class OrdemDeServico {
 	String placaVeiculo;
 	String nomeCliente;
 
-	public OrdemDeServico(String cod, String descricao, Float valor, String data_Entrada, String data_Saida, String forma_pagamento,
+	public OrdemDeServico(String cod, String descricao, Float ValorMaoDeObra, Float ValorPecas, String data_Entrada, String data_Saida, String forma_pagamento,
 			String status, String veiculo, String cliente) {
 		super();
 		this.cod = cod;
 		this.Descricao = descricao;
-		this.Valor = valor;
+		this.ValorMaoDeObra = ValorMaoDeObra;
+		this.ValorPecas = ValorPecas;
 		this.Data_Entrada = data_Entrada;
 		this.Data_Saida = data_Saida;
 		this.forma_pagamento = forma_pagamento;
@@ -29,48 +31,86 @@ public class OrdemDeServico {
 		this.nomeCliente = cliente;
 	}
 
-	@Override
-	public String toString() {
-		return "OrdemDeServico [Descricao=" + Descricao + ", Valor=" + Valor + ", Data_Entrada=" + Data_Entrada
-				+ ", Data_Saida=" + Data_Saida + ", veiculo=" + placaVeiculo + ", cliente=" + nomeCliente + "]";
-	}
-
 	public String getCod() {
 		return cod;
+	}
+
+	public void setCod(String cod) {
+		this.cod = cod;
 	}
 
 	public String getDescricao() {
 		return Descricao;
 	}
 
-	public Float getValor() {
-		return Valor;
+	public void setDescricao(String descricao) {
+		Descricao = descricao;
+	}
+
+	public Float getValorPecas() {
+		return ValorPecas;
+	}
+
+	public void setValorPecas(Float valorPecas) {
+		ValorPecas = valorPecas;
+	}
+
+	public Float getValorMaoDeObra() {
+		return ValorMaoDeObra;
+	}
+
+	public void setValorMaoDeObra(Float valorMaoDeObra) {
+		ValorMaoDeObra = valorMaoDeObra;
 	}
 
 	public String getData_Entrada() {
-		
 		return Data_Entrada;
+	}
+
+	public void setData_Entrada(String data_Entrada) {
+		Data_Entrada = data_Entrada;
 	}
 
 	public String getData_Saida() {
 		return Data_Saida;
 	}
 
+	public void setData_Saida(String data_Saida) {
+		Data_Saida = data_Saida;
+	}
+
 	public String getForma_pagamento() {
 		return forma_pagamento;
+	}
+
+	public void setForma_pagamento(String forma_pagamento) {
+		this.forma_pagamento = forma_pagamento;
 	}
 
 	public String getStatus() {
 		return status;
 	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getPlacaVeiculo() {
 		return placaVeiculo;
+	}
+
+	public void setPlacaVeiculo(String placaVeiculo) {
+		this.placaVeiculo = placaVeiculo;
 	}
 
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
 
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+	
 	
 }
