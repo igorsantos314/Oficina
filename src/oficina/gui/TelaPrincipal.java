@@ -43,8 +43,8 @@ public class TelaPrincipal extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public TelaPrincipal(){
+	
+	public TelaPrincipal(String nivelDeAcesso){
 		
 		//DATA ATUAL
 		LocalDate localDate      = LocalDate.now();
@@ -58,29 +58,12 @@ public class TelaPrincipal extends JFrame{
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("  JUNIN OFICINAS");
-		lblNewLabel.setForeground(new Color(255, 153, 51));
-		lblNewLabel.setFont(new Font("Segoe Script", Font.BOLD | Font.ITALIC, 74));
-		lblNewLabel.setBounds(20, 133, 774, 238);
-		getContentPane().add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("-----------------------------------------------------------------------------------------------------");
-		lblNewLabel_1.setForeground(new Color(255, 153, 51));
-		lblNewLabel_1.setBounds(10, 120, 774, 14);
-		getContentPane().add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("-----------------------------------------------------------------------------------------------------");
-		lblNewLabel_1_1.setForeground(new Color(255, 153, 51));
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1.setBounds(274, 375, 520, 14);
-		getContentPane().add(lblNewLabel_1_1);
-		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 498, 762, 28);
 		getContentPane().add(panel);
 		
-		JLabel lblNewLabel_2 = new JLabel("VERSION: 15.0.0.1");
+		JLabel lblNewLabel_2 = new JLabel("VERSION: 2.0.0.0");
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblDate = new JLabel("Date");
@@ -88,6 +71,13 @@ public class TelaPrincipal extends JFrame{
 		
 		//SETAR DATA
 		lblDate.setText("Data: "+ localDate.toString());
+		
+		//Setar Imagem
+		ImageIcon imagem = new ImageIcon(getClass().getResource("logo.png")); 
+		
+		JLabel lblLogo = new JLabel(imagem);
+		lblLogo.setBounds(10, 11, 762, 476);
+		getContentPane().add(lblLogo);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -100,7 +90,7 @@ public class TelaPrincipal extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					//CHAMAR TELA DE CADASTRO DE VEICULO
-					new CadastrarVeiculo();
+					new TelaCadastrarVeiculo();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -110,6 +100,15 @@ public class TelaPrincipal extends JFrame{
 		
 		mnVeiculos.add(mntmNovoVeiculo);
 		
+		JMenuItem mntmConsultarVeiculos = new JMenuItem("Consultar Veiculos");
+		mntmConsultarVeiculos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//ABRIR TELA DE CONSULTAR VEICULOS
+				new TelaConsultarVeiculos();
+			}
+		});
+		mnVeiculos.add(mntmConsultarVeiculos);
+		
 		JMenu mnCliente = new JMenu("Clientes");
 		menuBar.add(mnCliente);
 		
@@ -118,7 +117,7 @@ public class TelaPrincipal extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					//CHAMAR TELA DE CADASTRO DE CLIENTE
-					new CadastrarCliente();
+					new TelaCadastrarCliente();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -128,14 +127,33 @@ public class TelaPrincipal extends JFrame{
 		
 		mnCliente.add(mntmCadastrarCliente);
 		
-		JMenu mnOrdemServico = new JMenu("Ordem de Servi\u00E7o");
+		JMenuItem mntmConsultarClientes = new JMenuItem("Consultar Clientes");
+		mntmConsultarClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//CHAMAR TELA DE CCONSULTAR VEICULOS
+				new TelaConsultarClientes();
+			}
+		});
+		mnCliente.add(mntmConsultarClientes);
+		
+		JMenu mnProduto = new JMenu("Produtos");
+		menuBar.add(mnProduto);
+		
+		JMenuItem mntmCadastrarProduto = new JMenuItem("Cadastrar Produto");
+		mnProduto.add(mntmCadastrarProduto);
+		
+		JMenuItem mntmConsultarProdutos = new JMenuItem("Consultar Produtos");
+		mnProduto.add(mntmConsultarProdutos);
+		
+		JMenu mnOrdemServico = new JMenu("Ordens de Servi\u00E7o");
 		menuBar.add(mnOrdemServico);
 		
 		JMenuItem mntmNovaOS = new JMenuItem("Nova OS");
 		mntmNovaOS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new CadastrarOrdemDeServico();
+					new TelaCadastrarOrdemDeServico();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -148,7 +166,7 @@ public class TelaPrincipal extends JFrame{
 		JMenuItem mntmConsultarOS = new JMenuItem("Conultar OS");
 		mntmConsultarOS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ConsultarOrdemDeServico();
+				new TelaConsultarOrdemDeServico();
 			}
 		});
 		mnOrdemServico.add(mntmConsultarOS);

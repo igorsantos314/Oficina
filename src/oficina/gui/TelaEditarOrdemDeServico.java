@@ -32,7 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 
-public class EditarOrdemDeServico extends JDialog{
+public class TelaEditarOrdemDeServico extends JDialog{
 	private JTextField tfCod;
 	private JTextField tfValorMaoDeObra;
 	JTextArea taDescricao;
@@ -44,7 +44,7 @@ public class EditarOrdemDeServico extends JDialog{
 	private JComboBox cbStatus;
 	private JTextField tfValorPecas;
 	
-	public EditarOrdemDeServico(String cod) throws ParseException {
+	public TelaEditarOrdemDeServico(String cod) throws ParseException {
 		
 		setResizable(false);
 		
@@ -200,7 +200,7 @@ public class EditarOrdemDeServico extends JDialog{
     				dispose();
     				
     				//EXIBIR JANELA COM TODOS OS DADOS
-    				new ConsultarOrdemDeServico();
+    				new TelaConsultarOrdemDeServico();
                 }
                 else
                 {
@@ -217,7 +217,7 @@ public class EditarOrdemDeServico extends JDialog{
 				dispose();
 				
 				//EXIBIR JANELA COM TODOS OS DADOS
-				new ConsultarOrdemDeServico();
+				new TelaConsultarOrdemDeServico();
 			}
 		});
 		panel_3.add(btnCancelar);
@@ -238,13 +238,13 @@ public class EditarOrdemDeServico extends JDialog{
     				JOptionPane.showMessageDialog(null, "ORDEM DE SERVIÇO EXCLUIDA!");
     				
     				//INCIALIZA O OBJETO PARA ATUALIZAR A TABELA
-    				ConsultarOrdemDeServico C = new ConsultarOrdemDeServico();
+    				TelaConsultarOrdemDeServico C = new TelaConsultarOrdemDeServico();
     				
     				//FECHAR JANELA
     				dispose();
     				
     				//EXIBIR JANELA COM TODOS OS DADOS
-    				new ConsultarOrdemDeServico();
+    				new TelaConsultarOrdemDeServico();
                 }
                 else
                 {

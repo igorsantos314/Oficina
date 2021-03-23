@@ -31,7 +31,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.border.EtchedBorder;
 
-public class CadastrarOrdemDeServico extends JFrame{
+public class TelaCadastrarOrdemDeServico extends JFrame{
 	private JTextField tfValorMaoDeObra;
 	private JFormattedTextField tfEntrada;
 	private JFormattedTextField tfSaida;
@@ -42,7 +42,7 @@ public class CadastrarOrdemDeServico extends JFrame{
 	private JTextField tfCliente;
 	private JTextField tfVeiculo;
 	
-	public CadastrarOrdemDeServico() throws ParseException {
+	public TelaCadastrarOrdemDeServico() throws ParseException {
 		
 		setResizable(false);
 		

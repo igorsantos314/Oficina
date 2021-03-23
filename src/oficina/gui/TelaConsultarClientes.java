@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import oficina.modelo.Cliente;
+import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.persistencia.PersistenciaEmBanco;
 
@@ -18,15 +20,20 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class ConsultarOrdemDeServico extends JDialog{
+public class TelaConsultarClientes extends JDialog{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
-	private String[] colunasTabela = {"Cod", "Placa", "Status", "Nome Cliente", "Valor Mão de Obra", "Valor Peças", "Pagamento"};
+	private String[] colunasTabela = {"CPF", "Nome", "Telefone", "Email"};
 	private final int QUANTIDADE_MAX_CONTAS = 100;
-	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][7];
-	private JTextField tfPlaca;
+	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][4];
+	private JTextField tfNomeCliente;
 	
-	public ConsultarOrdemDeServico() {
+	public TelaConsultarClientes() {
 		setResizable(false);
 		
 		setSize(943,563);
@@ -43,22 +50,22 @@ public class ConsultarOrdemDeServico extends JDialog{
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 		
-		JLabel lblPlaca = new JLabel("NOME OU PLACA:");
+		JLabel lblPlaca = new JLabel("NOME CLIENTE:");
 		lblPlaca.setBounds(9, 19, 116, 14);
 		getContentPane().add(lblPlaca);
 		
-		tfPlaca = new JTextField();
-		tfPlaca.setBounds(130, 16, 440, 20);
-		getContentPane().add(tfPlaca);
-		tfPlaca.setColumns(10);
+		tfNomeCliente = new JTextField();
+		tfNomeCliente.setBounds(130, 16, 440, 20);
+		getContentPane().add(tfNomeCliente);
+		tfNomeCliente.setColumns(10);
 		
 		JButton btConsultar = new JButton("CONSULTAR");
 		btConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String nomePlaca = tfPlaca.getText().toUpperCase();
+				String nomeCliente = tfNomeCliente.getText().toUpperCase();
 				
-				if(nomePlaca.equalsIgnoreCase("")) {
+				if(nomeCliente.equalsIgnoreCase("")) {
 					
 					//POVOAR TABELA
 					updateTable();
@@ -67,10 +74,10 @@ public class ConsultarOrdemDeServico extends JDialog{
 				
 				else {
 					//FAZER CONSULTA NO BD
-					ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getOSPlaca(nomePlaca);
+					ArrayList<Cliente> veiculos = (ArrayList<Cliente>) PersistenciaEmBanco.pegarInstancia().getClientesNome(nomeCliente);
 					
 					//POVOAR TABELA
-					inserirTabela(oss);
+					inserirTabela(veiculos);
 				}
 				
 			}
@@ -79,7 +86,7 @@ public class ConsultarOrdemDeServico extends JDialog{
 		btConsultar.setBounds(593, 15, 157, 23);
 		getContentPane().add(btConsultar);
 		
-		JButton btnNewButton = new JButton("EDITAR OS");
+		JButton btnNewButton = new JButton("EDITAR CLIENTE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -96,7 +103,7 @@ public class ConsultarOrdemDeServico extends JDialog{
 						dispose();
 						
 						//ABRIR JANELA DE EDIÇÃO
-						EditarOrdemDeServico eos = new EditarOrdemDeServico(os_selecionada);
+						TelaEditarOrdemDeServico eos = new TelaEditarOrdemDeServico(os_selecionada);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -118,11 +125,6 @@ public class ConsultarOrdemDeServico extends JDialog{
 		setVisible(true);
 	}
 	
-	public ConsultarOrdemDeServico(boolean status) {
-		//ATUALIZAR TABELA
-		this.updateTable();
-	}
-	
 	public void clearTable() {
 		//LIMPAR CAMPOS
 		for(int i = 0; i<QUANTIDADE_MAX_CONTAS; i++)
@@ -131,13 +133,10 @@ public class ConsultarOrdemDeServico extends JDialog{
 			elementos[i][1] = "";
 			elementos[i][2] = "";
 			elementos[i][3] = "";
-			elementos[i][4] = "";
-			elementos[i][5] = "";
-			elementos[i][6] = "";
 		}
 	}
 	
-	public void inserirTabela(ArrayList<OrdemDeServico> oss) {
+	public void inserirTabela(ArrayList<Cliente> clientes) {
 		
 		//LIMPAR CAMPOS
 		clearTable();
@@ -146,15 +145,12 @@ public class ConsultarOrdemDeServico extends JDialog{
 		int i = 0;
 		
 		//PRENCHER CAMPOS
-		for(OrdemDeServico Ordem : oss)
+		for(Cliente veiculo : clientes)
 		{
-			elementos[i][0] = Ordem.getCod();
-			elementos[i][1] = Ordem.getPlacaVeiculo();
-			elementos[i][2] = Ordem.getStatus();
-			elementos[i][3] = Ordem.getNomeCliente();
-			elementos[i][4] = Ordem.getValorMaoDeObra();
-			elementos[i][5] = Ordem.getValorPecas();
-			elementos[i][6] = Ordem.getForma_pagamento();
+			elementos[i][0] = veiculo.getCpf();
+			elementos[i][1] = veiculo.getNome();
+			elementos[i][2] = veiculo.getTelefone();
+			elementos[i][3] = veiculo.getEmail();
 			
 			i++;
 		}
@@ -166,9 +162,9 @@ public class ConsultarOrdemDeServico extends JDialog{
 	public void updateTable() {
 		
 		//FAZER CONSULTA NO BD
-		ArrayList<OrdemDeServico> oss = (ArrayList<OrdemDeServico>) PersistenciaEmBanco.pegarInstancia().getAllOS();
+		ArrayList<Cliente> clientes = (ArrayList<Cliente>) PersistenciaEmBanco.pegarInstancia().getAllClientes();
 	
 		//ATUALIZAR TABELA
-		inserirTabela(oss);
+		inserirTabela(clientes);
 	}
 }

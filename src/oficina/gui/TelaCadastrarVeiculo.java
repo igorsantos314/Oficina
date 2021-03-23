@@ -26,14 +26,14 @@ import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
-public class CadastrarVeiculo extends JFrame{
+public class TelaCadastrarVeiculo extends JFrame{
 	private JTextField tfModelo;
 	private JTextField tfCor;
 	private JTextField tfPlaca;
 	private JTextField tfAno;
 	private JTextField tfKmAtual;
 	
-	public CadastrarVeiculo() throws ParseException{
+	public TelaCadastrarVeiculo() throws ParseException{
 		setResizable(false);
 		
 		setSize(400,335);

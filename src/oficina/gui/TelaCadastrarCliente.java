@@ -19,13 +19,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
-public class CadastrarCliente extends JFrame{
+public class TelaCadastrarCliente extends JFrame{
 	private JTextField tfNome;
 	private JTextField tfEmail;
 	private JFormattedTextField tfCPF;
 	private JFormattedTextField tfTelefone;
 	
-	public CadastrarCliente() throws java.text.ParseException{
+	public TelaCadastrarCliente() throws java.text.ParseException{
 		setResizable(false);
 		
 		setSize(413,284);
