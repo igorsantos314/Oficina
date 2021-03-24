@@ -35,6 +35,39 @@ public class PersistenciaEmBanco {
 		}
 	}
 	
+	public boolean realizarLogin(String user, String senha) {
+		
+		String senhaUser = null;
+		String sql = "select senha from users where usuario='" + user + "';";
+
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				senhaUser = rs.getString("senha");
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+			//VERIFICAR SE A SENHA ESTÁ CORRETA
+			if(senhaUser.equals(senha)) {
+				
+				return true;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return false;
+	}
+	
 	public List<Cliente> getAllClientes() {
 		
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();

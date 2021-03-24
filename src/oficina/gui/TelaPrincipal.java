@@ -52,7 +52,7 @@ public class TelaPrincipal extends JFrame{
 		getContentPane().setBackground(SystemColor.menu);
 		setResizable(false);
 		
-		setSize(800,600);
+		setSize(1043,641);
 		setTitle("SISTEMA DE OFICINAS");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -60,7 +60,7 @@ public class TelaPrincipal extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 498, 762, 28);
+		panel.setBounds(10, 551, 1005, 28);
 		getContentPane().add(panel);
 		
 		JLabel lblNewLabel_2 = new JLabel("VERSION: 2.0.0.0");
@@ -76,16 +76,19 @@ public class TelaPrincipal extends JFrame{
 		ImageIcon imagem = new ImageIcon(getClass().getResource("logo.png")); 
 		
 		JLabel lblLogo = new JLabel(imagem);
-		lblLogo.setBounds(10, 11, 762, 476);
+		lblLogo.setBounds(10, 11, 1005, 527);
 		getContentPane().add(lblLogo);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(Color.WHITE);
 		setJMenuBar(menuBar);
 		
 		JMenu mnVeiculos = new JMenu("Veiculos");
+		mnVeiculos.setBackground(Color.WHITE);
 		menuBar.add(mnVeiculos);
 		
 		JMenuItem mntmNovoVeiculo = new JMenuItem("Cadastrar Veiculo");
+		mntmNovoVeiculo.setBackground(Color.WHITE);
 		mntmNovoVeiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -101,6 +104,7 @@ public class TelaPrincipal extends JFrame{
 		mnVeiculos.add(mntmNovoVeiculo);
 		
 		JMenuItem mntmConsultarVeiculos = new JMenuItem("Consultar Veiculos");
+		mntmConsultarVeiculos.setBackground(Color.WHITE);
 		mntmConsultarVeiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ABRIR TELA DE CONSULTAR VEICULOS
@@ -110,9 +114,11 @@ public class TelaPrincipal extends JFrame{
 		mnVeiculos.add(mntmConsultarVeiculos);
 		
 		JMenu mnCliente = new JMenu("Clientes");
+		mnCliente.setBackground(Color.WHITE);
 		menuBar.add(mnCliente);
 		
 		JMenuItem mntmCadastrarCliente = new JMenuItem("Cadastrar Cliente");
+		mntmCadastrarCliente.setBackground(Color.WHITE);
 		mntmCadastrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -128,6 +134,7 @@ public class TelaPrincipal extends JFrame{
 		mnCliente.add(mntmCadastrarCliente);
 		
 		JMenuItem mntmConsultarClientes = new JMenuItem("Consultar Clientes");
+		mntmConsultarClientes.setBackground(Color.WHITE);
 		mntmConsultarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -138,18 +145,23 @@ public class TelaPrincipal extends JFrame{
 		mnCliente.add(mntmConsultarClientes);
 		
 		JMenu mnProduto = new JMenu("Produtos");
+		mnProduto.setBackground(Color.WHITE);
 		menuBar.add(mnProduto);
 		
 		JMenuItem mntmCadastrarProduto = new JMenuItem("Cadastrar Produto");
+		mntmCadastrarProduto.setBackground(Color.WHITE);
 		mnProduto.add(mntmCadastrarProduto);
 		
 		JMenuItem mntmConsultarProdutos = new JMenuItem("Consultar Produtos");
+		mntmConsultarProdutos.setBackground(Color.WHITE);
 		mnProduto.add(mntmConsultarProdutos);
 		
 		JMenu mnOrdemServico = new JMenu("Ordens de Servi\u00E7o");
+		mnOrdemServico.setBackground(Color.WHITE);
 		menuBar.add(mnOrdemServico);
 		
 		JMenuItem mntmNovaOS = new JMenuItem("Nova OS");
+		mntmNovaOS.setBackground(Color.WHITE);
 		mntmNovaOS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -164,12 +176,28 @@ public class TelaPrincipal extends JFrame{
 		mnOrdemServico.add(mntmNovaOS);
 		
 		JMenuItem mntmConsultarOS = new JMenuItem("Conultar OS");
+		mntmConsultarOS.setBackground(Color.WHITE);
 		mntmConsultarOS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TelaConsultarOrdemDeServico();
 			}
 		});
 		mnOrdemServico.add(mntmConsultarOS);
+		
+		JMenu mnSetorVendas = new JMenu("Setor de Vendas");
+		mnSetorVendas.setBackground(Color.WHITE);
+		menuBar.add(mnSetorVendas);
+		
+		JMenuItem mntmVenderProdutos = new JMenuItem("Vender Produtos");
+		mntmVenderProdutos.setBackground(Color.WHITE);
+		mntmVenderProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//CHAMAR TELA DE VENDER PRODUTO
+				new TelaSetorDeVendas();
+			}
+		});
+		mnSetorVendas.add(mntmVenderProdutos);
 		
 		setVisible(true);
 	}

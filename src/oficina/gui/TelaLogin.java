@@ -4,10 +4,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import oficina.persistencia.PersistenciaEmBanco;
 import oficina.types.StatusTypes;
 import oficina.types.UserTypes;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame{
-	private JPasswordField passwordField;
+	private JPasswordField pfSenha;
 	
 	public TelaLogin() {
 		
@@ -34,7 +36,7 @@ public class TelaLogin extends JFrame{
 		lblNewLabel.setBounds(10, 21, 172, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox cbUser = new JComboBox();
+		JComboBox<UserTypes> cbUser = new JComboBox();
 		cbUser.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbUser.setForeground(Color.RED);
 		cbUser.setModel(new DefaultComboBoxModel<>(UserTypes.values()));
@@ -49,6 +51,19 @@ public class TelaLogin extends JFrame{
 		btAcessarSistema.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				//RETORNA ACESSO NEGADO OU PERMITIDO
+				boolean permition = PersistenciaEmBanco.pegarInstancia().realizarLogin(cbUser.getSelectedItem().toString(), pfSenha.getText());
+				
+				//LIMPAR CAMPOS
+				pfSenha.setText("");
+				
+				if(permition) {
+					JOptionPane.showMessageDialog(null, "BEM-VINDO !!");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "ACESSO NEGADO !!");
+				}
+				
 				
 				
 			}
@@ -56,13 +71,11 @@ public class TelaLogin extends JFrame{
 		btAcessarSistema.setBounds(26, 132, 172, 50);
 		getContentPane().add(btAcessarSistema);
 		
-		passwordField = new JPasswordField();
-		passwordField.setForeground(Color.RED);
-		passwordField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		passwordField.setBounds(10, 88, 204, 22);
-		getContentPane().add(passwordField);
-		
-		
+		pfSenha = new JPasswordField();
+		pfSenha.setForeground(Color.RED);
+		pfSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
+		pfSenha.setBounds(10, 88, 204, 22);
+		getContentPane().add(pfSenha);
 		
 		setVisible(true);
 	}
