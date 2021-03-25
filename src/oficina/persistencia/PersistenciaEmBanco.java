@@ -14,6 +14,7 @@ import oficina.exception.VeiculoJaCadastradoException;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
+import oficina.modelo.Produto;
 import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
 
@@ -280,7 +281,7 @@ public class PersistenciaEmBanco {
 		return null;
 	}
 	
-	public List<OrdemDeServico> getOSPlaca(String nomePlaca){
+	public ArrayList<OrdemDeServico> getOSPlaca(String nomePlaca){
 		
 		ArrayList<OrdemDeServico> OrdensServico = new ArrayList<OrdemDeServico>();
 		String sql = "select * from ordemdeservico where placa_veiculo LIKE '%" + nomePlaca + "%' or nome_cliente LIKE '%"  + nomePlaca + "%' order by codigo asc;";
@@ -316,6 +317,74 @@ public class PersistenciaEmBanco {
 		}
 		
 		return OrdensServico;
+	}
+	
+	public ArrayList<Produto> getAllProdutos(){
+		
+		ArrayList<Produto> produtos = new ArrayList<Produto>();
+		String sql = "select * from produto;";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int cod = rs.getInt("cod");
+				String nome = rs.getString("nome");
+				Float valorDeCompra = rs.getFloat("valorDeCompra");
+				Float valorDeVenda = rs.getFloat("valorDeVenda");
+				int quantidade = rs.getInt("quantidade");
+				
+				Produto p = new Produto(cod, nome, valorDeCompra, valorDeVenda, quantidade);
+				produtos.add(p);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return produtos;
+
+	}
+	
+	public ArrayList<Produto> getProdutoNome(String nome){
+		
+		ArrayList<Produto> produtos = new ArrayList<Produto>();
+		String sql = "select * from produto where nome like '%" + nome + "%';";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int cod = rs.getInt("cod");
+				String nomeProd = rs.getString("nome");
+				Float valorDeCompra = rs.getFloat("valorDeCompra");
+				Float valorDeVenda = rs.getFloat("valorDeVenda");
+				int quantidade = rs.getInt("quantidade");
+				
+				Produto p = new Produto(cod, nomeProd, valorDeCompra, valorDeVenda, quantidade);
+				produtos.add(p);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return produtos;
+
 	}
 	
 	public void CadastrarCliente(Cliente obj) throws ClienteJaCadastradoException{
@@ -396,6 +465,30 @@ public class PersistenciaEmBanco {
 		}
 		
 	}
+	
+	public void CadastrarProduto(Produto obj){
+		
+		String sqlInserirCliente = "insert into produto (nome, valorDeCompra, valorDeVenda, quantidade)"
+				+ " values (?,?,?,?);";
+		
+		try 
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sqlInserirCliente);
+			pstmt.setString(1, obj.getNome());
+			pstmt.setFloat(2, obj.getValorDeCompra());
+			pstmt.setFloat(3, obj.getValorDeVenda());
+			pstmt.setInt(4, obj.getQuantidade());
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+	}
+	
 	
 	public void UpdateOS(OrdemDeServico obj) {
 		

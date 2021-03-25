@@ -49,34 +49,31 @@ public class TelaPrincipal extends JFrame{
 		//DATA ATUAL
 		LocalDate localDate      = LocalDate.now();
 		
-		getContentPane().setBackground(SystemColor.menu);
+		getContentPane().setBackground(Color.BLACK);
 		setResizable(false);
 		
-		setSize(1043,641);
+		setSize(1043,728);
 		setTitle("SISTEMA DE OFICINAS");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 551, 1005, 28);
+		panel.setBounds(10, 622, 1005, 28);
 		getContentPane().add(panel);
 		
 		JLabel lblNewLabel_2 = new JLabel("VERSION: 2.0.0.0");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_2.setForeground(Color.WHITE);
 		panel.add(lblNewLabel_2);
 		
-		JLabel lblDate = new JLabel("Date");
-		panel.add(lblDate);
-		
-		//SETAR DATA
-		lblDate.setText("Data: "+ localDate.toString());
-		
 		//Setar Imagem
-		ImageIcon imagem = new ImageIcon(getClass().getResource("logo.png")); 
+		ImageIcon imagem = new ImageIcon(getClass().getResource("logo.jpeg")); 
 		
 		JLabel lblLogo = new JLabel(imagem);
-		lblLogo.setBounds(10, 11, 1005, 527);
+		lblLogo.setBounds(10, 11, 1005, 600);
 		getContentPane().add(lblLogo);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -84,6 +81,7 @@ public class TelaPrincipal extends JFrame{
 		setJMenuBar(menuBar);
 		
 		JMenu mnVeiculos = new JMenu("Veiculos");
+		mnVeiculos.setForeground(Color.BLACK);
 		mnVeiculos.setBackground(Color.WHITE);
 		menuBar.add(mnVeiculos);
 		
@@ -114,6 +112,7 @@ public class TelaPrincipal extends JFrame{
 		mnVeiculos.add(mntmConsultarVeiculos);
 		
 		JMenu mnCliente = new JMenu("Clientes");
+		mnCliente.setForeground(Color.BLACK);
 		mnCliente.setBackground(Color.WHITE);
 		menuBar.add(mnCliente);
 		
@@ -145,18 +144,32 @@ public class TelaPrincipal extends JFrame{
 		mnCliente.add(mntmConsultarClientes);
 		
 		JMenu mnProduto = new JMenu("Produtos");
+		mnProduto.setForeground(Color.BLACK);
 		mnProduto.setBackground(Color.WHITE);
 		menuBar.add(mnProduto);
 		
 		JMenuItem mntmCadastrarProduto = new JMenuItem("Cadastrar Produto");
+		mntmCadastrarProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CHAMAR TELA DE CADASTRAR PRODUTO
+				new TelaCadastrarProduto();
+			}
+		});
 		mntmCadastrarProduto.setBackground(Color.WHITE);
 		mnProduto.add(mntmCadastrarProduto);
 		
 		JMenuItem mntmConsultarProdutos = new JMenuItem("Consultar Produtos");
+		mntmConsultarProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CHAMAR TELA DE CONSULTAR PRODUTOS
+				new TelaConsultarProdutos();
+			}
+		});
 		mntmConsultarProdutos.setBackground(Color.WHITE);
 		mnProduto.add(mntmConsultarProdutos);
 		
 		JMenu mnOrdemServico = new JMenu("Ordens de Servi\u00E7o");
+		mnOrdemServico.setForeground(Color.BLACK);
 		mnOrdemServico.setBackground(Color.WHITE);
 		menuBar.add(mnOrdemServico);
 		
@@ -185,6 +198,7 @@ public class TelaPrincipal extends JFrame{
 		mnOrdemServico.add(mntmConsultarOS);
 		
 		JMenu mnSetorVendas = new JMenu("Setor de Vendas");
+		mnSetorVendas.setForeground(Color.BLACK);
 		mnSetorVendas.setBackground(Color.WHITE);
 		menuBar.add(mnSetorVendas);
 		

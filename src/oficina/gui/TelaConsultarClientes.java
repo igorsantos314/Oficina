@@ -65,20 +65,11 @@ public class TelaConsultarClientes extends JDialog{
 				
 				String nomeCliente = tfNomeCliente.getText().toUpperCase();
 				
-				if(nomeCliente.equalsIgnoreCase("")) {
-					
-					//POVOAR TABELA
-					updateTable();
-					
-				}
+				//FAZER CONSULTA NO BD
+				ArrayList<Cliente> veiculos = (ArrayList<Cliente>) PersistenciaEmBanco.pegarInstancia().getClientesNome(nomeCliente);
 				
-				else {
-					//FAZER CONSULTA NO BD
-					ArrayList<Cliente> veiculos = (ArrayList<Cliente>) PersistenciaEmBanco.pegarInstancia().getClientesNome(nomeCliente);
-					
-					//POVOAR TABELA
-					inserirTabela(veiculos);
-				}
+				//POVOAR TABELA
+				inserirTabela(veiculos);
 				
 			}
 		});
