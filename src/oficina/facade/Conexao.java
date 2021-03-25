@@ -1,6 +1,7 @@
 package oficina.facade;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 import oficina.exception.ClienteJaCadastradoException;
@@ -10,6 +11,7 @@ import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.modelo.Produto;
+import oficina.modelo.ProdutoVendido;
 import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
 import oficina.persistencia.PersistenciaEmBanco;
@@ -91,6 +93,28 @@ public class Conexao {
 							 +	"--------------------------------------------------------------------------------\n"
 							 + 	"Data da Impressão:                                      "+ localDate.toString() + "\n\n"
 							 + 	"                                  Volte Sempre !                                \n";
+		
+		//FUNÇÃO DE IMPRIMIR
+		new Impressao().imprime(textToPrint);
+	}
+	
+	public void imprimirVenda(ArrayList<ProdutoVendido> listaDeProdutos) {
+		
+		String textToPrint = "VENDA DE PRODUTOS - W MOTOS\n\n"
+						   + "CODIGO DA VENDA: " + listaDeProdutos.get(0).getCodVenda() + "\n\n";
+		
+		//VALOR TOTAL DA COMPRA
+		Float total = 0f;
+		
+		//VARRER LISTA DE PRODUTOS
+		for(ProdutoVendido pv : listaDeProdutos) {
+			
+			total += pv.getValorTotal();
+			textToPrint += pv.getNome() + " " + pv.getQuantidade() + " " + pv.getValorTotal() + "\n"; 
+		}
+		
+		textToPrint += 	"\nTotal: R$" + total +"\n"
+					+ 	"Data da Compra: " + listaDeProdutos.get(0).getData() + "\n";
 		
 		//FUNÇÃO DE IMPRIMIR
 		new Impressao().imprime(textToPrint);

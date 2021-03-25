@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import oficina.facade.Conexao;
 import oficina.modelo.Produto;
 import oficina.modelo.ProdutoVendido;
 import oficina.persistencia.PersistenciaEmBanco;
@@ -63,6 +64,7 @@ public class TelaSetorDeVendas extends JFrame{
 	
 	//DATA ATUAL DO COMPUTADOR
 	private LocalDate localDate = LocalDate.now();
+	private JButton btnImprimir;
 			
 	public TelaSetorDeVendas() {
 		setFont(new Font("Arial", Font.PLAIN, 12));
@@ -401,6 +403,17 @@ public class TelaSetorDeVendas extends JFrame{
 		btExcluir.setBackground(Color.LIGHT_GRAY);
 		btExcluir.setBounds(1023, 331, 118, 23);
 		getContentPane().add(btExcluir);
+		
+		btnImprimir = new JButton("IMPRIMIR");
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Conexao.pegarInstancia().imprimirVenda(listaDeCompra);
+			}
+		});
+		btnImprimir.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnImprimir.setBackground(Color.LIGHT_GRAY);
+		btnImprimir.setBounds(1023, 645, 118, 23);
+		getContentPane().add(btnImprimir);
 		
 		//SETAR ID DA VENDA
 		setarIDVenda();
