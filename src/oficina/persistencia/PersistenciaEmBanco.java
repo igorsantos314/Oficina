@@ -436,8 +436,9 @@ public class PersistenciaEmBanco {
 				String nomeProd = rs.getString("nomeProduto");
 				Float valor = rs.getFloat("valorProduto");
 				int quant = rs.getInt("quantidade");
+				String data = rs.getString("dataCompra");
 				
-				ProdutoVendido pv = new ProdutoVendido(codVenda, codProduto, nomeProd, valor, quant);
+				ProdutoVendido pv = new ProdutoVendido(codVenda, codProduto, nomeProd, valor, quant, data);
 				listaDeProdutos.add(pv);
 				
 			}
@@ -557,9 +558,6 @@ public class PersistenciaEmBanco {
 	
 	public void cadastrarVenda(ArrayList<ProdutoVendido> listaDeProdutos) {
 		
-		//DATA ATUAL DO COMPUTADOR
-		LocalDate localDate = LocalDate.now();
-		
 		String sqlInserirVenda = "insert into venderprodutos"
 				+ " values (?,?,?,?,?,?);";
 		
@@ -574,7 +572,7 @@ public class PersistenciaEmBanco {
 				pstmt.setString(3, pv.getNome());
 				pstmt.setFloat(4, pv.getValorUnd());
 				pstmt.setInt(5, pv.getQuantidade());
-				pstmt.setString(6, localDate.toString());
+				pstmt.setString(6, pv.getData());
 				
 				pstmt.execute();
 				pstmt.close();

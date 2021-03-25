@@ -29,14 +29,14 @@ public class TelaConsultarOrdemDeServico extends JDialog{
 	public TelaConsultarOrdemDeServico() {
 		setResizable(false);
 		
-		setSize(943,563);
+		setSize(1142,563);
 		setTitle("CONSULTAR ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 901, 456);
+		scrollPane.setBounds(10, 49, 1104, 456);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable(elementos, colunasTabela);
@@ -48,7 +48,7 @@ public class TelaConsultarOrdemDeServico extends JDialog{
 		getContentPane().add(lblPlaca);
 		
 		tfPlaca = new JTextField();
-		tfPlaca.setBounds(130, 16, 440, 20);
+		tfPlaca.setBounds(130, 16, 609, 20);
 		getContentPane().add(tfPlaca);
 		tfPlaca.setColumns(10);
 		
@@ -76,7 +76,7 @@ public class TelaConsultarOrdemDeServico extends JDialog{
 			}
 		});
 		
-		btConsultar.setBounds(593, 15, 157, 23);
+		btConsultar.setBounds(796, 15, 157, 23);
 		getContentPane().add(btConsultar);
 		
 		JButton btnNewButton = new JButton("EDITAR OS");
@@ -108,7 +108,7 @@ public class TelaConsultarOrdemDeServico extends JDialog{
 
 			}
 		});
-		btnNewButton.setBounds(760, 15, 151, 23);
+		btnNewButton.setBounds(963, 15, 151, 23);
 		getContentPane().add(btnNewButton);
 		setVisible(true);
 		

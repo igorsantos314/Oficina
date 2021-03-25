@@ -8,8 +8,9 @@ public class ProdutoVendido {
 	Float valorUnd;
 	int quantidade;
 	Float valorTotal;
+	String data;
 	
-	public ProdutoVendido(int codVenda, int codProd, String nome, Float valorUnd, int quantidade) {
+	public ProdutoVendido(int codVenda, int codProd, String nome, Float valorUnd, int quantidade, String data) {
 		super();
 		this.codVenda = codVenda;
 		this.codProd = codProd;
@@ -17,6 +18,7 @@ public class ProdutoVendido {
 		this.valorUnd = valorUnd;
 		this.quantidade = quantidade;
 		this.valorTotal = quantidade * valorUnd;
+		this.data = data;
 	}
 
 	public int getCodVenda() {
@@ -41,6 +43,10 @@ public class ProdutoVendido {
 
 	public Float getValorTotal() {
 		return valorTotal;
+	}
+	
+	public String getData() {
+		return data;
 	}
 
 	@Override

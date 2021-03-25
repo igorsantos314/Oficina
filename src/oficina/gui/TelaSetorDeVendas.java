@@ -18,6 +18,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -33,12 +34,12 @@ public class TelaSetorDeVendas extends JFrame{
 	private final int QUANTIDADE_MAX_CONTAS = 100;
 	private Object[][] elementosProduto = new Object[QUANTIDADE_MAX_CONTAS][3];
 	
-	private String[] colunasTabelaVenda = {"Codigo Produto", "Nome Produto", "Valor UND.", "Quantidade", "Valor Total"};
-	private Object[][] elementosVenda = new Object[QUANTIDADE_MAX_CONTAS][5];
+	private String[] colunasTabelaVenda = {"Cod Venda", "Cod Produto", "Nome Produto", "Valor UND.", "Quantidade", "Valor Total", "Data"};
+	private Object[][] elementosVenda = new Object[QUANTIDADE_MAX_CONTAS][7];
 	private ArrayList<ProdutoVendido> listaDeCompra = new ArrayList<ProdutoVendido>();
 	
 	private JTextField tfProduto;
-	private JButton btnNewButton;
+	private JButton btnAddProduto;
 	private JButton btnRemove;
 	private JLabel lblCodigoVenda;
 	private JLabel lblCodVenda;
@@ -47,6 +48,8 @@ public class TelaSetorDeVendas extends JFrame{
 	private JLabel lblTotal;
 	private JLabel lblValorTotal;
 	private JButton btnFinalizarVenda;
+	private JButton btEditar;
+	private JButton btExcluir;
 	
 	private int quantidadeDeProdutos = 0;
 	private float subtotal = 0f;
@@ -58,6 +61,9 @@ public class TelaSetorDeVendas extends JFrame{
 	private JTextField tfCodigoVenda;
 	private JButton btnNovaVenda;
 	
+	//DATA ATUAL DO COMPUTADOR
+	private LocalDate localDate = LocalDate.now();
+			
 	public TelaSetorDeVendas() {
 		setFont(new Font("Arial", Font.PLAIN, 12));
 		setResizable(false);
@@ -118,8 +124,8 @@ public class TelaSetorDeVendas extends JFrame{
 		btBuscarProduto.setBounds(910, 16, 103, 23);
 		getContentPane().add(btBuscarProduto);
 		
-		btnNewButton = new JButton("ADD");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnAddProduto = new JButton("ADD");
+		btnAddProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//PEGAR O INDICE DA LINHA SELECIONADA
@@ -135,7 +141,7 @@ public class TelaSetorDeVendas extends JFrame{
 					float totalProduto = quant*valor;
 					
 					//ADICIONAR NOVO PRODUTO A LISTA
-					listaDeCompra.add(new ProdutoVendido(Integer.parseInt(lblCodigoVenda.getText()), codProd, nome, valor, quant));
+					listaDeCompra.add(new ProdutoVendido(Integer.parseInt(lblCodigoVenda.getText()), codProd, nome, valor, quant, localDate.toString()));
 					
 					//ATUALIZAR LISTA ELEMENTOS
 					setTabelaVenda();
@@ -159,10 +165,10 @@ public class TelaSetorDeVendas extends JFrame{
 				}
 			}
 		});
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnNewButton.setBounds(1023, 225, 118, 23);
-		getContentPane().add(btnNewButton);
+		btnAddProduto.setBackground(Color.LIGHT_GRAY);
+		btnAddProduto.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAddProduto.setBounds(1023, 225, 118, 23);
+		getContentPane().add(btnAddProduto);
 		
 		btnRemove = new JButton("REMOVER");
 		btnRemove.addActionListener(new ActionListener() {
@@ -173,10 +179,11 @@ public class TelaSetorDeVendas extends JFrame{
 				
 				if(numberLine >= 0) {
 					//PEGAR O CODIGO DA OS
-					Float valor = Float.parseFloat(tableVenda.getModel().getValueAt(numberLine,2).toString());
-					int quant = Integer.parseInt(tableVenda.getModel().getValueAt(numberLine,3).toString());
+					Float valor = Float.parseFloat(tableVenda.getModel().getValueAt(numberLine,3).toString());
+					int quant = Integer.parseInt(tableVenda.getModel().getValueAt(numberLine,4).toString());
 					float totalProduto = quant*valor;
 					
+					//ATUALIZAR VALORES APOS A REMOÇÃO
 					quantidadeDeProdutos -= quant;
 					subtotal -= valor;
 					total -= totalProduto;
@@ -198,7 +205,7 @@ public class TelaSetorDeVendas extends JFrame{
 		});
 		btnRemove.setBackground(Color.LIGHT_GRAY);
 		btnRemove.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnRemove.setBounds(1023, 536, 118, 23);
+		btnRemove.setBounds(1023, 399, 118, 23);
 		getContentPane().add(btnRemove);
 		
 		lblCodigoVenda = new JLabel("1");
@@ -239,8 +246,20 @@ public class TelaSetorDeVendas extends JFrame{
 		btnFinalizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//CHAMAR FUNCÇÃO PARA SALVAR TODOS OS DADOS DA VENDA
-				salvarVenda();
+				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA FINALIZAR A VENDA?");
+				
+				//VERIFICAR SE O USUARIO DESEJA INICIAR NOVA VENDA
+                if(resposta == 0)
+                {
+                	//CHAMAR FUNÇÃO PARA SALVAR TODOS OS DADOS DA VENDA
+    				salvarVenda();
+    				
+    				JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
+    				
+    				//LIMPAR TUDO
+    				resetarVenda();
+                }
+				
 			}
 		});
 		btnFinalizarVenda.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -279,7 +298,7 @@ public class TelaSetorDeVendas extends JFrame{
 		tfCodigoVenda = new JTextField();
 		tfCodigoVenda.setFont(new Font("Arial", Font.PLAIN, 12));
 		tfCodigoVenda.setColumns(10);
-		tfCodigoVenda.setBounds(227, 270, 599, 20);
+		tfCodigoVenda.setBounds(227, 270, 574, 20);
 		getContentPane().add(tfCodigoVenda);
 		
 		JButton btBuscarVenda = new JButton("BUSCAR VENDA");
@@ -289,7 +308,6 @@ public class TelaSetorDeVendas extends JFrame{
 				//LIMPAR LISTA DE PRODUTOS
 				listaDeCompra.clear();
 				
-				//
 				int idVenda = Integer.parseInt(tfCodigoVenda.getText());
 				listaDeCompra = PersistenciaEmBanco.pegarInstancia().getVendaID(idVenda);
 				
@@ -299,18 +317,46 @@ public class TelaSetorDeVendas extends JFrame{
 					JOptionPane.showMessageDialog(null, "NENHUMA VENDA ENCONTRADA!");
 				}
 				else {
+					
+					//RESETAR VALORES
+					quantidadeDeProdutos = 0;
+					subtotal = 0;
+					total = 0;
+					
+					//PEGAR VALORES PARA EXIBIR
+					for(ProdutoVendido pv : listaDeCompra) {
+						quantidadeDeProdutos += pv.getQuantidade();
+						subtotal += pv.getValorUnd();
+						total += pv.getValorTotal();
+					}
+					
 					//ATUALIZAR TABELA
 					setTabelaVenda();
 					
 					//ATUALIZAR VALORES
 					atualizarValores();
+					
+					//DESABILITAR INSERIR PRODUTO
+					btnAddProduto.setEnabled(false);
+					
+					//HABILITAR EDITAR
+					btEditar.setEnabled(true);
+					
+					//HABILITAR EXCLUIR
+					btExcluir.setEnabled(true);
+					
+					//DESABILITAR FINALIZAR COMPRA
+					btnFinalizarVenda.setEnabled(false);
+					
+					//DESABILITAR REMOVE ITEM DA LISTA DE COMPRA
+					btnRemove.setEnabled(false);
 				}
 				
 			}
 		});
 		btBuscarVenda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btBuscarVenda.setBackground(Color.LIGHT_GRAY);
-		btBuscarVenda.setBounds(836, 269, 177, 23);
+		btBuscarVenda.setBounds(811, 269, 204, 23);
 		getContentPane().add(btBuscarVenda);
 		
 		btnNovaVenda = new JButton("NOVA VENDA");
@@ -319,30 +365,42 @@ public class TelaSetorDeVendas extends JFrame{
 				
 				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA INICIAR UMA NOVA VENDA?");
 				
-				//VERIFICAR SE O USUARIO DESEJA EXCLUIR O CADASTRO
+				//VERIFICAR SE O USUARIO DESEJA INICIAR NOVA VENDA
                 if(resposta == 0)
                 {
-					//RESETAR VALORES
-					quantidadeDeProdutos = 0;
-					subtotal = 0;
-					total = 0;
-					
-					//LIMPAR LISTA DE PRODUTOS
-					listaDeCompra.clear();
-					
-					//ATUALIZAR TABELA
-					setTabelaVenda();
-					
-					//ATUALIZAR VALORES
-					atualizarValores();
+                	//RESETAR TODOS OS CAMPOS E TABELA
+                	resetarVenda();
+                	
+                	//DESABILITAR EDITAR
+                	btEditar.setEnabled(false);
+                	
+                	//DESABILITAR EXCLUIR
+					btExcluir.setEnabled(false);
+                	
+                	//HABILITAR BOTÃO DE FINALIZAR VENDA
+                	btnFinalizarVenda.setEnabled(true);
                 }
                 
 			}
 		});
 		btnNovaVenda.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNovaVenda.setBackground(Color.LIGHT_GRAY);
-		btnNovaVenda.setBounds(1023, 502, 118, 23);
+		btnNovaVenda.setBounds(1023, 365, 118, 23);
 		getContentPane().add(btnNovaVenda);
+		
+		btEditar = new JButton("EDITAR");
+		btEditar.setEnabled(false);
+		btEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btEditar.setBackground(Color.LIGHT_GRAY);
+		btEditar.setBounds(1023, 300, 118, 23);
+		getContentPane().add(btEditar);
+		
+		btExcluir = new JButton("EXCLUIR");
+		btExcluir.setEnabled(false);
+		btExcluir.setFont(new Font("Arial", Font.PLAIN, 12));
+		btExcluir.setBackground(Color.LIGHT_GRAY);
+		btExcluir.setBounds(1023, 331, 118, 23);
+		getContentPane().add(btExcluir);
 		
 		//SETAR ID DA VENDA
 		setarIDVenda();
@@ -351,6 +409,25 @@ public class TelaSetorDeVendas extends JFrame{
 		updateTable();
 		
 		setVisible(true);
+	}
+	
+	public void resetarVenda() {
+		//RESETAR VALORES
+		quantidadeDeProdutos = 0;
+		subtotal = 0;
+		total = 0;
+		
+		//LIMPAR CAMPO DE BUSCAR VENDA
+		tfCodigoVenda.setText("");
+		
+		//LIMPAR LISTA DE PRODUTOS
+		listaDeCompra.clear();
+		
+		//ATUALIZAR TABELA
+		setTabelaVenda();
+		
+		//ATUALIZAR VALORES
+		atualizarValores();
 	}
 	
 	public void setarIDVenda() {
@@ -365,10 +442,11 @@ public class TelaSetorDeVendas extends JFrame{
 		//SALVAR NO BANCO DE DADOS
 		PersistenciaEmBanco.pegarInstancia().cadastrarVenda(listaDeCompra);
 		
-		JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
-		
-		//DESATIVAR BOTÃO DE SALVAR
+		//DESATIVAR BOTÃO DE FINALIZAR
 		btnFinalizarVenda.setEnabled(false);
+		
+		//ATUALIZAR COD DE VENDA
+		setarIDVenda();
 	}
 	
 	public void clearTableVenda() {
@@ -380,6 +458,8 @@ public class TelaSetorDeVendas extends JFrame{
 			elementosVenda[i][2] = "";
 			elementosVenda[i][3] = "";
 			elementosVenda[i][4] = "";
+			elementosVenda[i][5] = "";
+			elementosVenda[i][6] = "";
 		}
 	}
 	
@@ -393,11 +473,13 @@ public class TelaSetorDeVendas extends JFrame{
 		
 		for(ProdutoVendido pV : listaDeCompra)
 		{
-			elementosVenda[i][0] = pV.getCodProd();
-			elementosVenda[i][1] = pV.getNome();
-			elementosVenda[i][2] = pV.getValorUnd();
-			elementosVenda[i][3] = pV.getQuantidade();
-			elementosVenda[i][4] = pV.getValorTotal();
+			elementosVenda[i][0] = pV.getCodVenda();
+			elementosVenda[i][1] = pV.getCodProd();
+			elementosVenda[i][2] = pV.getNome();
+			elementosVenda[i][3] = pV.getValorUnd();
+			elementosVenda[i][4] = pV.getQuantidade();
+			elementosVenda[i][5] = pV.getValorTotal();
+			elementosVenda[i][6] = pV.getData();
 			
 			i++;
 		}

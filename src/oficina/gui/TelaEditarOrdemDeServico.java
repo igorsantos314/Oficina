@@ -48,7 +48,7 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		
 		setResizable(false);
 		
-		setSize(473,590);
+		setSize(592,590);
 		setTitle("EDITAR ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -57,7 +57,7 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(10, 11, 433, 146);
+		panel.setBounds(10, 11, 556, 146);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -76,7 +76,7 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		panel.add(lblDataEntrada);
 		
 		JLabel lblSaida = new JLabel("Data Sa\u00EDda:");
-		lblSaida.setBounds(269, 11, 69, 14);
+		lblSaida.setBounds(323, 11, 69, 14);
 		panel.add(lblSaida);
 		
 		JLabel lblCliente = new JLabel("Cliente:");
@@ -89,21 +89,21 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(10, 168, 433, 193);
+		panel_1.setBounds(10, 168, 556, 193);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		taDescricao = new JTextArea();
-		taDescricao.setBounds(10, 30, 413, 152);
+		taDescricao.setBounds(10, 30, 536, 152);
 		panel_1.add(taDescricao);
 		
 		JLabel lblDescricao = new JLabel("DESCRI\u00C7\u00C3O:");
-		lblDescricao.setBounds(185, 11, 73, 14);
+		lblDescricao.setBounds(10, 11, 73, 14);
 		panel_1.add(lblDescricao);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_2.setBounds(10, 372, 433, 107);
+		panel_2.setBounds(10, 372, 556, 107);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -113,16 +113,16 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		
 		cbStatus = new JComboBox();
 		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
-		cbStatus.setBounds(10, 27, 198, 22);
+		cbStatus.setBounds(10, 27, 256, 22);
 		panel_2.add(cbStatus);
 		
 		JLabel lblPagamento = new JLabel("Forma de Pagamento:");
-		lblPagamento.setBounds(218, 11, 113, 14);
+		lblPagamento.setBounds(276, 11, 270, 14);
 		panel_2.add(lblPagamento);
 		
 		cbPagamento = new JComboBox();
 		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
-		cbPagamento.setBounds(218, 27, 198, 22);
+		cbPagamento.setBounds(276, 27, 270, 22);
 		panel_2.add(cbPagamento);
 		
 		JLabel lblValor = new JLabel("Valor M\u00E3o de Obra");
@@ -132,29 +132,29 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		tfValorMaoDeObra = new JTextField();
 		tfValorMaoDeObra.setForeground(Color.RED);
 		tfValorMaoDeObra.setFont(new Font("Tahoma", Font.BOLD, 11));
-		tfValorMaoDeObra.setBounds(10, 76, 198, 20);
+		tfValorMaoDeObra.setBounds(10, 76, 256, 20);
 		panel_2.add(tfValorMaoDeObra);
 		tfValorMaoDeObra.setColumns(10);
 		
 		tfValorPecas = new JTextField();
 		tfValorPecas.setForeground(Color.BLUE);
 		tfValorPecas.setFont(new Font("Tahoma", Font.BOLD, 11));
-		tfValorPecas.setBounds(218, 76, 198, 20);
+		tfValorPecas.setBounds(276, 76, 270, 20);
 		panel_2.add(tfValorPecas);
 		tfValorPecas.setColumns(10);
 		
 		JLabel lblValorEmPeas = new JLabel("Valor em Pe\u00E7as:");
-		lblValorEmPeas.setBounds(218, 60, 198, 14);
+		lblValorEmPeas.setBounds(276, 60, 270, 14);
 		panel_2.add(lblValorEmPeas);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_3.setBounds(10, 490, 433, 54);
+		panel_3.setBounds(10, 490, 556, 54);
 		getContentPane().add(panel_3);
 		
 		tfCliente = new JTextField();
 		tfCliente.setEditable(false);
-		tfCliente.setBounds(10, 71, 413, 20);
+		tfCliente.setBounds(10, 71, 536, 20);
 		panel.add(tfCliente);
 		tfCliente.setColumns(10);
 		
@@ -165,11 +165,11 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		tfPlaca.setColumns(10);
 		
 		JFormattedTextField tfEntrada = new JFormattedTextField();
-		tfEntrada.setBounds(95, 28, 164, 20);
+		tfEntrada.setBounds(95, 28, 218, 20);
 		panel.add(tfEntrada);
 		
 		tfSaida = new JFormattedTextField();
-		tfSaida.setBounds(269, 28, 154, 20);
+		tfSaida.setBounds(323, 28, 223, 20);
 		panel.add(tfSaida);
 		
 		JButton btnEditar = new JButton("EDITAR OS");
