@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.modelo.Produto;
+import oficina.modelo.ProdutoVendido;
 import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
 
@@ -387,6 +389,70 @@ public class PersistenciaEmBanco {
 
 	}
 	
+	public int getLastIdVenda() {
+		
+		//PEGA O ULTIMO INDICE DA VENDA
+		String sql = "select max(codVenda) as quantidade from venderprodutos";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int quant = rs.getInt("quantidade");
+				
+				return quant;
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return 0;
+		
+	}
+	
+	public ArrayList<ProdutoVendido> getVendaID(int id){
+		
+		ArrayList<ProdutoVendido> listaDeProdutos = new ArrayList<ProdutoVendido>();
+		
+		String sql = "select * from venderprodutos where codVenda=" + id + ";";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+
+				int codVenda = rs.getInt("codvenda");
+				int codProduto = rs.getInt("codproduto");
+				String nomeProd = rs.getString("nomeProduto");
+				Float valor = rs.getFloat("valorProduto");
+				int quant = rs.getInt("quantidade");
+				
+				ProdutoVendido pv = new ProdutoVendido(codVenda, codProduto, nomeProd, valor, quant);
+				listaDeProdutos.add(pv);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return listaDeProdutos;
+	}
+	
 	public void CadastrarCliente(Cliente obj) throws ClienteJaCadastradoException{
 		String sqlInserirCliente = "insert into clientes (cpf, nome, telefone, email)"
 				+ " values (?,?,?,?);";
@@ -481,6 +547,39 @@ public class PersistenciaEmBanco {
 			
 			pstmt.execute();
 			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+	}
+	
+	public void cadastrarVenda(ArrayList<ProdutoVendido> listaDeProdutos) {
+		
+		//DATA ATUAL DO COMPUTADOR
+		LocalDate localDate = LocalDate.now();
+		
+		String sqlInserirVenda = "insert into venderprodutos"
+				+ " values (?,?,?,?,?,?);";
+		
+		try 
+		{
+			//VARRER A LISTA DE PRODUTO ADICIONANDO AO BD
+			for(ProdutoVendido pv : listaDeProdutos) {
+				PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sqlInserirVenda);
+				
+				pstmt.setInt(1, pv.getCodVenda());
+				pstmt.setInt(2, pv.getCodProd());
+				pstmt.setString(3, pv.getNome());
+				pstmt.setFloat(4, pv.getValorUnd());
+				pstmt.setInt(5, pv.getQuantidade());
+				pstmt.setString(6, localDate.toString());
+				
+				pstmt.execute();
+				pstmt.close();
+			}
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
