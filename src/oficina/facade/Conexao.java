@@ -2,17 +2,13 @@ package oficina.facade;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.exception.VeiculoJaCadastradoException;
 import oficina.impressao.Impressao;
 import oficina.modelo.Cliente;
-import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.modelo.Produto;
 import oficina.modelo.ProdutoVendido;
-import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
 import oficina.persistencia.PersistenciaEmBanco;
 

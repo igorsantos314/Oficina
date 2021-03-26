@@ -622,7 +622,21 @@ public class PersistenciaEmBanco {
 			pstmt.execute();
 			pstmt.close();
 			
-			System.out.println("Deletado");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void deleteVenda(int codVenda) {
+		String sql = "DELETE FROM venderprodutos WHERE codvenda=" + codVenda + ";";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

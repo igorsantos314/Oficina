@@ -381,6 +381,9 @@ public class TelaSetorDeVendas extends JFrame{
                 	
                 	//HABILITAR BOTÃO DE FINALIZAR VENDA
                 	btnFinalizarVenda.setEnabled(true);
+                	
+                	//HABILITAR BOTÃO DE ADD
+                	btnAddProduto.setEnabled(true);
                 }
                 
 			}
@@ -398,6 +401,29 @@ public class TelaSetorDeVendas extends JFrame{
 		getContentPane().add(btEditar);
 		
 		btExcluir = new JButton("EXCLUIR");
+		btExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int codVenda = (int) elementosVenda[0][0];
+				
+				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA EXCLUIR ESSA VENDA?");
+				
+				//VERIFICAR SE O USUARIO DESEJA INICIAR NOVA VENDA
+                if(resposta == 0)
+                {
+					//EXCLUIR TODAS AS PRODUTOS COM O CODIGO DE VENDA
+					PersistenciaEmBanco.pegarInstancia().deleteVenda(codVenda);
+					
+					//RESETAR TABELA
+					resetarVenda();
+					
+					//DESABILITAR BOTAO DE EXCLUIR
+					btExcluir.setEnabled(false);
+					
+					JOptionPane.showMessageDialog(null, "DELETADO COM SUCESSO !");
+                }
+			}
+		});
 		btExcluir.setEnabled(false);
 		btExcluir.setFont(new Font("Arial", Font.PLAIN, 12));
 		btExcluir.setBackground(Color.LIGHT_GRAY);
