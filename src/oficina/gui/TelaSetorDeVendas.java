@@ -247,20 +247,32 @@ public class TelaSetorDeVendas extends JFrame{
 		btnFinalizarVenda = new JButton("FINALIZAR");
 		btnFinalizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA FINALIZAR A VENDA?");
-				
-				//VERIFICAR SE O USUARIO DESEJA INICIAR NOVA VENDA
-                if(resposta == 0)
-                {
-                	//CHAMAR FUNÇÃO PARA SALVAR TODOS OS DADOS DA VENDA
-    				salvarVenda();
-    				
-    				JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
-    				
-    				//LIMPAR TUDO
-    				resetarVenda();
-                }
+
+				//VERIFICA SE A LISTA DE PRODUTO ESTÁ VAZIA
+				if(listaDeCompra.isEmpty()) {
+					
+					JOptionPane.showMessageDialog(null, "NÃO HÁ NADA NA LISTA DE COMPRA!");
+				}
+				else{
+					int resposta = JOptionPane.showConfirmDialog(null, "DESEJA FINALIZAR A VENDA?");
+					
+					//VERIFICAR SE O USUARIO DESEJA FINALIZAR A VENDA
+	                if(resposta == 0)
+	                {
+	                	//CHAMAR TELA DE TROCO
+	    				new TelaTroco(quantidadeDeProdutos, subtotal, total);
+	    				
+	                	//CHAMAR FUNÇÃO PARA SALVAR TODOS OS DADOS DA VENDA
+	    				salvarVenda();
+	    				
+	    				JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
+	    				
+	    				//LIMPAR TUDO
+	    				resetarVenda();
+	    				
+	                }
+	                
+				}
 				
 			}
 		});
@@ -310,49 +322,60 @@ public class TelaSetorDeVendas extends JFrame{
 				//LIMPAR LISTA DE PRODUTOS
 				listaDeCompra.clear();
 				
-				int idVenda = Integer.parseInt(tfCodigoVenda.getText());
-				listaDeCompra = PersistenciaEmBanco.pegarInstancia().getVendaID(idVenda);
+				String id = tfCodigoVenda.getText();
 				
-				if(listaDeCompra.isEmpty()) {
-					
-					//NÃO FOI ENCONTRADA NENHUMA VENDA
-					JOptionPane.showMessageDialog(null, "NENHUMA VENDA ENCONTRADA!");
+				if(id.equals("")) {
+					JOptionPane.showMessageDialog(null, "DIGITE O ID DE UMA VENDA PARA BUSCAR!!");
 				}
 				else {
+					int idVenda = Integer.parseInt(id);
+					listaDeCompra = PersistenciaEmBanco.pegarInstancia().getVendaID(idVenda);
 					
-					//RESETAR VALORES
-					quantidadeDeProdutos = 0;
-					subtotal = 0;
-					total = 0;
-					
-					//PEGAR VALORES PARA EXIBIR
-					for(ProdutoVendido pv : listaDeCompra) {
-						quantidadeDeProdutos += pv.getQuantidade();
-						subtotal += pv.getValorUnd();
-						total += pv.getValorTotal();
+					if(listaDeCompra.isEmpty()) {
+						
+						//NÃO FOI ENCONTRADA NENHUMA VENDA
+						JOptionPane.showMessageDialog(null, "NENHUMA VENDA ENCONTRADA!");
+						
+						//LIMPAR CAMPO DE DIGITAR ID
+						tfCodigoVenda.setText("");
 					}
-					
-					//ATUALIZAR TABELA
-					setTabelaVenda();
-					
-					//ATUALIZAR VALORES
-					atualizarValores();
-					
-					//DESABILITAR INSERIR PRODUTO
-					btnAddProduto.setEnabled(false);
-					
-					//HABILITAR EDITAR
-					btEditar.setEnabled(true);
-					
-					//HABILITAR EXCLUIR
-					btExcluir.setEnabled(true);
-					
-					//DESABILITAR FINALIZAR COMPRA
-					btnFinalizarVenda.setEnabled(false);
-					
-					//DESABILITAR REMOVE ITEM DA LISTA DE COMPRA
-					btnRemove.setEnabled(false);
+					else {
+						
+						//RESETAR VALORES
+						quantidadeDeProdutos = 0;
+						subtotal = 0;
+						total = 0;
+						
+						//PEGAR VALORES PARA EXIBIR
+						for(ProdutoVendido pv : listaDeCompra) {
+							quantidadeDeProdutos += pv.getQuantidade();
+							subtotal += pv.getValorUnd();
+							total += pv.getValorTotal();
+						}
+						
+						//ATUALIZAR TABELA
+						setTabelaVenda();
+						
+						//ATUALIZAR VALORES
+						atualizarValores();
+						
+						//DESABILITAR INSERIR PRODUTO
+						btnAddProduto.setEnabled(false);
+						
+						//HABILITAR EDITAR
+						btEditar.setEnabled(true);
+						
+						//HABILITAR EXCLUIR
+						btExcluir.setEnabled(true);
+						
+						//DESABILITAR FINALIZAR COMPRA
+						btnFinalizarVenda.setEnabled(false);
+						
+						//DESABILITAR REMOVE ITEM DA LISTA DE COMPRA
+						btnRemove.setEnabled(false);
+					}
 				}
+				
 				
 			}
 		});
@@ -431,6 +454,7 @@ public class TelaSetorDeVendas extends JFrame{
 		getContentPane().add(btExcluir);
 		
 		btnImprimir = new JButton("IMPRIMIR");
+		btnImprimir.setEnabled(false);
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Conexao.pegarInstancia().imprimirVenda(listaDeCompra);

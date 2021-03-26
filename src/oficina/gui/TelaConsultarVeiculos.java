@@ -1,6 +1,5 @@
 package oficina.gui;
 
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -8,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import oficina.modelo.IVeiculo;
-import oficina.modelo.OrdemDeServico;
 import oficina.persistencia.PersistenciaEmBanco;
 
 import javax.swing.JButton;
@@ -20,6 +18,11 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaConsultarVeiculos extends JDialog{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
 	private String[] colunasTabela = {"Modelo", "Placa", "Cor", "Ano", "KM Atual"};
@@ -88,7 +91,7 @@ public class TelaConsultarVeiculos extends JDialog{
 						dispose();
 						
 						//ABRIR JANELA DE EDIÇÃO
-						TelaEditarOrdemDeServico eos = new TelaEditarOrdemDeServico(os_selecionada);
+						new TelaEditarOrdemDeServico(os_selecionada);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

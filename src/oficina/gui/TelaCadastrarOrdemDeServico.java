@@ -4,20 +4,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import oficina.facade.Conexao;
-import oficina.impressao.Impressao;
 import oficina.modelo.Cliente;
 import oficina.modelo.IVeiculo;
 import oficina.persistencia.PersistenciaEmBanco;
 import oficina.types.PagamentoTypes;
 import oficina.types.StatusTypes;
 
-import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.Font;
@@ -25,13 +21,17 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.border.EtchedBorder;
 
 public class TelaCadastrarOrdemDeServico extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField tfValorMaoDeObra;
 	private JFormattedTextField tfEntrada;
 	private JFormattedTextField tfSaida;
@@ -71,6 +71,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel.add(lblCliente);
 		
 		cbCliente = new JComboBox();
+		cbCliente.setBackground(Color.WHITE);
 		
 		for(Cliente c : PersistenciaEmBanco.pegarInstancia().getAllClientes())
 		{
@@ -85,6 +86,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel.add(lblVeiculo);
 		
 		cbVeiculo = new JComboBox();
+		cbVeiculo.setBackground(Color.WHITE);
 		
 		for(IVeiculo c : PersistenciaEmBanco.pegarInstancia().getAllVeiculos())
 		{
@@ -126,7 +128,8 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		panel_2.add(lblNewLabel);
 		
-		JComboBox cbStatus = new JComboBox();
+		JComboBox<StatusTypes> cbStatus = new JComboBox<StatusTypes>();
+		cbStatus.setBackground(Color.WHITE);
 		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
 		cbStatus.setBounds(10, 27, 330, 22);
 		panel_2.add(cbStatus);
@@ -135,7 +138,8 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		lblPagamento.setBounds(350, 11, 315, 14);
 		panel_2.add(lblPagamento);
 		
-		JComboBox cbPagamento = new JComboBox();
+		JComboBox<PagamentoTypes> cbPagamento = new JComboBox<PagamentoTypes>();
+		cbPagamento.setBackground(Color.WHITE);
 		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
 		cbPagamento.setBounds(350, 27, 315, 22);
 		panel_2.add(cbPagamento);
@@ -145,6 +149,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel_2.add(lblValor);
 		
 		tfValorMaoDeObra = new JTextField();
+		tfValorMaoDeObra.setText("0.00");
 		tfValorMaoDeObra.setForeground(Color.RED);
 		tfValorMaoDeObra.setFont(new Font("Tahoma", Font.BOLD, 11));
 		tfValorMaoDeObra.setBounds(10, 79, 330, 24);
@@ -156,6 +161,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel_2.add(lblValorDePesa);
 		
 		tfValorPecas = new JTextField();
+		tfValorPecas.setText("0.00");
 		tfValorPecas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		tfValorPecas.setForeground(Color.BLUE);
 		tfValorPecas.setBounds(350, 79, 315, 24);
@@ -168,6 +174,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		getContentPane().add(panel_3);
 		
 		JButton btnSalvar = new JButton("SALVAR");
+		btnSalvar.setBackground(Color.LIGHT_GRAY);
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -197,6 +204,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel_3.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setBackground(Color.LIGHT_GRAY);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -234,6 +242,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel.add(tfVeiculo);
 		
 		JButton btBuscarCliente = new JButton("Buscar");
+		btBuscarCliente.setBackground(Color.LIGHT_GRAY);
 		btBuscarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -255,6 +264,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		panel.add(btBuscarCliente);
 		
 		JButton btBuscarVeiculo = new JButton("Buscar");
+		btBuscarVeiculo.setBackground(Color.LIGHT_GRAY);
 		btBuscarVeiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

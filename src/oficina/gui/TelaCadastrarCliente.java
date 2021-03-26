@@ -10,7 +10,6 @@ import javax.swing.text.MaskFormatter;
 
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.facade.Conexao;
-import oficina.modelo.Cliente;
 import util.util;
 
 import javax.swing.border.BevelBorder;
@@ -20,6 +19,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
 public class TelaCadastrarCliente extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField tfNome;
 	private JTextField tfEmail;
 	private JFormattedTextField tfCPF;
