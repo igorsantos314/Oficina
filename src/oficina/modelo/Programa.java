@@ -1,11 +1,6 @@
 package oficina.modelo;
 import java.io.Serializable;
-import java.time.LocalDate;
-
-import oficina.gui.TelaLogin;
 import oficina.gui.TelaPrincipal;
-import oficina.persistencia.FabricaConexao;
-import oficina.persistencia.PersistenciaEmBanco;
 
 public class Programa implements Serializable{
 
@@ -16,7 +11,7 @@ public class Programa implements Serializable{
 
 	public static void main(String[] args){
 		
-		//System.out.println("OI");
+		//System.out.println("OI"); 
 		new TelaPrincipal("");
 		//new TelaLogin();
 		

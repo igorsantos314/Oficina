@@ -1,11 +1,7 @@
 package oficina.gui;
 
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-
 import oficina.persistencia.PersistenciaEmBanco;
-import oficina.types.StatusTypes;
 import oficina.types.UserTypes;
 
 import javax.swing.JLabel;
@@ -20,6 +16,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame{
+	/**
+	 * 
+	 */ 
+	private static final long serialVersionUID = 1L;
 	private JPasswordField pfSenha;
 	
 	public TelaLogin() {
@@ -36,7 +36,7 @@ public class TelaLogin extends JFrame{
 		lblNewLabel.setBounds(10, 21, 172, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox<UserTypes> cbUser = new JComboBox();
+		JComboBox<UserTypes> cbUser = new JComboBox<UserTypes>();
 		cbUser.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbUser.setForeground(Color.RED);
 		cbUser.setModel(new DefaultComboBoxModel<>(UserTypes.values()));
@@ -52,6 +52,7 @@ public class TelaLogin extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				//RETORNA ACESSO NEGADO OU PERMITIDO
+				@SuppressWarnings("deprecation")
 				boolean permition = PersistenciaEmBanco.pegarInstancia().realizarLogin(cbUser.getSelectedItem().toString(), pfSenha.getText());
 				
 				//LIMPAR CAMPOS

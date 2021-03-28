@@ -1,7 +1,5 @@
 package oficina.modelo;
 
-import oficina.persistencia.PersistenciaEmBanco;
-
 public class Cliente {
 	
 	private String cpf;

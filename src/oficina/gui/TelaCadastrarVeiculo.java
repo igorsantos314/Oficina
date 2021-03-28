@@ -1,32 +1,22 @@
 package oficina.gui;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JMenu;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
-
 import oficina.exception.VeiculoJaCadastradoException;
 import oficina.facade.Conexao;
-import oficina.modelo.IVeiculo;
-import oficina.modelo.VeiculoCarro;
-import oficina.modelo.VeiculoMoto;
-import oficina.types.VeiculosTypes;
-
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
-import javax.swing.JFormattedTextField;
 
 public class TelaCadastrarVeiculo extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField tfModelo;
 	private JTextField tfCor;
 	private JTextField tfPlaca;

@@ -1,24 +1,25 @@
 package oficina.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import oficina.modelo.Cliente;
-import oficina.modelo.IVeiculo;
-import oficina.modelo.OrdemDeServico;
-import oficina.persistencia.PersistenciaEmBanco;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
+import oficina.modelo.Cliente;
+import oficina.persistencia.PersistenciaEmBanco;
 
 public class TelaConsultarClientes extends JDialog{
 	
@@ -32,18 +33,30 @@ public class TelaConsultarClientes extends JDialog{
 	private final int QUANTIDADE_MAX_CONTAS = 100;
 	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][4];
 	private JTextField tfNomeCliente;
+	private JTextField tfNome;
+	private JTextField tfEmail;
+	
+	private JFormattedTextField tfCPF;
+	private JLabel lblEmail;
+	private JFormattedTextField tfTelefone;
+	
+	private JButton btnFechar;
+	private JButton btnExcluirCliente;
+	private JButton btnSalvarAlteraes;
+
+	private JButton btnEditar;
 	
 	public TelaConsultarClientes() {
-		setResizable(false);
 		
-		setSize(943,563);
+		setResizable(false);
+		setSize(938,681);
 		setTitle("CONSULTAR ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 901, 456);
+		scrollPane.setBounds(10, 49, 901, 411);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable(elementos, colunasTabela);
@@ -55,11 +68,12 @@ public class TelaConsultarClientes extends JDialog{
 		getContentPane().add(lblPlaca);
 		
 		tfNomeCliente = new JTextField();
-		tfNomeCliente.setBounds(130, 16, 440, 20);
+		tfNomeCliente.setBounds(130, 16, 453, 20);
 		getContentPane().add(tfNomeCliente);
 		tfNomeCliente.setColumns(10);
 		
 		JButton btConsultar = new JButton("CONSULTAR");
+		btConsultar.setBackground(Color.LIGHT_GRAY);
 		btConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -77,8 +91,9 @@ public class TelaConsultarClientes extends JDialog{
 		btConsultar.setBounds(593, 15, 157, 23);
 		getContentPane().add(btConsultar);
 		
-		JButton btnNewButton = new JButton("EDITAR CLIENTE");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnEditar = new JButton("EDITAR CLIENTE");
+		btnEditar.setBackground(Color.LIGHT_GRAY);
+		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//PEGAR O INDICE DA LINHA SELECIONADA
@@ -86,34 +101,161 @@ public class TelaConsultarClientes extends JDialog{
 				
 				if(numberLine >= 0) {
 					
-					//PEGAR O CODIGO DA OS
-					String os_selecionada = table.getModel().getValueAt(numberLine,0).toString();
+					//PEGAR O CPF DO CLIENTE
+					String cpf = table.getModel().getValueAt(numberLine,0).toString();
 					
-					try {
-						//FECHAR JANELA
-						dispose();
-						
-						//ABRIR JANELA DE EDIÇÃO
-						TelaEditarOrdemDeServico eos = new TelaEditarOrdemDeServico(os_selecionada);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					//VERIFICAR SE O USUARIO SELECIONOU UMA LINHA EM BRANCO
+					if(cpf.equals("")) {
+						JOptionPane.showMessageDialog(null, "POR FAVOR, SELECIONE UM CLIENTE!");
 					}
+					else {
+						//PEGAR CAMPOS
+						String nome = table.getModel().getValueAt(numberLine,1).toString();
+						String telefone = table.getModel().getValueAt(numberLine,2).toString();
+						String email = table.getModel().getValueAt(numberLine,3).toString();
+						
+						//SETAR CAMPOS
+						tfNome.setText(nome);
+						tfCPF.setText(cpf);
+						tfTelefone.setText(telefone);
+						tfEmail.setText(email);
+						
+						//HABILITAR CAMPOS
+						tfNome.setEnabled(true);
+						tfTelefone.setEnabled(true);
+						tfEmail.setEnabled(true);
+						
+						//HABILITAR BOTOES
+						btnFechar.setEnabled(true);
+						btnExcluirCliente.setEnabled(true);
+						
+						//DESABILITAR BOTÃO DE EDIDAR
+						btnEditar.setEnabled(false);
+					}
+					
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "POR FAVOR, SELECIONE UMA OS!");
+					JOptionPane.showMessageDialog(null, "POR FAVOR, SELECIONE UM CLIENTE");
 				}
 
 			}
 		});
-		btnNewButton.setBounds(760, 15, 151, 23);
-		getContentPane().add(btnNewButton);
+		btnEditar.setBounds(760, 15, 151, 23);
+		getContentPane().add(btnEditar);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(10, 468, 46, 14);
+		getContentPane().add(lblNome);
+		
+		tfNome = new JTextField();
+		tfNome.setEnabled(false);
+		tfNome.setColumns(10);
+		tfNome.setBounds(10, 483, 901, 20);
+		getContentPane().add(tfNome);
+		
+		JLabel lblCpf = new JLabel("CPF:");
+		lblCpf.setBounds(10, 514, 46, 14);
+		getContentPane().add(lblCpf);
+		
+		tfCPF = new JFormattedTextField();
+		tfCPF.setEditable(false);
+		tfCPF.setBounds(10, 529, 181, 20);
+		getContentPane().add(tfCPF);
+		
+		JLabel lblTelefone = new JLabel("Telefone:");
+		lblTelefone.setBounds(201, 514, 61, 14);
+		getContentPane().add(lblTelefone);
+		
+		tfTelefone = new JFormattedTextField();
+		tfTelefone.setEnabled(false);
+		tfTelefone.setBounds(201, 529, 183, 20);
+		getContentPane().add(tfTelefone);
+		
+		lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(398, 514, 513, 14);
+		getContentPane().add(lblEmail);
+		
+		tfEmail = new JTextField();
+		tfEmail.setEnabled(false);
+		tfEmail.setColumns(10);
+		tfEmail.setBounds(398, 529, 352, 20);
+		getContentPane().add(tfEmail);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(10, 572, 901, 61);
+		getContentPane().add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		btnFechar = new JButton("FECHAR");
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//LIMPAR E DESABILITAR TUDO
+				clearCamps();
+			}
+		});
+		btnFechar.setEnabled(false);
+		btnFechar.setFont(new Font("Arial", Font.BOLD, 20));
+		panel.add(btnFechar);
+		btnFechar.setBackground(Color.LIGHT_GRAY);
+		
+		btnExcluirCliente = new JButton("EXCLUIR");
+		btnExcluirCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA EXCLUIR O CLIENTE: " + tfNome.getText() + " ?");
+				
+				//VERIFICAR SE O USUARIO DESEJA FINALIZAR A VENDA
+                if(resposta == 0)
+                {
+					//EXCLUIR CLIENTE
+					PersistenciaEmBanco.pegarInstancia().deleteCliente(tfCPF.getText());
+					
+					//LIMPAR E DESABILITAR TUDO
+					clearCamps();
+					
+					//ATUALIZAR TABELA
+					updateTable();
+					
+					//MENSAGEM DE SUCESSO
+					JOptionPane.showMessageDialog(null, "Cliente Excluido com Sucesso!");
+                }
+			}
+		});
+		btnExcluirCliente.setEnabled(false);
+		btnExcluirCliente.setFont(new Font("Arial", Font.BOLD, 20));
+		panel.add(btnExcluirCliente);
+		btnExcluirCliente.setBackground(Color.LIGHT_GRAY);
+		
+		btnSalvarAlteraes = new JButton("SALVAR");
+		btnSalvarAlteraes.setEnabled(false);
+		btnSalvarAlteraes.setFont(new Font("Arial", Font.BOLD, 20));
+		panel.add(btnSalvarAlteraes);
+		btnSalvarAlteraes.setBackground(Color.LIGHT_GRAY);
 		setVisible(true);
 		
 		//INICIALIZAR A TABELA
 		this.updateTable();
-		
+
 		setVisible(true);
+	}
+	
+	public void clearCamps() {
+		
+		//LIMPAR CAMPOS
+		tfNome.setText("");
+		tfCPF.setText("");
+		tfTelefone.setText("");
+		tfEmail.setText("");
+		
+		//HABILITAR CAMPOS
+		tfNome.setEnabled(false);
+		tfTelefone.setEnabled(false);
+		tfEmail.setEnabled(false);
+		
+		//HABILITAR BOTOES
+		btnFechar.setEnabled(false);
+		btnExcluirCliente.setEnabled(false);
+		btnEditar.setEnabled(true);
 	}
 	
 	public void clearTable() {

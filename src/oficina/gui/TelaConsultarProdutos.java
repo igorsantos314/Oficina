@@ -1,15 +1,11 @@
 package oficina.gui;
 
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import oficina.modelo.Cliente;
-import oficina.modelo.IVeiculo;
-import oficina.modelo.OrdemDeServico;
 import oficina.modelo.Produto;
 import oficina.persistencia.PersistenciaEmBanco;
 
@@ -101,7 +97,7 @@ public class TelaConsultarProdutos extends JDialog{
 						dispose();
 						
 						//ABRIR JANELA DE EDIÇÃO
-						TelaEditarOrdemDeServico eos = new TelaEditarOrdemDeServico(os_selecionada);
+						new TelaEditarOrdemDeServico(os_selecionada);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

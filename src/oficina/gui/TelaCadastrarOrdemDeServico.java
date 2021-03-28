@@ -70,7 +70,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		lblCliente.setBounds(325, 66, 46, 14);
 		panel.add(lblCliente);
 		
-		cbCliente = new JComboBox();
+		cbCliente = new JComboBox<Cliente>();
 		cbCliente.setBackground(Color.WHITE);
 		
 		for(Cliente c : PersistenciaEmBanco.pegarInstancia().getAllClientes())
@@ -85,7 +85,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		lblVeiculo.setBounds(325, 125, 46, 14);
 		panel.add(lblVeiculo);
 		
-		cbVeiculo = new JComboBox();
+		cbVeiculo = new JComboBox<IVeiculo>();
 		cbVeiculo.setBackground(Color.WHITE);
 		
 		for(IVeiculo c : PersistenciaEmBanco.pegarInstancia().getAllVeiculos())
@@ -96,11 +96,11 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 		cbVeiculo.setBounds(325, 139, 340, 25);
 		panel.add(cbVeiculo);
 		
-		JFormattedTextField tfEntrada = new JFormattedTextField();
+		tfEntrada = new JFormattedTextField();
 		tfEntrada.setBounds(10, 28, 96, 20);
 		panel.add(tfEntrada);
 		
-		JFormattedTextField tfSaida = new JFormattedTextField();
+		tfSaida = new JFormattedTextField();
 		tfSaida.setBounds(116, 28, 109, 20);
 		panel.add(tfSaida);
 		
@@ -188,11 +188,11 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 				String placa = cbVeiculo.getSelectedItem().toString();
 				String nome_Cliente = cbCliente.getSelectedItem().toString();
 				
-				Conexao.pegarInstancia().salvarOS(descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
+				Conexao.pegarInstancia().salvarOS(descricao, "", "", valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
 				
 				//LIMPAR CAMPOS
 				taDescricao.setText("");
-				tfValorMaoDeObra.setText("");
+				tfValorMaoDeObra.setText("0.00");
 				tfEntrada.setText("");
 				tfSaida.setText("");
 				
@@ -250,7 +250,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 				String nome = tfCliente.getText().toUpperCase();
 				
 				//LIMPAR COMBOBOX
-				cbCliente.setModel(new DefaultComboBoxModel());
+				cbCliente.setModel(new DefaultComboBoxModel<Cliente>());
 				
 				//INSERIR OS CLIENTES NO COMBOBOX
 				for(Cliente c : PersistenciaEmBanco.pegarInstancia().getClientesNome(nome))
@@ -272,7 +272,7 @@ public class TelaCadastrarOrdemDeServico extends JFrame{
 				String placaNome = tfVeiculo.getText().toUpperCase();
 				
 				//LIMPAR COMBOBOX
-				cbVeiculo.setModel(new DefaultComboBoxModel());
+				cbVeiculo.setModel(new DefaultComboBoxModel<IVeiculo>());
 				
 				//INSERIR OS VEICULOS NO COMBOBOX
 				for(IVeiculo v : PersistenciaEmBanco.pegarInstancia().getVeiculoPlacaNome(placaNome))

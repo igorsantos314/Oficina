@@ -15,6 +15,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaCadastrarProduto extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField tfNome;
 	private JTextField tfValorCompra;
 	private JTextField tfQuantidade;

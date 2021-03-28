@@ -1,10 +1,8 @@
 package oficina.persistencia;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,6 @@ import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.modelo.Produto;
 import oficina.modelo.ProdutoVendido;
-import oficina.modelo.VeiculoCarro;
 import oficina.modelo.VeiculoMoto;
 
 public class PersistenciaEmBanco {
@@ -219,6 +216,8 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String cod_os = rs.getString("codigo");
 				String descricao = rs.getString("descricao");
+				String laudo = rs.getString("laudo_tecnico");
+				String codigoVenda = rs.getString("codigo_venda");
 				Float valorMaoDeObra = rs.getFloat("valor_mao_obra");
 				Float valorPecas = rs.getFloat("valor_pecas");
 				String data_Entrada = rs.getString("data_entrada");
@@ -228,7 +227,7 @@ public class PersistenciaEmBanco {
 				String placa_veiculo = rs.getString("placa_veiculo");
 				String nome_Cliente = rs.getString("nome_cliente");
 				
-				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				OrdensServico.add(os);
 				
 			}
@@ -256,6 +255,8 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String cod_os = rs.getString("codigo");
 				String descricao = rs.getString("descricao");
+				String laudo = rs.getString("laudo_tecnico");
+				String codigoVenda = rs.getString("codigo_venda");
 				Float valorMaoDeObra = rs.getFloat("valor_mao_obra");
 				Float valorPecas = rs.getFloat("valor_pecas");
 				String data_Entrada = rs.getString("data_entrada");
@@ -265,7 +266,7 @@ public class PersistenciaEmBanco {
 				String placa_veiculo = rs.getString("placa_veiculo");
 				String nome_Cliente = rs.getString("nome_cliente");
 				
-				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				System.out.println(os);
 				
 				return os;
@@ -296,6 +297,8 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String cod = rs.getString("codigo");
 				String descricao = rs.getString("descricao");
+				String laudo = rs.getString("laudo_tecnico");
+				String codigoVenda = rs.getString("codigo_venda");
 				Float valorMaoDeObra = rs.getFloat("valor_mao_obra");
 				Float valorPecas = rs.getFloat("valor_pecas");
 				String data_Entrada = rs.getString("data_entrada");
@@ -305,7 +308,7 @@ public class PersistenciaEmBanco {
 				String placa_veiculo = rs.getString("placa_veiculo");
 				String nome_Cliente = rs.getString("nome_cliente");
 				
-				OrdemDeServico os = new OrdemDeServico(cod, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
+				OrdemDeServico os = new OrdemDeServico(cod, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
 				OrdensServico.add(os);
 
 			}
@@ -589,19 +592,21 @@ public class PersistenciaEmBanco {
 	
 	public void UpdateOS(OrdemDeServico obj) {
 		
-		String sql = "UPDATE ordemdeservico SET descricao = ?, data_entrada= ?, data_saida= ?, valor_mao_obra=?, valor_pecas=?, status= ?, forma_pagamento= ? WHERE codigo = ?;";
+		String sql = "UPDATE ordemdeservico SET descricao = ?, laudo_tecnico = ?, codigo_venda = ?, data_entrada= ?, data_saida= ?, valor_mao_obra=?, valor_pecas=?, status= ?, forma_pagamento= ? WHERE codigo = ?;";
 		
 		try 
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
 			pstmt.setString(1, obj.getDescricao());
-			pstmt.setString(2, obj.getData_Entrada());
-			pstmt.setString(3, obj.getData_Saida());
-			pstmt.setFloat( 4, obj.getValorMaoDeObra());
-			pstmt.setFloat( 5, obj.getValorPecas());
-			pstmt.setString(6, obj.getStatus());
-			pstmt.setString(7, obj.getForma_pagamento());
-			pstmt.setInt(8, Integer.parseInt(obj.getCod()));
+			pstmt.setString(2, obj.getLaudoTecnico());
+			pstmt.setString(3, obj.getCodigoVenda());
+			pstmt.setString(4, obj.getData_Entrada());
+			pstmt.setString(5, obj.getData_Saida());
+			pstmt.setFloat( 6, obj.getValorMaoDeObra());
+			pstmt.setFloat( 7, obj.getValorPecas());
+			pstmt.setString(8, obj.getStatus());
+			pstmt.setString(9, obj.getForma_pagamento());
+			pstmt.setInt(10, Integer.parseInt(obj.getCod()));
 			
 			pstmt.execute();
 			pstmt.close();
@@ -628,6 +633,55 @@ public class PersistenciaEmBanco {
 		}
 	}
 	
+	public void deleteCliente(String cliente) {
+		String sql = "DELETE FROM clientes WHERE cpf='" + cliente + "';";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void deleteVeiculo(String placa) {
+		
+		String sql = "DELETE FROM veiculo WHERE placa='" + placa + "';";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void deleteProduto(int cod) {
+		String sql = "DELETE FROM produto WHERE cod=" + cod + ";";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+
 	public void deleteVenda(int codVenda) {
 		String sql = "DELETE FROM venderprodutos WHERE codvenda=" + codVenda + ";";
 		

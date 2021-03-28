@@ -1,30 +1,31 @@
 package oficina.gui;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import oficina.facade.Conexao;
 import oficina.modelo.Produto;
 import oficina.modelo.ProdutoVendido;
 import oficina.persistencia.PersistenciaEmBanco;
 
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
 public class TelaSetorDeVendas extends JFrame{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private JTable tableProdutos;
 	private JTable tableVenda;
@@ -443,7 +444,10 @@ public class TelaSetorDeVendas extends JFrame{
 					//DESABILITAR BOTAO DE EXCLUIR
 					btExcluir.setEnabled(false);
 					
-					JOptionPane.showMessageDialog(null, "DELETADO COM SUCESSO !");
+					//ATUALIZAR ID
+					setarIDVenda();
+					
+					JOptionPane.showMessageDialog(null, "VENDA EXCLUIDA COM SUCESSO !");
                 }
 			}
 		});
@@ -454,7 +458,6 @@ public class TelaSetorDeVendas extends JFrame{
 		getContentPane().add(btExcluir);
 		
 		btnImprimir = new JButton("IMPRIMIR");
-		btnImprimir.setEnabled(false);
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Conexao.pegarInstancia().imprimirVenda(listaDeCompra);

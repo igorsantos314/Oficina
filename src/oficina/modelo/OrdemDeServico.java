@@ -1,11 +1,11 @@
 package oficina.modelo;
 
-import java.util.Date;
-
 public class OrdemDeServico {
 	
 	String cod;
 	String Descricao;
+	String LaudoTecnico;
+	String codigoVenda;
 	Float  ValorPecas = 0f;
 	Float  ValorMaoDeObra = 0f;
 	String Data_Entrada;
@@ -16,21 +16,40 @@ public class OrdemDeServico {
 	String placaVeiculo;
 	String nomeCliente;
 
-	public OrdemDeServico(String cod, String descricao, Float ValorMaoDeObra, Float ValorPecas, String data_Entrada, String data_Saida, String forma_pagamento,
-			String status, String veiculo, String cliente) {
+	public OrdemDeServico(String cod, String descricao, String laudoTecnico, String codigoVenda, Float valorPecas,
+			Float valorMaoDeObra, String data_Entrada, String data_Saida, String forma_pagamento, String status,
+			String placaVeiculo, String nomeCliente) {
 		super();
 		this.cod = cod;
 		this.Descricao = descricao;
-		this.ValorMaoDeObra = ValorMaoDeObra;
-		this.ValorPecas = ValorPecas;
+		this.LaudoTecnico = laudoTecnico;
+		this.codigoVenda = codigoVenda;
+		this.ValorPecas = valorPecas;
+		this.ValorMaoDeObra = valorMaoDeObra;
 		this.Data_Entrada = data_Entrada;
 		this.Data_Saida = data_Saida;
 		this.forma_pagamento = forma_pagamento;
 		this.status = status;
-		this.placaVeiculo = veiculo;
-		this.nomeCliente = cliente;
+		this.placaVeiculo = placaVeiculo;
+		this.nomeCliente = nomeCliente;
 	}
 
+	public String getLaudoTecnico() {
+		return LaudoTecnico;
+	}
+
+	public void setLaudoTecnico(String laudoTecnico) {
+		LaudoTecnico = laudoTecnico;
+	}
+
+	public String getCodigoVenda() {
+		return codigoVenda;
+	}
+
+	public void setCodigoVenda(String codigoVenda) {
+		this.codigoVenda = codigoVenda;
+	}
+	
 	public String getCod() {
 		return cod;
 	}

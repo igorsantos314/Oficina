@@ -44,10 +44,10 @@ public class Conexao {
 		
 	}
 	
-	public void salvarOS(String descricao, Float valorMaoDeObra, Float valorPecas,  String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
+	public void salvarOS(String descricao, String laudo, String codigoVenda, Float valorMaoDeObra, Float valorPecas,  String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
 
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().CadastrarOS(new OrdemDeServico(null, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
+		PersistenciaEmBanco.pegarInstancia().CadastrarOS(new OrdemDeServico(codigoVenda, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
 	}
 	
 	public void salvarProduto(int cod, String nome, Float valorDeCompra, Float valorDeVenda, int quantidade) {
@@ -56,10 +56,10 @@ public class Conexao {
 		PersistenciaEmBanco.pegarInstancia().CadastrarProduto(new Produto(cod, nome, valorDeCompra, valorDeVenda, quantidade));
 	}
 	
-	public void atualizarOS(String cod, String descricao, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
+	public void atualizarOS(String cod, String descricao, String laudo, String codigoVenda, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String forma_pagamento, String status, String veiculo, String cliente) {
 		
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, null, null));
+		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
 	}
 	
 	public void imprimirOS(String descricao, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente) {

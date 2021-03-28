@@ -10,8 +10,6 @@ import javax.swing.text.MaskFormatter;
 
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.facade.Conexao;
-import util.util;
-
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -52,30 +50,23 @@ public class TelaCadastrarCliente extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				String nome = tfNome.getText().toUpperCase();
-				String cpf = tfCPF.getText().replace(".", "").replace("-", "");
+				String cpf = tfCPF.getText();
 				String telefone = tfTelefone.getText();
 				String email = tfEmail.getText().toUpperCase();
 				
 				//CHAMAR CONEXAO
 				try {
 					
-					//VALIDAR CPF
-					if(util.isCPF(cpf)) {
-						Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
-						
-						//MENSAGEM DE SUCESSO
-						JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
-						
-						//LIMPAR CAMPOS
-						tfNome.setText("");
-						tfCPF.setText("");
-						tfTelefone.setText("");
-						tfEmail.setText("");
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "POR FAVOR, DIGITE UM CPF VÁLIDO!");
-					}
+					Conexao.pegarInstancia().salvarCliente(cpf, nome, telefone, email);
 					
+					//MENSAGEM DE SUCESSO
+					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+					
+					//LIMPAR CAMPOS
+					tfNome.setText("");
+					tfCPF.setText("");
+					tfTelefone.setText("");
+					tfEmail.setText("");
 					
 				} catch (ClienteJaCadastradoException e1) {
 					// TODO Auto-generated catch block
