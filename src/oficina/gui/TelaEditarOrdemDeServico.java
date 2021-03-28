@@ -315,6 +315,8 @@ public class TelaEditarOrdemDeServico extends JDialog{
 				
 				//PEGAR DADOS DOS CAMPOS
 				String descricao = taDescricao.getText().toUpperCase();
+				String laudo = taLaudo.getText().toUpperCase();
+				String codigo = tfCodigoVenda.getText();
 				Float valorMaoDeObra = Float.parseFloat(tfValorMaoDeObra.getText());
 				Float valorPecas = Float.parseFloat(tfValorPecas.getText());
 				String data_Entrada = tfEntrada.getText();
@@ -325,7 +327,7 @@ public class TelaEditarOrdemDeServico extends JDialog{
 				String nome_Cliente = tfCliente.getText();
 				
 				//IMPRIMIR OS
-				Conexao.pegarInstancia().imprimirOS(descricao, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente);
+				Conexao.pegarInstancia().imprimirOS(descricao, laudo, codigo, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa, nome_Cliente, listaDeCompra);
 				
 			}
 		});
@@ -380,17 +382,24 @@ public class TelaEditarOrdemDeServico extends JDialog{
 				if(tfCodigoVenda.isEditable()) {
 					tfCodigoVenda.setEditable(false);
 					btEditarCodigo.setText("EDITAR CÓDIGO");
+					
+					if(tfCodigoVenda.getText().equals("")) {
+						//ZERAR VALOR DE PEÇAS E TABELA
+						clearTableVenda();
+						tfValorPecas.setText("0.00");
+						
+						//ATUALIZAR TABELA
+						tableVenda.updateUI();
+					}
+					else {
+						//ATUALIZAR TABELA E VALORES
+						atualizarTabela();
+
+					}
 				}
 				else {
 					tfCodigoVenda.setEditable(true);
 					btEditarCodigo.setText("SALVAR");
-					
-					if(tfCodigoVenda.equals("")) {
-						
-					}
-					else {
-						
-					}
 				}
 			}
 		});
@@ -427,17 +436,21 @@ public class TelaEditarOrdemDeServico extends JDialog{
 			
 		}
 		else {
-			int codigo = Integer.parseInt(os.getCodigoVenda());
-			
-			//SETAR LISTA DE COMPRA
-			setListaCompraCod(codigo);
-			
-			//ATUALIZAR TABELA
-			setTabelaVenda();
-			
-			//SETAR VALOR DA COMPRA
-			this.tfValorPecas.setText(""+getTotalProduto());
+			atualizarTabela();
 		}
+	}
+	
+	public void atualizarTabela() {
+		int codigo = Integer.parseInt(this.tfCodigoVenda.getText());
+		
+		//SETAR LISTA DE COMPRA
+		setListaCompraCod(codigo);
+		
+		//ATUALIZAR TABELA
+		setTabelaVenda();
+		
+		//SETAR VALOR DA COMPRA
+		this.tfValorPecas.setText(""+getTotalProduto());
 	}
 	
 	public void setComboBox(String status, String pag) {

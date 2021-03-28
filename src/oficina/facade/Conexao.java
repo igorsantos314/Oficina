@@ -62,7 +62,7 @@ public class Conexao {
 		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
 	}
 	
-	public void imprimirOS(String descricao, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente) {
+	public void imprimirOS(String descricao, String laudo, String codVenda, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente, ArrayList<ProdutoVendido> listaDeProdutos) {
 		
 		//TEXTO DE IMPRESSÃO DA OS
 		String textToPrint = 	"                                ORDEM DE SERVIÇO\n"
@@ -84,9 +84,20 @@ public class Conexao {
 							 +  "Valor mão de Obra:                                      R$ " + valorMaoDeObra+ "\n"
 							 + 	"Valor em Peças:                                         R$ " + valorPecas    + "\n"
 							 +	"--------------------------------------------------------------------------------\n"
-							 + 	"Descrcao:\n"
+							 + 	"Descrição:\n"
 							 + 	"      " + descricao + "\n\n"
 							 +	"--------------------------------------------------------------------------------\n"
+							 + 	"Laudo Tecnico:\n"
+							 + 	"      " + laudo + "\n"
+							 +	"--------------------------------------------------------------------------------\n"
+							 + 	"                         Produtos Utilizados no Serviço\n"
+							 +  "Código Venda: " + codVenda + "\n\n";
+		
+		for(ProdutoVendido pv: listaDeProdutos) {
+			textToPrint += "    -> " + pv.getQuantidade() + " " + pv.getNome() + " " + pv.getValorTotal() + "\n";  
+		}
+		
+		textToPrint			 +=	"--------------------------------------------------------------------------------\n"	 
 							 + 	"Data da Impressão:                                      "+ localDate.toString() + "\n\n"
 							 + 	"                                  Volte Sempre !                                \n";
 		
