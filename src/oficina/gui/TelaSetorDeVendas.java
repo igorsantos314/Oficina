@@ -33,7 +33,7 @@ public class TelaSetorDeVendas extends JFrame{
 	private JScrollPane scrollPaneVenda;
 	
 	private String[] colunasTabelaProduto = {"Codigo", "Nome", "Valor"};
-	private final int QUANTIDADE_MAX_CONTAS = 100;
+	private int QUANTIDADE_MAX_CONTAS = 10000;
 	private Object[][] elementosProduto = new Object[QUANTIDADE_MAX_CONTAS][3];
 	
 	private String[] colunasTabelaVenda = {"Cod Venda", "Cod Produto", "Nome Produto", "Valor UND.", "Quantidade", "Valor Total", "Data"};
@@ -66,7 +66,12 @@ public class TelaSetorDeVendas extends JFrame{
 	//DATA ATUAL DO COMPUTADOR
 	private LocalDate localDate = LocalDate.now();
 	private JButton btnImprimir;
+	private JTextField tfCodigoVendaNavegar;
 			
+	//POSICAO DO CODIGO
+	private int posicaoCodigoVenda = 1;
+	private JButton btnAll;
+	
 	public TelaSetorDeVendas() {
 		setFont(new Font("Arial", Font.PLAIN, 12));
 		setResizable(false);
@@ -342,23 +347,8 @@ public class TelaSetorDeVendas extends JFrame{
 					}
 					else {
 						
-						//RESETAR VALORES
-						quantidadeDeProdutos = 0;
-						subtotal = 0;
-						total = 0;
-						
-						//PEGAR VALORES PARA EXIBIR
-						for(ProdutoVendido pv : listaDeCompra) {
-							quantidadeDeProdutos += pv.getQuantidade();
-							subtotal += pv.getValorUnd();
-							total += pv.getValorTotal();
-						}
-						
-						//ATUALIZAR TABELA
-						setTabelaVenda();
-						
-						//ATUALIZAR VALORES
-						atualizarValores();
+						//SETAR NOVA LISTA DE VENDA
+						setarVenda();
 						
 						//DESABILITAR INSERIR PRODUTO
 						btnAddProduto.setEnabled(false);
@@ -376,7 +366,6 @@ public class TelaSetorDeVendas extends JFrame{
 						btnRemove.setEnabled(false);
 					}
 				}
-				
 				
 			}
 		});
@@ -408,6 +397,9 @@ public class TelaSetorDeVendas extends JFrame{
                 	
                 	//HABILITAR BOTÃO DE ADD
                 	btnAddProduto.setEnabled(true);
+                	
+                	//HABILITAR BOTÃO DE REMOVER DA LISTA DE VENDA
+    				btnRemove.setEnabled(false);
                 }
                 
 			}
@@ -468,13 +460,121 @@ public class TelaSetorDeVendas extends JFrame{
 		btnImprimir.setBounds(1023, 645, 118, 23);
 		getContentPane().add(btnImprimir);
 		
+		JLabel lblNewLabel_2 = new JLabel("NAVEGAR:");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblNewLabel_2.setBounds(1023, 471, 118, 14);
+		getContentPane().add(lblNewLabel_2);
+		
+		JButton btnPrev = new JButton("<");
+		btnPrev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//AVANÇAR CODIGO DE NAVEGAÇÃO
+				posicaoCodigoVenda -= 1;
+				
+				//ATUALIZAR CODIGO
+				changeCodigoNavegar();
+			}
+		});
+		btnPrev.setFont(new Font("Arial", Font.BOLD, 12));
+		btnPrev.setBackground(Color.LIGHT_GRAY);
+		btnPrev.setBounds(1023, 531, 59, 23);
+		getContentPane().add(btnPrev);
+		
+		JButton btnNext = new JButton(">");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//AVANÇAR CODIGO DE NAVEGAÇÃO
+				posicaoCodigoVenda += 1;
+				
+				//ATUALIZAR CODIGO
+				changeCodigoNavegar();
+			}
+		});
+		btnNext.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNext.setBackground(Color.LIGHT_GRAY);
+		btnNext.setBounds(1082, 531, 59, 23);
+		getContentPane().add(btnNext);
+		
+		tfCodigoVendaNavegar = new JTextField();
+		tfCodigoVendaNavegar.setEditable(false);
+		tfCodigoVendaNavegar.setFont(new Font("Arial", Font.BOLD, 25));
+		tfCodigoVendaNavegar.setBounds(1023, 486, 118, 34);
+		getContentPane().add(tfCodigoVendaNavegar);
+		tfCodigoVendaNavegar.setColumns(10);
+		
+		btnAll = new JButton("<    >");
+		btnAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//PEGAR TODOS OS PRODUTOS VENDIDOS
+				listaDeCompra = PersistenciaEmBanco.pegarInstancia().getAllVendas();
+				
+				//MODIFICAR A QUANTIDA DE TUPLAS DA TABELA
+				QUANTIDADE_MAX_CONTAS = 10000;
+				
+				//SETAR NOVA LISTA DE VENDA
+				setarVenda();
+				
+				//LIMPAR CAMPO DE NAVEGAR
+				tfCodigoVendaNavegar.setText("");
+				
+				//DESABILITAR BOTAO DE EDITAR
+				btEditar.setEnabled(false);
+				
+				//DESEBALITAR BOTAO DE FINALIZAR A VENDA
+				btnFinalizarVenda.setEnabled(false);
+				
+				//DESEBALITAR BOTAO DE REMOVER DA LISTA DE VENDA
+				btnRemove.setEnabled(false);
+				
+				//DESABILITAR BOTÃO DE ADICIONAR PRODUTO A LISTA
+				btnAddProduto.setEnabled(false);
+			}
+		});
+		btnAll.setFont(new Font("Arial", Font.BOLD, 12));
+		btnAll.setBackground(Color.LIGHT_GRAY);
+		btnAll.setBounds(1023, 559, 118, 23);
+		getContentPane().add(btnAll);
+		
 		//SETAR ID DA VENDA
 		setarIDVenda();
 		
 		//INICIALIZAR TABELA DE PRODUTOS
 		updateTable();
 		
+		//SETAR CODIGO DE NAVEGAÇÃO
+		changeCodigoNavegar();
+		
 		setVisible(true);
+	}
+	
+	public void changeCodigoNavegar() {
+		this.tfCodigoVendaNavegar.setText(""+posicaoCodigoVenda);
+		
+		//PEGAR VENDA COM O CODIGO DESEJADO
+		listaDeCompra = PersistenciaEmBanco.pegarInstancia().getVendaID(posicaoCodigoVenda);
+		
+		//SETAR NOVA LISTA DE VENDA
+		setarVenda();
+	}
+	
+	public void setarVenda() {
+		//RESETAR VALORES
+		quantidadeDeProdutos = 0;
+		subtotal = 0;
+		total = 0;
+		
+		//PEGAR VALORES PARA EXIBIR
+		for(ProdutoVendido pv : listaDeCompra) {
+			quantidadeDeProdutos += pv.getQuantidade();
+			subtotal += pv.getValorUnd();
+			total += pv.getValorTotal();
+		}
+		
+		//ATUALIZAR TABELA
+		setTabelaVenda();
+		
+		//ATUALIZAR VALORES
+		atualizarValores();
 	}
 	
 	public void resetarVenda() {

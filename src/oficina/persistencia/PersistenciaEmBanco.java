@@ -457,6 +457,42 @@ public class PersistenciaEmBanco {
 		return listaDeProdutos;
 	}
 	
+	public ArrayList<ProdutoVendido> getAllVendas(){
+		
+		ArrayList<ProdutoVendido> listaDeProdutos = new ArrayList<ProdutoVendido>();
+		
+		String sql = "select * from venderprodutos order by codvenda asc";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+
+				int codVenda = rs.getInt("codvenda");
+				int codProduto = rs.getInt("codproduto");
+				String nomeProd = rs.getString("nomeProduto");
+				Float valor = rs.getFloat("valorProduto");
+				int quant = rs.getInt("quantidade");
+				String data = rs.getString("dataCompra");
+				
+				ProdutoVendido pv = new ProdutoVendido(codVenda, codProduto, nomeProd, valor, quant, data);
+				listaDeProdutos.add(pv);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return listaDeProdutos;
+	}
+	
 	public void CadastrarCliente(Cliente obj) throws ClienteJaCadastradoException{
 		String sqlInserirCliente = "insert into clientes (cpf, nome, telefone, email)"
 				+ " values (?,?,?,?);";

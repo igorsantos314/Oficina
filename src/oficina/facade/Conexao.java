@@ -90,7 +90,7 @@ public class Conexao {
 							 + 	"Laudo Tecnico:\n"
 							 + 	"      " + laudo + "\n"
 							 +	"--------------------------------------------------------------------------------\n"
-							 + 	"                         Produtos Utilizados no Serviço\n"
+							 + 	"                           Produtos Utilizados no Serviço\n"
 							 +  "Código Venda: " + codVenda + "\n\n";
 		
 		for(ProdutoVendido pv: listaDeProdutos) {
