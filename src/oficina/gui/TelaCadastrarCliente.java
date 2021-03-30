@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
+import java.awt.Font;
+import java.awt.Color;
 
 public class TelaCadastrarCliente extends JFrame{
 	/**
@@ -30,22 +32,77 @@ public class TelaCadastrarCliente extends JFrame{
 	public TelaCadastrarCliente() throws java.text.ParseException{
 		setResizable(false);
 		
-		setSize(413,284);
+		setSize(636,287);
 		setTitle("CADASTRAR CLIENTE");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 11, 46, 14);
+		lblNome.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNome.setBounds(60, 46, 83, 14);
 		getContentPane().add(lblNome);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(10, 165, 374, 64);
-		getContentPane().add(panel);
+		JLabel lblCpf = new JLabel("CPF:");
+		lblCpf.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblCpf.setBounds(60, 79, 83, 14);
+		getContentPane().add(lblCpf);
+		
+		JLabel lblTelefone = new JLabel("Telefone:");
+		lblTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblTelefone.setBounds(60, 110, 83, 14);
+		getContentPane().add(lblTelefone);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblEmail.setBounds(60, 141, 83, 14);
+		getContentPane().add(lblEmail);
+		
+		tfNome = new JTextField();
+		tfNome.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfNome.setBounds(171, 40, 374, 20);
+		getContentPane().add(tfNome);
+		tfNome.setColumns(10);
+		
+		tfEmail = new JTextField();
+		tfEmail.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfEmail.setBounds(171, 135, 374, 20);
+		getContentPane().add(tfEmail);
+		tfEmail.setColumns(10);
+		
+		tfCPF = new JFormattedTextField();
+		tfCPF.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfCPF.setBounds(171, 73, 181, 20);
+		getContentPane().add(tfCPF);
+		
+		tfTelefone = new JFormattedTextField();
+		tfTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfTelefone.setBounds(171, 104, 181, 20);
+		getContentPane().add(tfTelefone);
+		
+		//SETAR MASCARAS
+		MaskFormatter mfCpf = new MaskFormatter("###.###.###-##");
+		mfCpf.install(tfCPF);
+		
+		MaskFormatter mfTel = new MaskFormatter("(##)#####-####");
+		mfTel.install(tfTelefone);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setBackground(Color.LIGHT_GRAY);
+		btnSalvar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnSalvar.setBounds(171, 180, 181, 33);
+		getContentPane().add(btnSalvar);
+		
+		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(Color.LIGHT_GRAY);
+		btnFechar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnFechar.setBounds(364, 180, 181, 33);
+		getContentPane().add(btnFechar);
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -75,54 +132,6 @@ public class TelaCadastrarCliente extends JFrame{
 				
 			}
 		});
-		
-		panel.add(btnSalvar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		
-		panel.add(btnCancelar);
-		
-		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(10, 57, 46, 14);
-		getContentPane().add(lblCpf);
-		
-		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(201, 57, 61, 14);
-		getContentPane().add(lblTelefone);
-		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(10, 103, 46, 14);
-		getContentPane().add(lblEmail);
-		
-		tfNome = new JTextField();
-		tfNome.setBounds(10, 26, 374, 20);
-		getContentPane().add(tfNome);
-		tfNome.setColumns(10);
-		
-		tfEmail = new JTextField();
-		tfEmail.setBounds(10, 118, 374, 20);
-		getContentPane().add(tfEmail);
-		tfEmail.setColumns(10);
-		
-		tfCPF = new JFormattedTextField();
-		tfCPF.setBounds(10, 72, 181, 20);
-		getContentPane().add(tfCPF);
-		
-		tfTelefone = new JFormattedTextField();
-		tfTelefone.setBounds(201, 72, 183, 20);
-		getContentPane().add(tfTelefone);
-		
-		//SETAR MASCARAS
-		MaskFormatter mfCpf = new MaskFormatter("###.###.###-##");
-		mfCpf.install(tfCPF);
-		
-		MaskFormatter mfTel = new MaskFormatter("(##)#####-####");
-		mfTel.install(tfTelefone);
 		
 		setVisible(true);
 	}

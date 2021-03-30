@@ -508,8 +508,6 @@ public class PersistenciaEmBanco {
 			pstmt.execute();
 			pstmt.close();
 			
-			System.out.println("ok");
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new ClienteJaCadastradoException("Cliente já Cadastrado!");
@@ -536,7 +534,6 @@ public class PersistenciaEmBanco {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			//JOptionPane.showMessageDialog(null, e.getMessage());
 			throw new VeiculoJaCadastradoException("Veiculo Já Cadastrado!");
 		}
 		
@@ -562,8 +559,6 @@ public class PersistenciaEmBanco {
 			
 			pstmt.execute();
 			pstmt.close();
-			
-			System.out.println("ok");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

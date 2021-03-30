@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class TelaCadastrarVeiculo extends JFrame{
 	/**
@@ -33,28 +35,35 @@ public class TelaCadastrarVeiculo extends JFrame{
 		getContentPane().setLayout(null);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
+		lblModelo.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblModelo.setBounds(64, 27, 74, 14);
 		getContentPane().add(lblModelo);
 		
 		JLabel lblPlaca = new JLabel("Placa:");
+		lblPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblPlaca.setBounds(64, 70, 74, 14);
 		getContentPane().add(lblPlaca);
 		
 		JLabel lblCor = new JLabel("Cor:");
+		lblCor.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblCor.setBounds(64, 113, 74, 14);
 		getContentPane().add(lblCor);
 		
 		tfModelo = new JTextField();
+		tfModelo.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfModelo.setBounds(148, 24, 145, 20);
 		getContentPane().add(tfModelo);
 		tfModelo.setColumns(10);
 		
 		tfCor = new JTextField();
+		tfCor.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfCor.setBounds(148, 110, 145, 20);
 		getContentPane().add(tfCor);
 		tfCor.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setBackground(Color.LIGHT_GRAY);
+		btnSalvar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -89,25 +98,30 @@ public class TelaCadastrarVeiculo extends JFrame{
 		getContentPane().add(btnSalvar);
 		
 		tfPlaca = new JTextField();
+		tfPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfPlaca.setBounds(148, 67, 145, 20);
 		getContentPane().add(tfPlaca);
 		tfPlaca.setColumns(10);
 		
 		tfAno = new JTextField();
+		tfAno.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfAno.setBounds(148, 152, 145, 20);
 		getContentPane().add(tfAno);
 		tfAno.setColumns(10);
 		
 		tfKmAtual = new JTextField();
+		tfKmAtual.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfKmAtual.setBounds(148, 194, 145, 20);
 		getContentPane().add(tfKmAtual);
 		tfKmAtual.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Ano:");
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel.setBounds(64, 155, 74, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("KM Atual:");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel_1.setBounds(64, 197, 74, 14);
 		getContentPane().add(lblNewLabel_1);
 		

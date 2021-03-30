@@ -20,7 +20,7 @@ import oficina.modelo.Produto;
 import oficina.modelo.ProdutoVendido;
 import oficina.persistencia.PersistenciaEmBanco;
 
-public class TelaSetorDeVendas extends JFrame{
+public class teste extends JFrame{
 	
 	/**
 	 * 
@@ -72,7 +72,7 @@ public class TelaSetorDeVendas extends JFrame{
 	private int posicaoCodigoVenda = 1;
 	private JButton btnAll;
 	
-	public TelaSetorDeVendas() {
+	public teste() {
 		setFont(new Font("Arial", Font.PLAIN, 12));
 		setResizable(false);
 		
@@ -347,9 +347,6 @@ public class TelaSetorDeVendas extends JFrame{
 					}
 					else {
 						
-						//SETAR CÓDIGO DA VENDA BUSCADA
-						lblCodigoVenda.setText(""+idVenda);
-						
 						//SETAR NOVA LISTA DE VENDA
 						setarVenda();
 						
@@ -403,8 +400,6 @@ public class TelaSetorDeVendas extends JFrame{
                 	
                 	//HABILITAR BOTÃO DE REMOVER DA LISTA DE VENDA
     				btnRemove.setEnabled(false);
-    				//ATUALIZAR COD DE VENDA
-    				setarIDVenda();
                 }
                 
 			}
@@ -415,50 +410,6 @@ public class TelaSetorDeVendas extends JFrame{
 		getContentPane().add(btnNovaVenda);
 		
 		btEditar = new JButton("EDITAR");
-		btEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if(btEditar.getText().equals("EDITAR") && listaDeCompra.isEmpty() == false) {
-					//MODIFICAR TEXTO DO BOTÃO
-					btEditar.setText("SALVAR");
-					
-					//HABILITAR BOTÃO DE ADICIONAR ITEM
-					btnAddProduto.setEnabled(true);
-					
-					//HABILITAR BOTÃO DE REMOVER ITEM
-					btnRemove.setEnabled(true);
-				}
-				else {
-					
-					int resposta = JOptionPane.showConfirmDialog(null, "DESEJA SALVAR ESTA EDIÇÃO?");
-					
-					//VERIFICAR SE O USUARIO DESEJA SALVAR EDIÇÃO
-	                if(resposta == 0)
-	                {	
-	                	System.out.println(listaDeCompra.get(0).getCodVenda());
-	                	//APAGAR VENDA
-						PersistenciaEmBanco.pegarInstancia().deleteVenda(listaDeCompra.get(0).getCodVenda());
-						
-						//SALVAR VENDA
-						PersistenciaEmBanco.pegarInstancia().cadastrarVenda(listaDeCompra);
-						
-						//MENSAGEM DE SUCESSO
-						JOptionPane.showMessageDialog(null, "EDITADO COM SUCESSO!");
-						
-						//SALVAR AS ALTERAÇÕES
-						btEditar.setText("EDITAR");
-						
-						//ATUALIZAR COD DE VENDA
-						setarIDVenda();
-						
-						//RESETAR TODOS OS DADOS DA VENDA
-						resetarVenda();
-	                }
-					
-				}
-				
-			}
-		});
 		btEditar.setEnabled(false);
 		btEditar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btEditar.setBackground(Color.LIGHT_GRAY);
@@ -487,12 +438,6 @@ public class TelaSetorDeVendas extends JFrame{
 					
 					//ATUALIZAR ID
 					setarIDVenda();
-					
-					//RESETAR TODOS OS DADOS DA VENDA
-					resetarVenda();
-					
-					//DESABILITAR BOTÃO DE EDIÇÃO
-					btEditar.setEnabled(false);
 					
 					JOptionPane.showMessageDialog(null, "VENDA EXCLUIDA COM SUCESSO !");
                 }
@@ -523,16 +468,11 @@ public class TelaSetorDeVendas extends JFrame{
 		JButton btnPrev = new JButton("<");
 		btnPrev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//AVANÇAR CODIGO DE NAVEGAÇÃO
+				posicaoCodigoVenda -= 1;
 				
-				//NÃO NAVEGAR POR NUMEROS NEGATIVOS
-				if(posicaoCodigoVenda >= 2) {
-					//AVANÇAR CODIGO DE NAVEGAÇÃO
-					posicaoCodigoVenda -= 1;
-					
-					//ATUALIZAR CODIGO
-					changeCodigoNavegar();
-				}
-				
+				//ATUALIZAR CODIGO
+				changeCodigoNavegar();
 			}
 		});
 		btnPrev.setFont(new Font("Arial", Font.BOLD, 12));
