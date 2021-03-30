@@ -56,13 +56,13 @@ public class TelaPrincipal extends JFrame{
 		menuBar.setBackground(Color.WHITE);
 		setJMenuBar(menuBar);
 		
-		JMenu mnVeiculos = new JMenu("Veiculos");
+		JMenu mnVeiculos = new JMenu("VEICULOS");
 		mnVeiculos.setFont(new Font("Arial", Font.PLAIN, 14));
 		mnVeiculos.setForeground(Color.BLACK);
 		mnVeiculos.setBackground(Color.WHITE);
 		menuBar.add(mnVeiculos);
 		
-		JMenuItem mntmNovoVeiculo = new JMenuItem("Cadastrar Veiculo");
+		JMenuItem mntmNovoVeiculo = new JMenuItem("CADASTRAR VEICULO");
 		mntmNovoVeiculo.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmNovoVeiculo.setBackground(Color.WHITE);
 		mntmNovoVeiculo.addActionListener(new ActionListener() {
@@ -79,7 +79,7 @@ public class TelaPrincipal extends JFrame{
 		
 		mnVeiculos.add(mntmNovoVeiculo);
 		
-		JMenuItem mntmConsultarVeiculos = new JMenuItem("Consultar Veiculos");
+		JMenuItem mntmConsultarVeiculos = new JMenuItem("CONSULTAR VEICULOS");
 		mntmConsultarVeiculos.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmConsultarVeiculos.setBackground(Color.WHITE);
 		mntmConsultarVeiculos.addActionListener(new ActionListener() {
@@ -90,13 +90,13 @@ public class TelaPrincipal extends JFrame{
 		});
 		mnVeiculos.add(mntmConsultarVeiculos);
 		
-		JMenu mnCliente = new JMenu("Clientes");
+		JMenu mnCliente = new JMenu("CLIENTES");
 		mnCliente.setFont(new Font("Arial", Font.PLAIN, 14));
 		mnCliente.setForeground(Color.BLACK);
 		mnCliente.setBackground(Color.WHITE);
 		menuBar.add(mnCliente);
 		
-		JMenuItem mntmCadastrarCliente = new JMenuItem("Cadastrar Cliente");
+		JMenuItem mntmCadastrarCliente = new JMenuItem("CADASTRAR CLIENTE");
 		mntmCadastrarCliente.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmCadastrarCliente.setBackground(Color.WHITE);
 		mntmCadastrarCliente.addActionListener(new ActionListener() {
@@ -113,7 +113,7 @@ public class TelaPrincipal extends JFrame{
 		
 		mnCliente.add(mntmCadastrarCliente);
 		
-		JMenuItem mntmConsultarClientes = new JMenuItem("Consultar Clientes");
+		JMenuItem mntmConsultarClientes = new JMenuItem("CONSULTAR CLIENTES");
 		mntmConsultarClientes.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmConsultarClientes.setBackground(Color.WHITE);
 		mntmConsultarClientes.addActionListener(new ActionListener() {
@@ -125,13 +125,13 @@ public class TelaPrincipal extends JFrame{
 		});
 		mnCliente.add(mntmConsultarClientes);
 		
-		JMenu mnProduto = new JMenu("Produtos");
+		JMenu mnProduto = new JMenu("PRODUTOS");
 		mnProduto.setFont(new Font("Arial", Font.PLAIN, 14));
 		mnProduto.setForeground(Color.BLACK);
 		mnProduto.setBackground(Color.WHITE);
 		menuBar.add(mnProduto);
 		
-		JMenuItem mntmCadastrarProduto = new JMenuItem("Cadastrar Produto");
+		JMenuItem mntmCadastrarProduto = new JMenuItem("CADASTRAR PRODUTO");
 		mntmCadastrarProduto.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmCadastrarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,7 +142,7 @@ public class TelaPrincipal extends JFrame{
 		mntmCadastrarProduto.setBackground(Color.WHITE);
 		mnProduto.add(mntmCadastrarProduto);
 		
-		JMenuItem mntmConsultarProdutos = new JMenuItem("Consultar Produtos");
+		JMenuItem mntmConsultarProdutos = new JMenuItem("CONSULTAR PRODUTOS");
 		mntmConsultarProdutos.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmConsultarProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,13 +153,13 @@ public class TelaPrincipal extends JFrame{
 		mntmConsultarProdutos.setBackground(Color.WHITE);
 		mnProduto.add(mntmConsultarProdutos);
 		
-		JMenu mnOrdemServico = new JMenu("Ordens de Servi\u00E7o");
+		JMenu mnOrdemServico = new JMenu("ORDENS DE SERVI\u00C7O");
 		mnOrdemServico.setFont(new Font("Arial", Font.PLAIN, 14));
 		mnOrdemServico.setForeground(Color.BLACK);
 		mnOrdemServico.setBackground(Color.WHITE);
 		menuBar.add(mnOrdemServico);
 		
-		JMenuItem mntmNovaOS = new JMenuItem("Nova OS");
+		JMenuItem mntmNovaOS = new JMenuItem("NOVA OS");
 		mntmNovaOS.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmNovaOS.setBackground(Color.WHITE);
 		mntmNovaOS.addActionListener(new ActionListener() {
@@ -175,7 +175,7 @@ public class TelaPrincipal extends JFrame{
 		
 		mnOrdemServico.add(mntmNovaOS);
 		
-		JMenuItem mntmConsultarOS = new JMenuItem("Consultar OS");
+		JMenuItem mntmConsultarOS = new JMenuItem("CONSULTAR OS");
 		mntmConsultarOS.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmConsultarOS.setBackground(Color.WHITE);
 		mntmConsultarOS.addActionListener(new ActionListener() {
@@ -185,13 +185,13 @@ public class TelaPrincipal extends JFrame{
 		});
 		mnOrdemServico.add(mntmConsultarOS);
 		
-		JMenu mnSetorVendas = new JMenu("Setor de Vendas");
+		JMenu mnSetorVendas = new JMenu("SETOR DE VENDAS");
 		mnSetorVendas.setFont(new Font("Arial", Font.PLAIN, 14));
 		mnSetorVendas.setForeground(Color.BLACK);
 		mnSetorVendas.setBackground(Color.WHITE);
 		menuBar.add(mnSetorVendas);
 		
-		JMenuItem mntmVenderProdutos = new JMenuItem("Vender Produtos");
+		JMenuItem mntmVenderProdutos = new JMenuItem("VENDER PRODUTOS");
 		mntmVenderProdutos.setFont(new Font("Arial", Font.PLAIN, 14));
 		mntmVenderProdutos.setBackground(Color.WHITE);
 		mntmVenderProdutos.addActionListener(new ActionListener() {
@@ -202,6 +202,22 @@ public class TelaPrincipal extends JFrame{
 			}
 		});
 		mnSetorVendas.add(mntmVenderProdutos);
+		
+		JMenu mnNewMenu = new JMenu("FINANCEIRO");
+		mnNewMenu.setForeground(Color.BLACK);
+		mnNewMenu.setFont(new Font("Arial", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmContabilidade = new JMenuItem("CONTABILIDADE");
+		mntmContabilidade.setFont(new Font("Arial", Font.PLAIN, 14));
+		mntmContabilidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//ABRIR TELA DE FINANCEIRO
+				new TelaFinanceiro();
+			}
+		});
+		mnNewMenu.add(mntmContabilidade);
 		
 		setVisible(true);
 	}

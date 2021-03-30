@@ -1,6 +1,7 @@
 package oficina.modelo;
 import java.io.Serializable;
 import oficina.gui.TelaPrincipal;
+import oficina.persistencia.PersistenciaEmBanco;
 
 public class Programa implements Serializable{
 
@@ -14,7 +15,6 @@ public class Programa implements Serializable{
 		//System.out.println("OI"); 
 		new TelaPrincipal("");
 		//new TelaLogin();
-		
 	}
 	
 }

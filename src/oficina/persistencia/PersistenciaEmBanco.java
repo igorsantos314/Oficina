@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import oficina.exception.ClienteJaCadastradoException;
 import oficina.exception.VeiculoJaCadastradoException;
 import oficina.modelo.Cliente;
+import oficina.modelo.Financeiro;
 import oficina.modelo.IVeiculo;
 import oficina.modelo.OrdemDeServico;
 import oficina.modelo.Produto;
@@ -390,6 +391,38 @@ public class PersistenciaEmBanco {
 
 	}
 	
+	public Produto getProdutoCodigo(int i){
+		
+		String sql = "select * from produto where cod=" + i + ";";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int cod = rs.getInt("cod");
+				String nomeProd = rs.getString("nome");
+				Float valorDeCompra = rs.getFloat("valorDeCompra");
+				Float valorDeVenda = rs.getFloat("valorDeVenda");
+				int quantidade = rs.getInt("quantidade");
+				
+				return new Produto(cod, nomeProd, valorDeCompra, valorDeVenda, quantidade);
+
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return null;
+
+	}
+	
 	public int getLastIdVenda() {
 		
 		//PEGA O ULTIMO INDICE DA VENDA
@@ -727,4 +760,34 @@ public class PersistenciaEmBanco {
 		}
 	}
 	
+	public Financeiro contabilidadeTotal() {
+		
+		Float totalMaoDeObra = 0f;
+		Float totalVenda = 0f;
+		Float totalLucro = 0f;
+		
+		//PEGA O VALOR TOTAL DAS VENDA
+		for(ProdutoVendido pv : getAllVendas()) {
+			//SOMA O VALOR TOTAL DAS VENDA
+			totalVenda += pv.getValorTotal();
+			
+			//PEGAR O PRODUTO DA VENDA PELA CODIGO
+			Produto p = getProdutoCodigo(pv.getCodProd());
+			
+			if(p != null) {
+				//SOMA O LUCRO DE CADA PRODUTO VENDIDO CASA AINDA EXISTA
+				Float lucroUnd = p.getValorDeVenda() - p.getValorDeCompra();
+				totalLucro += lucroUnd * pv.getQuantidade();
+			}
+			
+		}
+		
+		//PEGAR O VALOR DE TODAS AS OS
+		for(OrdemDeServico os : getAllOS()) {
+			totalMaoDeObra += os.getValorMaoDeObra(); 
+		}
+		
+		return new Financeiro(totalMaoDeObra, totalVenda, totalLucro);
+		
+	}
 }
