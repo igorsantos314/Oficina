@@ -62,6 +62,12 @@ public class Conexao {
 		PersistenciaEmBanco.pegarInstancia().UpdateOS(new OrdemDeServico(cod, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, forma_pagamento, status, veiculo, cliente));
 	}
 	
+	public void atualizarCliente(String nome, String cpf, String telefone, String email) {
+		//CHAMAR O PACOTE DE PERSISTENCIA
+		System.out.println(new Cliente(nome, cpf, telefone, email));
+		PersistenciaEmBanco.pegarInstancia().UpdateCliente(new Cliente(nome, cpf, telefone, email));
+	}
+	
 	public void imprimirOS(String descricao, String laudo, String codVenda, Float valorMaoDeObra, Float valorPecas, String data_Entrada, String data_Saida, String pagamento, String status, String placa, String nome_Cliente, ArrayList<ProdutoVendido> listaDeProdutos) {
 		
 		//TEXTO DE IMPRESSÃO DA OS

@@ -120,7 +120,12 @@ public class TelaPrincipal extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				//CHAMAR TELA DE CCONSULTAR VEICULOS
-				new TelaConsultarClientes();
+				try {
+					new TelaConsultarClientes();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		mnCliente.add(mntmConsultarClientes);

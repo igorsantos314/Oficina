@@ -684,6 +684,11 @@ public class PersistenciaEmBanco {
 	
 	public void UpdateCliente(Cliente obj) {
 		
+		String sql2 = "UPDATE clientes SET nome = '" + obj.getNome() + "', telefone = '" + obj.getTelefone() + "',"
+				+ " email = '" + obj.getEmail() + "' WHERE cpf = '" + obj.getCpf() + "';";
+		
+		System.out.println(sql2);
+		
 		String sql = "UPDATE clientes SET nome = ?, telefone = ?, email = ? WHERE cpf = ?;";
 		
 		try 

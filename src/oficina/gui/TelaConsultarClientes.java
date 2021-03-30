@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -17,7 +18,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
 
+import oficina.facade.Conexao;
 import oficina.modelo.Cliente;
 import oficina.persistencia.PersistenciaEmBanco;
 
@@ -38,15 +41,15 @@ public class TelaConsultarClientes extends JDialog{
 	
 	private JFormattedTextField tfCPF;
 	private JLabel lblEmail;
-	private JFormattedTextField tfTelefone;
 	
 	private JButton btnFechar;
 	private JButton btnExcluirCliente;
-	private JButton btnSalvarAlteraes;
+	private JButton btnSalvarAlteracoes;
+	private JFormattedTextField tfTelefone; 
 
 	private JButton btnEditar;
 	
-	public TelaConsultarClientes() {
+	public TelaConsultarClientes() throws ParseException{
 		
 		setResizable(false);
 		setSize(938,660);
@@ -132,6 +135,7 @@ public class TelaConsultarClientes extends JDialog{
 						
 						//HABILITAR BOTOES
 						btnFechar.setEnabled(true);
+						btnSalvarAlteracoes.setEnabled(true);
 						btnExcluirCliente.setEnabled(true);
 						
 						//DESABILITAR BOTÃO DE EDIDAR
@@ -175,12 +179,6 @@ public class TelaConsultarClientes extends JDialog{
 		lblTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblTelefone.setBounds(201, 514, 151, 14);
 		getContentPane().add(lblTelefone);
-		
-		tfTelefone = new JFormattedTextField();
-		tfTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
-		tfTelefone.setEnabled(false);
-		tfTelefone.setBounds(201, 529, 183, 20);
-		getContentPane().add(tfTelefone);
 		
 		lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -239,12 +237,38 @@ public class TelaConsultarClientes extends JDialog{
 		panel.add(btnExcluirCliente);
 		btnExcluirCliente.setBackground(Color.LIGHT_GRAY);
 		
-		btnSalvarAlteraes = new JButton("SALVAR");
-		btnSalvarAlteraes.setEnabled(false);
-		btnSalvarAlteraes.setFont(new Font("Arial", Font.PLAIN, 16));
-		panel.add(btnSalvarAlteraes);
-		btnSalvarAlteraes.setBackground(Color.LIGHT_GRAY);
-		setVisible(true);
+		btnSalvarAlteracoes = new JButton("SALVAR");
+		btnSalvarAlteracoes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int resposta = JOptionPane.showConfirmDialog(null, "DESEJA REALMENTE EDITAR ESTE CLIENTE?");
+				
+				//VERIFICAR SE O USUARIO DESEJA ATUALIZAR O CLIENTE
+                if(resposta == 0) {
+                	//SALVAR ALTERAÇÕES
+                	Conexao.pegarInstancia().atualizarCliente(tfNome.getText().toUpperCase(), tfCPF.getText(), tfTelefone.getText(), tfEmail.getText().toUpperCase());
+                	
+                	//LIMPAR E DESABILITAR TUDO
+					clearCamps();
+					
+                	//ATUALIZAR TABELA
+                	updateTable();
+                }
+                	
+			}
+		});
+		btnSalvarAlteracoes.setEnabled(false);
+		btnSalvarAlteracoes.setFont(new Font("Arial", Font.PLAIN, 16));
+		panel.add(btnSalvarAlteracoes);
+		btnSalvarAlteracoes.setBackground(Color.LIGHT_GRAY);
+		
+		tfTelefone = new JFormattedTextField();
+		tfTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfTelefone.setEnabled(false);
+		tfTelefone.setBounds(201, 529, 187, 20);
+		getContentPane().add(tfTelefone);
+		MaskFormatter mfTel = new MaskFormatter("(##)#####-####");
+		mfTel.install(tfTelefone);
 		
 		//INICIALIZAR A TABELA
 		this.updateTable();
@@ -268,6 +292,7 @@ public class TelaConsultarClientes extends JDialog{
 		//HABILITAR BOTOES
 		btnFechar.setEnabled(false);
 		btnExcluirCliente.setEnabled(false);
+		btnSalvarAlteracoes.setEnabled(false);
 		btnEditar.setEnabled(true);
 	}
 	
