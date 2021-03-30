@@ -60,6 +60,7 @@ public class TelaEditarOrdemDeServico extends JDialog{
 	private JTextField tfCodigoVenda;
 
 	private JTextArea taLaudo;
+	private JTextField tfValorTotal;
 	
 	public TelaEditarOrdemDeServico(String cod) throws ParseException {
 		
@@ -78,34 +79,34 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblCod = new JLabel("Cod:");
+		JLabel lblCod = new JLabel("COD:");
 		lblCod.setFont(new Font("Arial", Font.PLAIN, 13));
 		lblCod.setBounds(10, 11, 46, 14);
 		panel.add(lblCod);
 		
 		tfCod = new JTextField();
-		tfCod.setFont(new Font("Arial", Font.PLAIN, 13));
+		tfCod.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfCod.setEditable(false);
 		tfCod.setBounds(10, 28, 75, 20);
 		panel.add(tfCod);
 		tfCod.setColumns(10);
 		
-		JLabel lblDataEntrada = new JLabel("Data Entrada:");
+		JLabel lblDataEntrada = new JLabel("DATA DE ENTRADA:");
 		lblDataEntrada.setFont(new Font("Arial", Font.PLAIN, 13));
 		lblDataEntrada.setBounds(95, 11, 218, 14);
 		panel.add(lblDataEntrada);
 		
-		JLabel lblSaida = new JLabel("Data Sa\u00EDda:");
+		JLabel lblSaida = new JLabel("DATA DE SAIDA");
 		lblSaida.setFont(new Font("Arial", Font.PLAIN, 13));
 		lblSaida.setBounds(323, 11, 230, 14);
 		panel.add(lblSaida);
 		
-		JLabel lblCliente = new JLabel("Cliente:");
+		JLabel lblCliente = new JLabel("NOME DO CLIENTE:");
 		lblCliente.setFont(new Font("Arial", Font.PLAIN, 13));
 		lblCliente.setBounds(10, 59, 58, 14);
 		panel.add(lblCliente);
 		
-		JLabel lblPlaca = new JLabel("Veiculo:");
+		JLabel lblPlaca = new JLabel("VEICULO:");
 		lblPlaca.setFont(new Font("Arial", Font.PLAIN, 13));
 		lblPlaca.setBounds(563, 59, 249, 14);
 		panel.add(lblPlaca);
@@ -117,7 +118,8 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		panel_1.setLayout(null);
 		
 		taDescricao = new JTextArea();
-		taDescricao.setFont(new Font("Arial", Font.PLAIN, 13));
+		taDescricao.setForeground(Color.BLUE);
+		taDescricao.setFont(new Font("Arial", Font.PLAIN, 14));
 		taDescricao.setBounds(10, 30, 555, 179);
 		panel_1.add(taDescricao);
 		
@@ -127,7 +129,8 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		panel_1.add(lblDescricao);
 		
 		taLaudo = new JTextArea();
-		taLaudo.setFont(new Font("Arial", Font.PLAIN, 13));
+		taLaudo.setForeground(new Color(0, 128, 0));
+		taLaudo.setFont(new Font("Arial", Font.PLAIN, 14));
 		taLaudo.setText((String) null);
 		taLaudo.setBounds(575, 30, 536, 179);
 		panel_1.add(taLaudo);
@@ -143,36 +146,39 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Status:");
-		lblNewLabel.setBounds(10, 11, 46, 14);
+		JLabel lblNewLabel = new JLabel("STATUS");
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNewLabel.setBounds(10, 11, 286, 14);
 		panel_2.add(lblNewLabel);
 		
 		cbStatus = new JComboBox<StatusTypes>();
 		cbStatus.setFont(new Font("Arial", Font.BOLD, 28));
 		cbStatus.setBackground(Color.WHITE);
 		cbStatus.setModel(new DefaultComboBoxModel<>(StatusTypes.values()));
-		cbStatus.setBounds(10, 27, 337, 47);
+		cbStatus.setBounds(10, 27, 286, 47);
 		panel_2.add(cbStatus);
 		
-		JLabel lblPagamento = new JLabel("Forma de Pagamento:");
-		lblPagamento.setBounds(357, 11, 270, 14);
+		JLabel lblPagamento = new JLabel("FORMA DE PAGAMENTO:");
+		lblPagamento.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblPagamento.setBounds(306, 11, 270, 14);
 		panel_2.add(lblPagamento);
 		
 		cbPagamento = new JComboBox<PagamentoTypes>();
 		cbPagamento.setFont(new Font("Arial", Font.BOLD, 28));
 		cbPagamento.setBackground(Color.WHITE);
 		cbPagamento.setModel(new DefaultComboBoxModel<>(PagamentoTypes.values()));
-		cbPagamento.setBounds(357, 27, 336, 47);
+		cbPagamento.setBounds(306, 27, 286, 47);
 		panel_2.add(cbPagamento);
 		
-		JLabel lblValor = new JLabel("Valor M\u00E3o de Obra");
-		lblValor.setBounds(705, 11, 198, 14);
+		JLabel lblValor = new JLabel("VALOR DE M\u00C3O OBRA:");
+		lblValor.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblValor.setBounds(604, 12, 162, 14);
 		panel_2.add(lblValor);
 		
 		tfValorMaoDeObra = new JTextField();
 		tfValorMaoDeObra.setForeground(Color.RED);
 		tfValorMaoDeObra.setFont(new Font("Arial", Font.BOLD, 28));
-		tfValorMaoDeObra.setBounds(703, 28, 198, 45);
+		tfValorMaoDeObra.setBounds(602, 29, 164, 45);
 		panel_2.add(tfValorMaoDeObra);
 		tfValorMaoDeObra.setColumns(10);
 		
@@ -180,13 +186,28 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		tfValorPecas.setEditable(false);
 		tfValorPecas.setForeground(Color.BLUE);
 		tfValorPecas.setFont(new Font("Arial", Font.BOLD, 28));
-		tfValorPecas.setBounds(913, 28, 198, 45);
+		tfValorPecas.setBounds(776, 29, 165, 45);
 		panel_2.add(tfValorPecas);
 		tfValorPecas.setColumns(10);
 		
-		JLabel lblValorEmPeas = new JLabel("Valor em Pe\u00E7as:");
-		lblValorEmPeas.setBounds(913, 13, 198, 14);
+		JLabel lblValorEmPeas = new JLabel("VALOR EM PE\u00C7AS:");
+		lblValorEmPeas.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblValorEmPeas.setBounds(776, 14, 165, 14);
 		panel_2.add(lblValorEmPeas);
+		
+		JLabel lblValorTotal = new JLabel("VALOR TOTAL:");
+		lblValorTotal.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblValorTotal.setBounds(946, 11, 165, 14);
+		panel_2.add(lblValorTotal);
+		
+		tfValorTotal = new JTextField();
+		tfValorTotal.setText((String) null);
+		tfValorTotal.setForeground(new Color(0, 128, 0));
+		tfValorTotal.setFont(new Font("Arial", Font.BOLD, 28));
+		tfValorTotal.setEditable(false);
+		tfValorTotal.setColumns(10);
+		tfValorTotal.setBounds(946, 26, 165, 45);
+		panel_2.add(tfValorTotal);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -208,12 +229,12 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		tfPlaca.setColumns(10);
 		
 		tfEntrada = new JFormattedTextField();
-		tfEntrada.setFont(new Font("Arial", Font.PLAIN, 13));
+		tfEntrada.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfEntrada.setBounds(95, 28, 218, 20);
 		panel.add(tfEntrada);
 		
 		tfSaida = new JFormattedTextField();
-		tfSaida.setFont(new Font("Arial", Font.PLAIN, 13));
+		tfSaida.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfSaida.setBounds(323, 28, 230, 20);
 		panel.add(tfSaida);
 		
@@ -358,6 +379,7 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		scrollPaneVenda.setViewportView(tableVenda);
 		
 		JLabel lblNewLabel_1 = new JLabel("LISTA DE PRODUTOS:");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel_1.setBounds(10, 373, 253, 14);
 		getContentPane().add(lblNewLabel_1);
 		
@@ -427,6 +449,10 @@ public class TelaEditarOrdemDeServico extends JDialog{
 		this.tfValorPecas.setText(os.getValorPecas().toString());
 		this.taLaudo.setText(os.getLaudoTecnico());
 		this.tfCodigoVenda.setText(os.getCodigoVenda());
+		
+		//SETAR VALOR TOTAL DE PEÇAS COM MÃO DE OBRA
+		Float total = os.getValorPecas() + os.getValorMaoDeObra();
+		this.tfValorTotal.setText(""+(os.getValorPecas() + os.getValorMaoDeObra()));
 		
 		//SETAR FORMA DE PAGAMENTO E STATUS
 		this.setComboBox(os.getStatus(), os.getForma_pagamento());

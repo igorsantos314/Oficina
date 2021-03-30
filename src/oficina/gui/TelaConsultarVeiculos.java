@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class TelaConsultarVeiculos extends JDialog{
 	
@@ -44,19 +46,24 @@ public class TelaConsultarVeiculos extends JDialog{
 		getContentPane().add(scrollPane);
 		
 		table = new JTable(elementos, colunasTabela);
+		table.setFont(new Font("Arial", Font.PLAIN, 14));
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblPlaca = new JLabel("MODELO OU PLACA:");
-		lblPlaca.setBounds(9, 19, 116, 14);
+		lblPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblPlaca.setBounds(9, 19, 166, 14);
 		getContentPane().add(lblPlaca);
 		
 		tfPlaca = new JTextField();
-		tfPlaca.setBounds(130, 16, 440, 20);
+		tfPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfPlaca.setBounds(169, 16, 414, 20);
 		getContentPane().add(tfPlaca);
 		tfPlaca.setColumns(10);
 		
 		JButton btConsultar = new JButton("CONSULTAR");
+		btConsultar.setBackground(Color.LIGHT_GRAY);
+		btConsultar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -75,6 +82,8 @@ public class TelaConsultarVeiculos extends JDialog{
 		getContentPane().add(btConsultar);
 		
 		JButton btnNewButton = new JButton("EDITAR VEICULO");
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
+		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

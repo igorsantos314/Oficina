@@ -49,7 +49,7 @@ public class TelaConsultarClientes extends JDialog{
 	public TelaConsultarClientes() {
 		
 		setResizable(false);
-		setSize(938,681);
+		setSize(938,660);
 		setTitle("CONSULTAR ORDEM DE SERVIÇO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -60,19 +60,23 @@ public class TelaConsultarClientes extends JDialog{
 		getContentPane().add(scrollPane);
 		
 		table = new JTable(elementos, colunasTabela);
+		table.setFont(new Font("Arial", Font.PLAIN, 14));
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblPlaca = new JLabel("NOME CLIENTE:");
+		lblPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblPlaca.setBounds(9, 19, 116, 14);
 		getContentPane().add(lblPlaca);
 		
 		tfNomeCliente = new JTextField();
+		tfNomeCliente.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfNomeCliente.setBounds(130, 16, 453, 20);
 		getContentPane().add(tfNomeCliente);
 		tfNomeCliente.setColumns(10);
 		
 		JButton btConsultar = new JButton("CONSULTAR");
+		btConsultar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btConsultar.setBackground(Color.LIGHT_GRAY);
 		btConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +96,7 @@ public class TelaConsultarClientes extends JDialog{
 		getContentPane().add(btConsultar);
 		
 		btnEditar = new JButton("EDITAR CLIENTE");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,38 +149,46 @@ public class TelaConsultarClientes extends JDialog{
 		getContentPane().add(btnEditar);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 468, 46, 14);
+		lblNome.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNome.setBounds(10, 468, 98, 14);
 		getContentPane().add(lblNome);
 		
 		tfNome = new JTextField();
+		tfNome.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfNome.setEnabled(false);
 		tfNome.setColumns(10);
 		tfNome.setBounds(10, 483, 901, 20);
 		getContentPane().add(tfNome);
 		
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(10, 514, 46, 14);
+		lblCpf.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblCpf.setBounds(10, 514, 55, 14);
 		getContentPane().add(lblCpf);
 		
 		tfCPF = new JFormattedTextField();
+		tfCPF.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfCPF.setEditable(false);
 		tfCPF.setBounds(10, 529, 181, 20);
 		getContentPane().add(tfCPF);
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(201, 514, 61, 14);
+		lblTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblTelefone.setBounds(201, 514, 151, 14);
 		getContentPane().add(lblTelefone);
 		
 		tfTelefone = new JFormattedTextField();
+		tfTelefone.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfTelefone.setEnabled(false);
 		tfTelefone.setBounds(201, 529, 183, 20);
 		getContentPane().add(tfTelefone);
 		
 		lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(398, 514, 513, 14);
+		lblEmail.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblEmail.setBounds(398, 514, 342, 14);
 		getContentPane().add(lblEmail);
 		
 		tfEmail = new JTextField();
+		tfEmail.setFont(new Font("Arial", Font.PLAIN, 14));
 		tfEmail.setEnabled(false);
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(398, 529, 352, 20);
@@ -183,7 +196,7 @@ public class TelaConsultarClientes extends JDialog{
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 572, 901, 61);
+		panel.setBounds(10, 572, 901, 39);
 		getContentPane().add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -195,7 +208,7 @@ public class TelaConsultarClientes extends JDialog{
 			}
 		});
 		btnFechar.setEnabled(false);
-		btnFechar.setFont(new Font("Arial", Font.BOLD, 20));
+		btnFechar.setFont(new Font("Arial", Font.PLAIN, 16));
 		panel.add(btnFechar);
 		btnFechar.setBackground(Color.LIGHT_GRAY);
 		
@@ -222,13 +235,13 @@ public class TelaConsultarClientes extends JDialog{
 			}
 		});
 		btnExcluirCliente.setEnabled(false);
-		btnExcluirCliente.setFont(new Font("Arial", Font.BOLD, 20));
+		btnExcluirCliente.setFont(new Font("Arial", Font.PLAIN, 16));
 		panel.add(btnExcluirCliente);
 		btnExcluirCliente.setBackground(Color.LIGHT_GRAY);
 		
 		btnSalvarAlteraes = new JButton("SALVAR");
 		btnSalvarAlteraes.setEnabled(false);
-		btnSalvarAlteraes.setFont(new Font("Arial", Font.BOLD, 20));
+		btnSalvarAlteraes.setFont(new Font("Arial", Font.PLAIN, 16));
 		panel.add(btnSalvarAlteraes);
 		btnSalvarAlteraes.setBackground(Color.LIGHT_GRAY);
 		setVisible(true);

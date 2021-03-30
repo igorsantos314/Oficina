@@ -89,13 +89,13 @@ public class TelaCadastrarCliente extends JFrame{
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBackground(Color.LIGHT_GRAY);
-		btnSalvar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnSalvar.setFont(new Font("Arial", Font.PLAIN, 16));
 		btnSalvar.setBounds(171, 180, 181, 33);
 		getContentPane().add(btnSalvar);
 		
 		JButton btnFechar = new JButton("Fechar");
 		btnFechar.setBackground(Color.LIGHT_GRAY);
-		btnFechar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnFechar.setFont(new Font("Arial", Font.PLAIN, 16));
 		btnFechar.setBounds(364, 180, 181, 33);
 		getContentPane().add(btnFechar);
 		btnFechar.addActionListener(new ActionListener() {

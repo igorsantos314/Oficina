@@ -106,7 +106,6 @@ public class PersistenciaEmBanco {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		
 		String sql = "select * from clientes where nome like '%" + nomeCliente + "%';";
-		System.out.println(sql);
 		
 		try
 		{
@@ -267,7 +266,6 @@ public class PersistenciaEmBanco {
 				String nome_Cliente = rs.getString("nome_cliente");
 				
 				OrdemDeServico os = new OrdemDeServico(cod_os, descricao, laudo, codigoVenda, valorMaoDeObra, valorPecas, data_Entrada, data_Saida, pagamento, status, placa_veiculo, nome_Cliente);
-				System.out.println(os);
 				
 				return os;
 				
