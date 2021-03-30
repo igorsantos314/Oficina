@@ -24,11 +24,12 @@ public class TelaCadastrarVeiculo extends JFrame{
 	private JTextField tfPlaca;
 	private JTextField tfAno;
 	private JTextField tfKmAtual;
+	private JTextField tfChassi;
 	
 	public TelaCadastrarVeiculo() throws ParseException{
 		setResizable(false);
 		
-		setSize(400,335);
+		setSize(400,381);
 		setTitle("CADASTRAR VEICULO");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -46,7 +47,7 @@ public class TelaCadastrarVeiculo extends JFrame{
 		
 		JLabel lblCor = new JLabel("Cor:");
 		lblCor.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblCor.setBounds(64, 113, 74, 14);
+		lblCor.setBounds(64, 153, 74, 14);
 		getContentPane().add(lblCor);
 		
 		tfModelo = new JTextField();
@@ -57,7 +58,7 @@ public class TelaCadastrarVeiculo extends JFrame{
 		
 		tfCor = new JTextField();
 		tfCor.setFont(new Font("Arial", Font.PLAIN, 14));
-		tfCor.setBounds(148, 110, 145, 20);
+		tfCor.setBounds(148, 150, 145, 20);
 		getContentPane().add(tfCor);
 		tfCor.setColumns(10);
 		
@@ -69,12 +70,13 @@ public class TelaCadastrarVeiculo extends JFrame{
 				
 				String modelo = tfModelo.getText().toUpperCase();
 				String placa = tfPlaca.getText().toUpperCase();
+				String chassi = tfChassi.getText().toUpperCase();
 				String cor = tfCor.getText().toUpperCase();
 				String ano = tfAno.getText();
 				int km_atual = Integer.parseInt(tfKmAtual.getText());
 				
 				try {
-					Conexao.pegarInstancia().salvarVeiculo(placa, modelo, cor, ano, km_atual);
+					Conexao.pegarInstancia().salvarVeiculo(placa, modelo, chassi, cor, ano, km_atual);
 					
 					//MENSAGEM DE SUCESSO
 					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
@@ -87,6 +89,7 @@ public class TelaCadastrarVeiculo extends JFrame{
 				//LIMPAR CAMPOS
 				tfModelo.setText("");
 				tfPlaca.setText("");
+				tfChassi.setText("");
 				tfCor.setText("");
 				tfAno.setText("");
 				tfKmAtual.setText("");
@@ -94,7 +97,7 @@ public class TelaCadastrarVeiculo extends JFrame{
 			}
 		});
 		
-		btnSalvar.setBounds(204, 245, 89, 23);
+		btnSalvar.setBounds(204, 285, 89, 23);
 		getContentPane().add(btnSalvar);
 		
 		tfPlaca = new JTextField();
@@ -105,25 +108,36 @@ public class TelaCadastrarVeiculo extends JFrame{
 		
 		tfAno = new JTextField();
 		tfAno.setFont(new Font("Arial", Font.PLAIN, 14));
-		tfAno.setBounds(148, 152, 145, 20);
+		tfAno.setBounds(148, 192, 145, 20);
 		getContentPane().add(tfAno);
 		tfAno.setColumns(10);
 		
 		tfKmAtual = new JTextField();
 		tfKmAtual.setFont(new Font("Arial", Font.PLAIN, 14));
-		tfKmAtual.setBounds(148, 194, 145, 20);
+		tfKmAtual.setBounds(148, 234, 145, 20);
 		getContentPane().add(tfKmAtual);
 		tfKmAtual.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Ano:");
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblNewLabel.setBounds(64, 155, 74, 14);
+		lblNewLabel.setBounds(64, 195, 74, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("KM Atual:");
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(64, 197, 74, 14);
+		lblNewLabel_1.setBounds(64, 237, 74, 14);
 		getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblChassi = new JLabel("Chassi:");
+		lblChassi.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblChassi.setBounds(64, 111, 74, 14);
+		getContentPane().add(lblChassi);
+		
+		tfChassi = new JTextField();
+		tfChassi.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfChassi.setColumns(10);
+		tfChassi.setBounds(148, 108, 145, 20);
+		getContentPane().add(tfChassi);
 		
 		setVisible(true);
 	}

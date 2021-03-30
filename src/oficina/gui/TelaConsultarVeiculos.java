@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import oficina.modelo.IVeiculo;
+import oficina.modelo.VeiculoMoto;
 import oficina.persistencia.PersistenciaEmBanco;
 
 import javax.swing.JButton;
@@ -27,9 +28,9 @@ public class TelaConsultarVeiculos extends JDialog{
 	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
-	private String[] colunasTabela = {"Modelo", "Placa", "Cor", "Ano", "KM Atual"};
+	private String[] colunasTabela = {"Modelo", "Placa", "Chassi", "Cor", "Ano", "KM Atual"};
 	private final int QUANTIDADE_MAX_CONTAS = 100;
-	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][5];
+	private Object[][] elementos = new Object[QUANTIDADE_MAX_CONTAS][6];
 	private JTextField tfPlaca;
 	
 	public TelaConsultarVeiculos() {
@@ -70,7 +71,7 @@ public class TelaConsultarVeiculos extends JDialog{
 				String modeloPlaca = tfPlaca.getText().toUpperCase();
 				
 				//FAZER CONSULTA NO BD
-				ArrayList<IVeiculo> veiculos = (ArrayList<IVeiculo>) PersistenciaEmBanco.pegarInstancia().getVeiculoPlacaNome(modeloPlaca);
+				ArrayList<VeiculoMoto> veiculos = (ArrayList<VeiculoMoto>) PersistenciaEmBanco.pegarInstancia().getVeiculoPlacaNome(modeloPlaca);
 				
 				//POVOAR TABELA
 				inserirTabela(veiculos);
@@ -131,10 +132,11 @@ public class TelaConsultarVeiculos extends JDialog{
 			elementos[i][2] = "";
 			elementos[i][3] = "";
 			elementos[i][4] = "";
+			elementos[i][5] = "";
 		}
 	}
 	
-	public void inserirTabela(ArrayList<IVeiculo> veiculos) {
+	public void inserirTabela(ArrayList<VeiculoMoto> veiculos) {
 		
 		//LIMPAR CAMPOS
 		clearTable();
@@ -143,13 +145,14 @@ public class TelaConsultarVeiculos extends JDialog{
 		int i = 0;
 		
 		//PRENCHER CAMPOS
-		for(IVeiculo veiculo : veiculos)
+		for(VeiculoMoto veiculo : veiculos)
 		{
 			elementos[i][0] = veiculo.getModelo();
 			elementos[i][1] = veiculo.getPlaca();
-			elementos[i][2] = veiculo.getCor();
-			elementos[i][3] = veiculo.getAno();
-			elementos[i][4] = veiculo.getKm_atual();
+			elementos[i][2] = veiculo.getChassi();
+			elementos[i][3] = veiculo.getCor();
+			elementos[i][4] = veiculo.getAno();
+			elementos[i][5] = veiculo.getKm_atual();
 			
 			i++;
 		}
@@ -161,7 +164,7 @@ public class TelaConsultarVeiculos extends JDialog{
 	public void updateTable() {
 		
 		//FAZER CONSULTA NO BD
-		ArrayList<IVeiculo> oss = (ArrayList<IVeiculo>) PersistenciaEmBanco.pegarInstancia().getAllVeiculos();
+		ArrayList<VeiculoMoto> oss = (ArrayList<VeiculoMoto>) PersistenciaEmBanco.pegarInstancia().getAllVeiculos();
 	
 		//ATUALIZAR TABELA
 		inserirTabela(oss);

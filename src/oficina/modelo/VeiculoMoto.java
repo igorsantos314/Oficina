@@ -6,12 +6,15 @@ public class VeiculoMoto implements IVeiculo{
 	String placa;
 	String cor;
 	String ano;
+	String chassi;
+
 	int km_atual;
 	
-	public VeiculoMoto(String modelo, String placa, String cor, String ano, int km_atual) {
+	public VeiculoMoto(String modelo, String placa, String chassi, String cor, String ano, int km_atual) {
 		super();
 		this.modelo = modelo;
 		this.placa = placa;
+		this.chassi = chassi;
 		this.cor = cor;
 		this.ano = ano;
 		this.km_atual = km_atual;
@@ -83,6 +86,14 @@ public class VeiculoMoto implements IVeiculo{
 
 	public void setKm_atual(int km_atual) {
 		this.km_atual = km_atual;
+	}
+	
+	public String getChassi() {
+		return chassi;
+	}
+
+	public void setChassi(String chassi) {
+		this.chassi = chassi;
 	}
 	
 }

@@ -33,7 +33,7 @@ public class TelaSetorDeVendas extends JFrame{
 	private JScrollPane scrollPaneVenda;
 	
 	private String[] colunasTabelaProduto = {"Codigo", "Nome", "Valor"};
-	private int QUANTIDADE_MAX_CONTAS = 10000;
+	private int QUANTIDADE_MAX_CONTAS = 100;
 	private Object[][] elementosProduto = new Object[QUANTIDADE_MAX_CONTAS][3];
 	
 	private String[] colunasTabelaVenda = {"Cod Venda", "Cod Produto", "Nome Produto", "Valor UND.", "Quantidade", "Valor Total", "Data"};
@@ -167,12 +167,15 @@ public class TelaSetorDeVendas extends JFrame{
 					//RESETAR QUANTIDADE DE PRODUTO
 					tfQuantidade.setText("1");
 					
+					//HABILITAR BOTAO DE REMOVER
+					btnRemove.setEnabled(true);
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "POR FAVOR, SELECIONE UMA PRODUTO!");
 				}
 			}
 		});
+		btnAddProduto.setEnabled(false);
 		btnAddProduto.setBackground(Color.LIGHT_GRAY);
 		btnAddProduto.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAddProduto.setBounds(1023, 225, 118, 23);
@@ -211,6 +214,7 @@ public class TelaSetorDeVendas extends JFrame{
 				
 			}
 		});
+		btnRemove.setEnabled(false);
 		btnRemove.setBackground(Color.LIGHT_GRAY);
 		btnRemove.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRemove.setBounds(1023, 399, 118, 23);
@@ -273,6 +277,18 @@ public class TelaSetorDeVendas extends JFrame{
 	    				
 	    				JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
 	    				
+	    				//VERIFICAR SE DESEJA IMPRIMIR A NOTA
+	    				int respostaNota = JOptionPane.showConfirmDialog(null, "DESEJA IMPRIMIR NOTA?");
+						
+						//VERIFICAR SE O USUARIO DESEJA IMPRIMIR COMPROVANTE
+		                if(respostaNota == 0)
+		                {
+		                	imprimirComprovante();
+		                }
+		                
+		                //DESABILITAR BOTÃO DE ADD PRODUTO
+		                btnAddProduto.setEnabled(false);
+		                
 	    				//LIMPAR TUDO
 	    				resetarVenda();
 	    				
@@ -403,6 +419,10 @@ public class TelaSetorDeVendas extends JFrame{
                 	
                 	//HABILITAR BOTÃO DE REMOVER DA LISTA DE VENDA
     				btnRemove.setEnabled(false);
+    				
+    				//DESABILITAR BOTÃO DE IMPRESSÃO
+    				btnImprimir.setEnabled(false);
+    				
     				//ATUALIZAR COD DE VENDA
     				setarIDVenda();
                 }
@@ -507,7 +527,8 @@ public class TelaSetorDeVendas extends JFrame{
 		btnImprimir = new JButton("IMPRIMIR");
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Conexao.pegarInstancia().imprimirVenda(listaDeCompra);
+				//CHAMAR IMPRESSÃO DE LISTA DE COMPRA
+				imprimirComprovante();
 			}
 		});
 		btnImprimir.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -602,7 +623,7 @@ public class TelaSetorDeVendas extends JFrame{
 		updateTable();
 		
 		//SETAR CODIGO DE NAVEGAÇÃO
-		changeCodigoNavegar();
+		//changeCodigoNavegar();
 		
 		setVisible(true);
 	}
@@ -762,5 +783,10 @@ public class TelaSetorDeVendas extends JFrame{
 		lblQuantidade.setText(""+quantidadeDeProdutos);
 		lblSubTotal.setText(""+subtotal);
 		lblValorTotal.setText(""+total);
+	}
+	
+	public void imprimirComprovante() {
+		//CHAMAR CONEXÃO ENVIANDO A LISTA DE COMPRA
+		Conexao.pegarInstancia().imprimirVenda(listaDeCompra);
 	}
 }

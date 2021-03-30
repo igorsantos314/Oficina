@@ -135,9 +135,9 @@ public class PersistenciaEmBanco {
 		return clientes;
 	}
 	
-	public List<IVeiculo> getAllVeiculos(){
+	public List<VeiculoMoto> getAllVeiculos(){
 		
-		ArrayList<IVeiculo> placas = new ArrayList<IVeiculo>();
+		ArrayList<VeiculoMoto> placas = new ArrayList<VeiculoMoto>();
 		
 		String sqlMoto = "select * from veiculo";
 		
@@ -149,11 +149,12 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String modelo = rs.getString("modelo");
 				String placa = rs.getString("placa");
+				String chassi = rs.getString("chassi");
 				String cor = rs.getString("cor");
 				String ano = rs.getString("ano");
 				int km_atual = rs.getInt("km_atual");
 				
-				IVeiculo veiculo = new VeiculoMoto(modelo, placa, cor, ano, km_atual);
+				VeiculoMoto veiculo = new VeiculoMoto(modelo, placa, chassi, cor, ano, km_atual);
 				placas.add(veiculo);
 			
 			}
@@ -169,9 +170,9 @@ public class PersistenciaEmBanco {
 		return placas;
 	}
 	
-	public List<IVeiculo> getVeiculoPlacaNome(String placaNome){
+	public List<VeiculoMoto> getVeiculoPlacaNome(String placaNome){
 		
-		ArrayList<IVeiculo> placas = new ArrayList<IVeiculo>();
+		ArrayList<VeiculoMoto> placas = new ArrayList<VeiculoMoto>();
 		
 		String sqlMoto = "select * from veiculo where modelo like'%" + placaNome + "%' or placa like'%" + placaNome + "%';";
 		
@@ -183,11 +184,12 @@ public class PersistenciaEmBanco {
 			while (rs.next()) {
 				String modelo = rs.getString("modelo");
 				String placa = rs.getString("placa");
+				String chassi = rs.getString("chassi");
 				String cor = rs.getString("cor");
 				String ano = rs.getString("ano");
 				int km_atual = rs.getInt("km_atual");
 				
-				IVeiculo veiculo = new VeiculoMoto(modelo, placa, cor, ano, km_atual);
+				VeiculoMoto veiculo = new VeiculoMoto(modelo, placa, chassi, cor, ano, km_atual);
 				placas.add(veiculo);
 			
 			}
@@ -546,26 +548,27 @@ public class PersistenciaEmBanco {
 		}
 	}
 	
-	public void CadastrarVeiculo(IVeiculo obj) throws VeiculoJaCadastradoException{
+	public void CadastrarVeiculo(VeiculoMoto obj){
 		
-		String sqlInserirCliente = "insert into veiculo (modelo, placa, cor, ano, km_atual)"
-				+ " values (?,?,?,?,?);";
+		String sqlInserirCliente = "insert into veiculo (modelo, placa, chassi, cor, ano, km_atual)"
+				+ " values (?,?,?,?,?,?);";
 		
 		try 
 		{
 			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sqlInserirCliente);
 			pstmt.setString(1, obj.getModelo());
 			pstmt.setString(2, obj.getPlaca());
-			pstmt.setString(3, obj.getCor());
-			pstmt.setString(4, obj.getAno());
-			pstmt.setInt(5, obj.getKm_atual());
+			pstmt.setString(3, obj.getChassi());
+			pstmt.setString(4, obj.getCor());
+			pstmt.setString(5, obj.getAno());
+			pstmt.setInt(6, obj.getKm_atual());
 			
 			pstmt.execute();
 			pstmt.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new VeiculoJaCadastradoException("Veiculo Já Cadastrado!");
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
 	}
@@ -669,6 +672,72 @@ public class PersistenciaEmBanco {
 			pstmt.setString(8, obj.getStatus());
 			pstmt.setString(9, obj.getForma_pagamento());
 			pstmt.setInt(10, Integer.parseInt(obj.getCod()));
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void UpdateCliente(Cliente obj) {
+		
+		String sql = "UPDATE clientes SET nome = ?, telefone = ?, email = ? WHERE cpf = ?;";
+		
+		try 
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			pstmt.setString(1, obj.getNome());
+			pstmt.setString(2, obj.getTelefone());
+			pstmt.setString(3, obj.getEmail());
+			pstmt.setString(4, obj.getCpf());
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void UpdateVeiculo(VeiculoMoto obj) {
+		
+		String sql = "UPDATE veiculo SET modelo = ?, chassi = ?, cor = ?, ano = ?, km_atual = ? WHERE placa = ?;";
+		
+		try 
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			pstmt.setString(1, obj.getModelo());
+			pstmt.setString(2, obj.getChassi());
+			pstmt.setString(3, obj.getCor());
+			pstmt.setString(4, obj.getAno());
+			pstmt.setInt(5, obj.getKm_atual());
+			pstmt.setString(6, obj.getPlaca());
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void UpdateProduto(Produto obj) {
+		
+		String sql = "UPDATE veiculo SET nome = ?, valorDeCompra = ?, valorDeVenda = ?, quantidade = ? WHERE cod = ?;";
+		
+		try 
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			pstmt.setString(1, obj.getNome());
+			pstmt.setFloat(2, obj.getValorDeCompra());
+			pstmt.setFloat(3, obj.getValorDeVenda());
+			pstmt.setInt(4, obj.getQuantidade());
+			pstmt.setInt(5, obj.getCod());
 			
 			pstmt.execute();
 			pstmt.close();

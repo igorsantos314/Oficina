@@ -37,10 +37,10 @@ public class Conexao {
 		PersistenciaEmBanco.pegarInstancia().CadastrarCliente(new Cliente(nome, cpf, telefone, email));
 	}
 	
-	public void salvarVeiculo(String placa, String modelo, String cor, String ano, int km_atual) throws VeiculoJaCadastradoException {
+	public void salvarVeiculo(String placa, String modelo, String chassi, String cor, String ano, int km_atual) throws VeiculoJaCadastradoException {
 		
 		//CHAMAR O PACOTE DE PERSISTENCIA
-		PersistenciaEmBanco.pegarInstancia().CadastrarVeiculo(new VeiculoMoto(modelo, placa, cor, ano, km_atual));
+		PersistenciaEmBanco.pegarInstancia().CadastrarVeiculo(new VeiculoMoto(modelo, placa, chassi, cor, ano, km_atual));
 		
 	}
 	

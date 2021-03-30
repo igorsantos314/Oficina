@@ -1,7 +1,6 @@
 package oficina.modelo;
 import java.io.Serializable;
 import oficina.gui.TelaPrincipal;
-import oficina.persistencia.PersistenciaEmBanco;
 
 public class Programa implements Serializable{
 

@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
 
 public class TelaConsultarProdutos extends JDialog{
 	
@@ -36,7 +37,7 @@ public class TelaConsultarProdutos extends JDialog{
 		setResizable(false);
 		
 		setSize(1204,563);
-		setTitle("CONSULTAR ORDEM DE SERVIÇO");
+		setTitle("CONSULTAR PRODUTOS");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
@@ -46,19 +47,23 @@ public class TelaConsultarProdutos extends JDialog{
 		getContentPane().add(scrollPane);
 		
 		table = new JTable(elementos, colunasTabela);
+		table.setFont(new Font("Arial", Font.PLAIN, 14));
 		table.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblPlaca = new JLabel("NOME DO PRODUTO:");
-		lblPlaca.setBounds(9, 19, 132, 14);
+		lblPlaca.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblPlaca.setBounds(9, 19, 176, 14);
 		getContentPane().add(lblPlaca);
 		
 		tfNomeProduto = new JTextField();
-		tfNomeProduto.setBounds(151, 16, 564, 20);
+		tfNomeProduto.setFont(new Font("Arial", Font.PLAIN, 14));
+		tfNomeProduto.setBounds(166, 16, 640, 20);
 		getContentPane().add(tfNomeProduto);
 		tfNomeProduto.setColumns(10);
 		
 		JButton btConsultar = new JButton("CONSULTAR");
+		btConsultar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btConsultar.setBackground(Color.LIGHT_GRAY);
 		btConsultar.setForeground(Color.BLACK);
 		btConsultar.addActionListener(new ActionListener() {
@@ -75,10 +80,11 @@ public class TelaConsultarProdutos extends JDialog{
 			}
 		});
 		
-		btConsultar.setBounds(725, 15, 157, 23);
+		btConsultar.setBounds(816, 15, 157, 23);
 		getContentPane().add(btConsultar);
 		
-		JButton btnNewButton = new JButton("EDITAR CLIENTE");
+		JButton btnNewButton = new JButton("EDITAR PRODUTO");
+		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -109,7 +115,7 @@ public class TelaConsultarProdutos extends JDialog{
 
 			}
 		});
-		btnNewButton.setBounds(1018, 15, 151, 23);
+		btnNewButton.setBounds(983, 15, 186, 23);
 		getContentPane().add(btnNewButton);
 		setVisible(true);
 		
