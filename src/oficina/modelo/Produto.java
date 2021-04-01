@@ -59,6 +59,10 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 	
+	public float getLucroUnd() {
+		return getValorDeVenda() - getValorDeCompra();
+	}
+	
 	public static String formatarFloat(float numero){
 		String retorno = "";
 		DecimalFormat formatter = new DecimalFormat("#.00");

@@ -328,7 +328,7 @@ public class PersistenciaEmBanco {
 	public ArrayList<Produto> getAllProdutos(){
 		
 		ArrayList<Produto> produtos = new ArrayList<Produto>();
-		String sql = "select * from produto;";
+		String sql = "select * from produto order by cod;";
 		
 		try
 		{
@@ -362,7 +362,7 @@ public class PersistenciaEmBanco {
 	public ArrayList<Produto> getProdutoNome(String nome){
 		
 		ArrayList<Produto> produtos = new ArrayList<Produto>();
-		String sql = "select * from produto where nome like '%" + nome + "%';";
+		String sql = "select * from produto where nome like '%" + nome + "%' order by cod;";
 		
 		try
 		{
@@ -820,6 +820,22 @@ public class PersistenciaEmBanco {
 
 	public void deleteVenda(int codVenda) {
 		String sql = "DELETE FROM venderprodutos WHERE codvenda=" + codVenda + ";";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void updateStockProduto(ProdutoVendido pv, String opcao) {
+		String sql = "UPDATE produto SET quantidade = quantidade " + opcao + " " + pv.getQuantidade() + " WHERE cod = " + pv.getCodProd() + ";";
 		
 		try
 		{

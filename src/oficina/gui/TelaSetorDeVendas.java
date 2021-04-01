@@ -275,6 +275,9 @@ public class TelaSetorDeVendas extends JFrame{
 	                	//CHAMAR FUNÇÃO PARA SALVAR TODOS OS DADOS DA VENDA
 	    				salvarVenda();
 	    				
+	    				//TIRAR PRODUTOS DO STOCK
+	    				atualizarStock("-");
+	    				
 	    				JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
 	    				
 	    				//VERIFICAR SE DESEJA IMPRIMIR A NOTA
@@ -288,6 +291,9 @@ public class TelaSetorDeVendas extends JFrame{
 		                
 		                //DESABILITAR BOTÃO DE ADD PRODUTO
 		                btnAddProduto.setEnabled(false);
+		                
+		              //DESABILITAR BOTÃO DE REMOVER PRODUTO
+		                btnRemove.setEnabled(false);
 		                
 	    				//LIMPAR TUDO
 	    				resetarVenda();
@@ -378,11 +384,15 @@ public class TelaSetorDeVendas extends JFrame{
 						//HABILITAR EXCLUIR
 						btExcluir.setEnabled(true);
 						
+						//HABILITAR BOTÃO DE IMPRESSÃO
+						btnImprimir.setEnabled(true);
+						
 						//DESABILITAR FINALIZAR COMPRA
 						btnFinalizarVenda.setEnabled(false);
 						
 						//DESABILITAR REMOVE ITEM DA LISTA DE COMPRA
 						btnRemove.setEnabled(false);
+		
 					}
 				}
 				
@@ -473,6 +483,15 @@ public class TelaSetorDeVendas extends JFrame{
 						
 						//RESETAR TODOS OS DADOS DA VENDA
 						resetarVenda();
+						
+						//DESABILITAR BOTÕES
+						btnAddProduto.setEnabled(false);
+						btnRemove.setEnabled(false);
+						btEditar.setEnabled(false);
+						btExcluir.setEnabled(false);
+						
+						//DESABILITAR BOTÃO DE IMPRESSÃO
+	    				btnImprimir.setEnabled(false);
 	                }
 					
 				}
@@ -498,6 +517,9 @@ public class TelaSetorDeVendas extends JFrame{
                 {
 					//EXCLUIR TODAS AS PRODUTOS COM O CODIGO DE VENDA
 					PersistenciaEmBanco.pegarInstancia().deleteVenda(codVenda);
+					
+					//REPOR ITENS NO STOCK
+    				atualizarStock("+");
 					
 					//RESETAR TABELA
 					resetarVenda();
@@ -525,6 +547,7 @@ public class TelaSetorDeVendas extends JFrame{
 		getContentPane().add(btExcluir);
 		
 		btnImprimir = new JButton("IMPRIMIR");
+		btnImprimir.setEnabled(false);
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//CHAMAR IMPRESSÃO DE LISTA DE COMPRA
@@ -783,6 +806,14 @@ public class TelaSetorDeVendas extends JFrame{
 		lblQuantidade.setText(""+quantidadeDeProdutos);
 		lblSubTotal.setText(""+subtotal);
 		lblValorTotal.setText(""+total);
+	}
+	
+	public void atualizarStock(String opc) {
+		
+		for(ProdutoVendido pv : listaDeCompra) {
+			//ATUALIZAR STOCK DE PRODUTOS VENDIDOS
+			PersistenciaEmBanco.pegarInstancia().updateStockProduto(pv, opc);
+		}
 	}
 	
 	public void imprimirComprovante() {

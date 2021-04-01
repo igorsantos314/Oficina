@@ -94,7 +94,7 @@ public class Conexao {
 							 + 	"      " + descricao + "\n\n"
 							 +	"--------------------------------------------------------------------------------\n"
 							 + 	"Laudo Tecnico:\n"
-							 + 	"      " + laudo + "\n"
+							 + 	"      " + laudo + "\n\n"
 							 +	"--------------------------------------------------------------------------------\n"
 							 + 	"                           Produtos Utilizados no Serviço\n"
 							 +  "Código Venda: " + codVenda + "\n\n";
@@ -123,7 +123,8 @@ public class Conexao {
 		for(ProdutoVendido pv : listaDeProdutos) {
 			
 			total += pv.getValorTotal();
-			textToPrint += pv.getNome() + " " + pv.getQuantidade() + " " + pv.getValorTotal() + "\n"; 
+			textToPrint += 	pv.getCodProd() + " " + pv.getNome() + " \n     " 
+						+ 	pv.getQuantidade() + " UND.  R$" + pv.getValorTotal() + "\n"; 
 		}
 		
 		textToPrint += 	"\nTotal: R$" + total +"\n"
