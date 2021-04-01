@@ -289,7 +289,7 @@ public class TelaConsultarClientes extends JDialog{
 		tfTelefone.setEnabled(false);
 		tfEmail.setEnabled(false);
 		
-		//HABILITAR BOTOES
+		//DESABILITAR BOTOES
 		btnFechar.setEnabled(false);
 		btnExcluirCliente.setEnabled(false);
 		btnSalvarAlteracoes.setEnabled(false);

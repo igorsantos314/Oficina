@@ -276,7 +276,7 @@ public class TelaSetorDeVendas extends JFrame{
 	    				salvarVenda();
 	    				
 	    				//TIRAR PRODUTOS DO STOCK
-	    				atualizarStock("-");
+	    				atualizarStock(listaDeCompra, "-");
 	    				
 	    				JOptionPane.showMessageDialog(null, "VENDA SALVA COM SUCESSO !");
 	    				
@@ -465,13 +465,25 @@ public class TelaSetorDeVendas extends JFrame{
 					//VERIFICAR SE O USUARIO DESEJA SALVAR EDIÇÃO
 	                if(resposta == 0)
 	                {	
-	                	System.out.println(listaDeCompra.get(0).getCodVenda());
+
+	                	//ID DA VENDA
+	                	int idVenda = listaDeCompra.get(0).getCodVenda();
+	                	
+	                	//PEGAR VENDA ANTIGA
+	                	ArrayList<ProdutoVendido> vendaAntiga = PersistenciaEmBanco.pegarInstancia().getVendaID(idVenda);
+	                	
+	                	//VOLTAR PRODUTOS AO STOCK DA VENDA ANTIGA
+	                	atualizarStock(vendaAntiga, "+");
+	                	
 	                	//APAGAR VENDA
-						PersistenciaEmBanco.pegarInstancia().deleteVenda(listaDeCompra.get(0).getCodVenda());
+						PersistenciaEmBanco.pegarInstancia().deleteVenda(idVenda);
 						
 						//SALVAR VENDA
 						PersistenciaEmBanco.pegarInstancia().cadastrarVenda(listaDeCompra);
 						
+						//ATUALIZAR STOCK DA VENDA EDITADA
+	                	atualizarStock(listaDeCompra, "-");
+	                	
 						//MENSAGEM DE SUCESSO
 						JOptionPane.showMessageDialog(null, "EDITADO COM SUCESSO!");
 						
@@ -519,7 +531,7 @@ public class TelaSetorDeVendas extends JFrame{
 					PersistenciaEmBanco.pegarInstancia().deleteVenda(codVenda);
 					
 					//REPOR ITENS NO STOCK
-    				atualizarStock("+");
+    				atualizarStock(listaDeCompra, "+");
 					
 					//RESETAR TABELA
 					resetarVenda();
@@ -808,9 +820,9 @@ public class TelaSetorDeVendas extends JFrame{
 		lblValorTotal.setText(""+total);
 	}
 	
-	public void atualizarStock(String opc) {
+	public void atualizarStock(ArrayList<ProdutoVendido> produtos, String opc) {
 		
-		for(ProdutoVendido pv : listaDeCompra) {
+		for(ProdutoVendido pv : produtos) {
 			//ATUALIZAR STOCK DE PRODUTOS VENDIDOS
 			PersistenciaEmBanco.pegarInstancia().updateStockProduto(pv, opc);
 		}

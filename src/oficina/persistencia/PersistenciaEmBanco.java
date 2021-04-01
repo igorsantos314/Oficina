@@ -733,7 +733,7 @@ public class PersistenciaEmBanco {
 	
 	public void UpdateProduto(Produto obj) {
 		
-		String sql = "UPDATE veiculo SET nome = ?, valorDeCompra = ?, valorDeVenda = ?, quantidade = ? WHERE cod = ?;";
+		String sql = "UPDATE produto SET nome = ?, valorDeCompra = ?, valorDeVenda = ?, quantidade = ? WHERE cod = ?;";
 		
 		try 
 		{
