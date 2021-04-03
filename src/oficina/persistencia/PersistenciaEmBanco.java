@@ -880,4 +880,40 @@ public class PersistenciaEmBanco {
 		return new Financeiro(totalMaoDeObra, totalVenda, totalLucro);
 		
 	}
+	
+	public ArrayList<ProdutoVendido> contabilidadeProdutos() {
+		
+		ArrayList<ProdutoVendido> listaDeProdutos = new ArrayList<ProdutoVendido>();
+		
+		String sql = "SELECT (SELECT nome from produto where cod=codProduto) as nome, codProduto, sum(quantidade) as quantidade_vendida, sum(valorProduto*quantidade) as valor_total "
+				+ "FROM venderProdutos "
+				+ "GROUP BY codProduto";
+		
+		try
+		{
+			PreparedStatement pstmt = FabricaConexao.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				int codProd = rs.getInt("codProduto");
+				String nomeProd = rs.getString("nome");
+				Float valor = rs.getFloat("valor_total");
+				int quant = rs.getInt("quantidade_vendida");
+				
+				ProdutoVendido pv = new ProdutoVendido(0, codProd, nomeProd, valor, quant, "");
+				listaDeProdutos.add(pv);
+				
+			}
+			
+			pstmt.execute();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return listaDeProdutos;
+	}
 }

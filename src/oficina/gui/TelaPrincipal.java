@@ -213,16 +213,26 @@ public class TelaPrincipal extends JFrame{
 		mnNewMenu.setFont(new Font("Arial", Font.PLAIN, 14));
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmContabilidade = new JMenuItem("CONTABILIDADE");
-		mntmContabilidade.setFont(new Font("Arial", Font.PLAIN, 14));
-		mntmContabilidade.addActionListener(new ActionListener() {
+		JMenuItem mntmContabilidadeTotal = new JMenuItem("CONTABILIDADE TOTAL");
+		mntmContabilidadeTotal.setFont(new Font("Arial", Font.PLAIN, 14));
+		mntmContabilidadeTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//ABRIR TELA DE FINANCEIRO
 				new TelaFinanceiro();
 			}
 		});
-		mnNewMenu.add(mntmContabilidade);
+		mnNewMenu.add(mntmContabilidadeTotal);
+		
+		JMenuItem mntmContabilidadeProduto = new JMenuItem("CONTABILIDADE POR PRODUTOS");
+		mntmContabilidadeProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CHAMAR TELA DE CONTABILIDADE POR PRODUTOS
+				new TelaContabilidadeProdutos();
+			}
+		});
+		mntmContabilidadeProduto.setFont(new Font("Arial", Font.PLAIN, 14));
+		mnNewMenu.add(mntmContabilidadeProduto);
 		
 		setVisible(true);
 	}
