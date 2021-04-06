@@ -33,7 +33,7 @@ public class TelaContabilidadeProdutos extends JFrame{
 	public TelaContabilidadeProdutos() {
 		
 		setResizable(false);
-		setSize(900,512);
+		setSize(958,512);
 		setTitle("CONTABILIDADE");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -41,11 +41,11 @@ public class TelaContabilidadeProdutos extends JFrame{
 		
 		//VENDA
 		scrollPaneVenda = new JScrollPane();
-		scrollPaneVenda.setBounds(10, 59, 858, 405);
+		scrollPaneVenda.setBounds(10, 59, 912, 405);
 		getContentPane().add(scrollPaneVenda);
 		
 		tableVenda = new JTable(elementosVenda, colunasTabelaVenda);
-		tableVenda.setFont(new Font("Arial", Font.PLAIN, 14));
+		tableVenda.setFont(new Font("Arial", Font.PLAIN, 15));
 		tableVenda.setForeground(Color.BLACK);
 		tableVenda.setDefaultEditor(Object.class, null);
 		scrollPaneVenda.setViewportView(tableVenda);

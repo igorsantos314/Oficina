@@ -12,7 +12,7 @@ public class FabricaConexao {
 		try {
 			Class.forName("org.postgresql.Driver");
 			return DriverManager.getConnection("jdbc:postgresql://" + ConstantesUtil.OFICINA_DATABASE_IP 
-					+ ":"+ ConstantesUtil.OFICINA_DATABASE_PORT  +"/" + ConstantesUtil.OFICINA_DATABASE_NAME, "postgres", "1234");
+					+ ":"+ ConstantesUtil.OFICINA_DATABASE_PORT  +"/" + ConstantesUtil.OFICINA_DATABASE_NAME, "postgres", "13579");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
